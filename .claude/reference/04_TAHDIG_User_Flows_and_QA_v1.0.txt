@@ -1,0 +1,76 @@
+<PARSED TEXT FOR PAGE: 1 / 4>
+TAHDIG Persian Foods — User Flows & QA — v 1.0
+TAHDIG User Flows & QA 
+نقشه مسیر کاربر، سناریوهای تست و چکلیست تحویل
+TAHDIG Persian Foods • Finland • v 1.0
+.1 جریان اصلی خرید
+Homepage → Category/PLP → PDP → Add to Cart → Cart → Checkout (Contact → Delivery → Payment → 
+Review) → Order Confirmation → Email Confirmation → Order Details 
+.2 جریان جستجو
+Load More → PDP → یا محصول انتخاب اختیاری → Search Results Filter/Sort → عبارت ورود → → Search icon
+Cart
+ More Load هر بار دسته بعدی محصوالت را بدون پرش صفحه اضافه میکند.
+ پس از Focus ،More Load کاربر نباید به باالی صفحه برگردد.
+ در پایان لیست، فلش حذف و پیام پایان نتایج بسیار ظریف نمایش داده شود.
+.3 جریان حساب کاربری
+Login/Register → Dashboard → Orders / Addresses / Account Details / Wishlist → Logout 
+<PARSED TEXT FOR PAGE: 2 / 4>
+TAHDIG Persian Foods — User Flows & QA — v 1.0
+.4 جریان خطا و بازیابی
+رفتار مورد انتظار سناریو
+state Empty + + پیشنهاد دستههای محبوب Search بدون نتیجه
+CTA + غیرفعال پیشنهاد جایگزین محصول ناموجود
+ Retry+ Toast، بدون از دست رفتن انتخابها خطای Cart to Add
+پرداخت ناموفق
++ پیام شفاف method Change/Retry؛ سفارش تکراری 
+ایجاد نشود
+ذخیره Cart و بازگشت به مرحله قبلی بعد از Login Session منقضی
+404 Search + Home + Category links 
+پیام اتصال و Retry offline Network
+.5 ماتریس QA صفحات
+تستها حوزه
+Visual
+Header/Footer، Crop ،تایپوگرافی ،رنگ ،Spacing
+تصاویر
+،320 ،375 ،768 ،1024 1440 و عرضهای بینابینی Responsive
+Interaction Hover، Focus، Active، Disabled، Loading، Error
+Forms خطا بعد داده حفظ ،Required، Format، Inline error
+Commerce Price، VAT، Shipping، Discount، Total، Inventory
+فارسی RTL / ، فنالندی انگلیسی LTR، طول متن و اعداد 18 n i
+Accessibility Keyboard، Focus order، labels، contrast، screen
+<PARSED TEXT FOR PAGE: 3 / 4>
+TAHDIG Persian Foods — User Flows & QA — v 1.0
+reader
+Performance LCP، CLS، image loading، font loading
+SEO Meta، canonical، hreflang، schema، robots
+.6 سناریوهای Acceptance
+ کاربر مهمان میتواند یک محصول موجود را پیدا کند، به سبد اضافه کند و با پرداخت آزمایشی سفارش موفق ثبت 
+کند.
+ کاربر میتواند زبان را تغییر دهد و سبد خرید حفظ شود.
+ قیمت و واحد پول در تمام صفحات EUR باقی میماند.
+.کند طی کامل را Checkout و Header، Search، Product، Cart میتواند Keyboard only - کاربر 
+ در پرداخت دوباره یا Refresh، سفارش تکراری ایجاد نمیشود.
+ در Filter ،Mobile به Drawer و Footer به Accordion تبدیل میشود.
+ در Search، هیچ Pagination عددی نمایش داده نمیشود و More Load مطابق طراحی عمل میکند.
+.7 چکلیست قبل از Launch
+وضعیت Owner آیتم
+□ Design تأیید نهایی UI در سه Breakpoint
+□ Content محتوای سه زبان و Proofread
+□ Commerce داده محصول، آلرژن و قیمت
+Refund و PSP تست Eng ineering/F inance □
+Cookies و Privacy، Terms ،قوانین Legal □
+Consent mode و Analytics Marketing/Engineering □
+<PARSED TEXT FOR PAGE: 4 / 4>
+TAHDIG Persian Foods — User Flows & QA — v 1.0
+SEO technical audit و Redirects SEO/Engineering □
+Accessibility و Performance
+audit
+Eng ineering/QA □
+Error alerts و Backup، Monitoring DevOps □
+Go live smoke test - All □
+.8 تحویل نهایی به تیم
+.Prototype و Pages، Components، Styles شامل Figma فایل 
+ این چهار سند و فایلهای CSV/JSON.
+ Assets وکتور )SVG ، تصاویر بهینه ( )WebP/AVIF )و نسخههای لوگو.
+.Analytics و Staging، PSP Sandbox محیط ،CMS به دسترسی 
+ جلسه Handoff ثبتشده و لیست تصمیمهای باز.

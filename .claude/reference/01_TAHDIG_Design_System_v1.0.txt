@@ -1,0 +1,129 @@
+<PARSED TEXT FOR PAGE: 1 / 6>
+TAHDIG Persian Foods — Design System — v 1.0
+TAHDIG Design System 
+زبان طراحی، توکنها، کامپوننتها و قواعد یکپارچگی
+TAHDIG Persian Foods • Finland • v 1.0
+.1 اصول راهنما
+ محصول در مرکز تجربه قرار میگیرد؛ رابط کاربری باید عقبنشینی کند.
+ الهام از Apple و Ive Jony: حذف بیرحمانه، جزئیات دقیق، کنترلهای کمصدا و بدون تزئین اضافی.
+ الهام از Aesop و مینیمالیسم اسکاندیناوی: کرم گرم، سبز جنگلی، فضای سفید و ریتم سردبیری.
+ هیچگونه ظاهر Design Material ،WooCommerce ،Shopify یا کارتهای فروشگاهی کلیشهای پذیرفته نیست.
+ فروشگاه برای بازار فنالند است؛ واحد پول EUR و الگوهای تجارت الکترونیک اتحادیه اروپا رعایت شود.
+ پشتیبانی کامل از RTL فارسی و آمادهسازی ساختار برای Finnish و English.
+.2 پالت رنگ
+کاربرد مقدار پیشنهادی توکن
+color brand forest . . # E 173 32
+هویت اصلی، CTA ،Footer اصلی، 
+حالت Active
+پسزمینه اصلی و سطوح آرام 4# 4 EFE F . . cream surface color
+color text primary . . # C 292 29 اصلی متن
+<PARSED TEXT FOR PAGE: 2 / 6>
+TAHDIG Persian Foods — Design System — v 1.0
+color text muted . . # B 777 74 Metadata و Caption ،ثانویه متن
+color accent gold . . B59654#
+تنها برای جزئیات بستهبندی و نقاط 
+بسیار محدود
+color line subtle . . D D C 9 2 4# ظریف Border و Divider
+color state error . . # B A 9 3 32 بحرانی پیامهای و خطا
+color state success . . # D B 3 6 55 تأیید و موفقیت
+ًا
+قاعده استفاده: نسبت غالب صفحه باید تقریبًا 75 / ٪ کرم فضای خالی، ٪20 متن و محتوای محصول و حداکثر ٪5 سبز 
+پرقدرت باشد. Footer میتواند بهطور کامل سبز جنگلی باشد.
+.3 تایپوگرافی
+Style Desktop Mobile Weight / Line height -
+Display / H 1 px 56–48 px 42–36 1.2 / 600
+H2 px 40–34 px 32–28 1.25 / 600
+H3 px 28–24 px 24–22 1.35 / 600
+Body Large px 18 px 17 1.75 / 400
+Body px 16 px 16 1.75 / 400
+Small / Meta px 14–13 px 13 1.6 / 400
+Price px 20–18 px 18–17 1.4 / 500
+ فونت پیشنهادی تولید: Vazirmatn؛ جایگزین امن: UI Arabic Sans Noto.
+ التین یا مطابق زبان فعال، اما واحد همیشه باشد.
+اعداد قیمت ترجیحًا € ًا
+ تیترها با فضای تنفسی زیاد؛ از Bold سنگین و فشرده پرهیز شود.
+<PARSED TEXT FOR PAGE: 3 / 6>
+TAHDIG Persian Foods — Design System — v 1.0
+.4 شبکه و فاصلهگذاری
+مقدار توکن
+space.1 px 4
+space.2 px 8
+space.3 px 12
+space.4 px 16
+space.5 px 24
+space.6 px 32
+space.7 px 48
+space.8 px 64
+space.9 px 96
+space.10 px 120
+ Desktop: شبکه 12 ستون، حداکثر عرض محتوا 1280–1440 px.
+ Tablet: شبکه 8 ستون.
+ Mobile: شبکه 4 ستون با Margin حداقل 20 px.
+ فاصله عمودی سکشنهای اصلی 96–120 px در Desktop و 64–80 px در Mobile.
+.5 شعاع، Border و Shadow
+قاعده مورد
+4 px برای Inputهای ظریف و Badge Radius کوچک
+8 px برای دکمهها و پنلهای محدود Radius استاندارد
+<PARSED TEXT FOR PAGE: 4 / 6>
+TAHDIG Persian Foods — Design System — v 1.0
+16 px فقط برای Mediaهای ویژه Radius بزرگ
+Border line subtle . رنگ ،px 1
+Shadow
+بهطور پیشفرض ممنوع؛ فقط در Modal/Overlay با 
+شدت بسیار کم
+.6 کامپوننتهای پایه
+قاعده TAHDIG کامپوننت
+Primary Button
+سبز جنگلی، متن کرم، ارتفاع 48–52 Hover ،px با کاهش
+روشنایی ٪6
+Secondary Button Shadow بدون ،سبز ظریف Transparent، Border
+بدون Box؛ Underline یا فلش بسیار ظریف در Hover Link Text
+Input
+پس / زمینه کرم شفاف، Border پایین یا 1 px Border
+بسیار سبک
+متنی و کمصدا؛ از Box بزرگ پرهیز شود Sort / Select
+Product Card
+بدون chrome Card؛ تصویر، نام، وزن، قیمت؛ CTA در
+Hover یا صفحه محصول
+Load More
+فلش رو به پایین، ترجیحًا 4 ًا بدون متن؛ اضافهشدن 
+محصول با انیمیشن نرم
+Accordion
+خط افقی ظریف، عنوان و Chevron؛ فقط یک بخش باز 
+در Mobile
+Modal / Drawer ممنوع Sidebar در دائمی Filter موقت؛ Overlay
+کوتاه، آرام و غیرمسدودکننده؛ حداکثر 4 ثانیه Toast
+<PARSED TEXT FOR PAGE: 5 / 6>
+TAHDIG Persian Foods — Design System — v 1.0
+Footer و Header .7
+ Header در تمام صفحات ارتفاع، محل لوگو و فاصله آیکونها یکسان داشته باشد.
+ bar Announcement باریک و سبز جنگلی؛ متن کوتاه و کاربردی، نه تبلیغاتی.
+ Footer اصلی در تمام صفحات سبز جنگلی کامل با متن کرم باشد.
+ Newsletter، لینک / های خرید پشتیبانی، اطالعات برند و شبکههای اجتماعی با Dividerهای بسیار کمرنگ.
+ در Mobile، ستونهای Footer به Accordion تبدیل شوند.
+Micro interaction - و Motion .8
+مقدار رفتار
+Hover/Fade ms ease out - 220–180
+Drawer/Modal ms cubic bezier( ) - 0.2,0.8,0.2,1 320–240
+Load More ms 260 در Opacity + translateY px 8 
+Product Image Hover 1.02 حداکثر Scale
+Reduced Motion
+ هایTransition همه prefers reduced motion - - در
+غیرضروری غیرفعال
+.9 قواعد Responsive
+رفتار کلیدی Breakpoint
+4 ستون محصول، Navigation کامل، حداکثر عرض 1440 ≤ 1280
+3 ستون محصول، فاصلههای کمی فشردهتر 1024–1279
+2 ستون محصول، Filter به Drawer 768–1023
+<PARSED TEXT FOR PAGE: 6 / 6>
+TAHDIG Persian Foods — Design System — v 1.0
+768 <
+1–2 ستون بر اساس عرض، Header فشرده، Footer
++px 44 لمسی هایAccordion، CTA
+Accessibility .10
+ کنتراست متن معمولی حداقل 4.5:1 و متن بزرگ .3:1
+ Ring Focus واضح و هماهنگ با برند؛ حذف Outline ممنوع.
+.px 44×44 حداقل Touch target 
+ تمام تصاویر محصول Alt دقیق و قابل ترجمه داشته باشند.
+.باشند داشته aria describedby - و Error text ،واقعی Label فرمها 
+ RTL و LTR در یک صفحه با dir صحیح و تست Reader Screen پیاده شود.

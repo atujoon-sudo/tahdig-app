@@ -1,0 +1,270 @@
+<PARSED TEXT FOR PAGE: 1 / 8>
+TAHDIG
+Design System, UX Flows & Developer Handoff
+نسخه 1.0 — فروشگاه آنالین مواد غذایی ایرانی در فنالند
+بصری مبنای: Apple / Jony Ive / Aesop / Scandinavian Minimalism
+به تحویل برای سند این UI/UX Designer، Front-end Developer، Back-end Developer و QA است شده تهیه.
+<PARSED TEXT FOR PAGE: 2 / 8>
+وضعیت و دامنه پروژه ۱.
+:صفحات اصلی طراحیشده و تأییدشده
+ Homepage، Category Landing، PLP، PDP، Search Results، Cart، Checkout و Order Confirmation
+ Login / Register، My Account، Orders، Order Details، Addresses، Account Details و Wishlist
+ About، Contact، FAQ، Journal، Search Empty، 404 و Maintenance
+ معرفی صفحه Design System / UI Kit
+:نکته اجرایی مهم
+نهایی با پیکسلهای صفحات Figma توسعه هستند. دیزاینر باید آنها را در فایل «Baseline «اعداد این سند
+.تأییدشده تطبیق دهد؛ دولوپر نباید از روی تصاویر خروجی حدس بزند
+اصول غیرقابل مذاکره برند ۲.
+قانون اجرایی اصل
+محصول و تصویر آن باید قهرمان صفحه باشد؛ first-Product
+.کنترلها تا حد امکان محو و ثانویه باشند
+هر عنصر باید وظیفه روشن داشته باشد؛ عناصر subtraction by Minimal
+.تزئینی بدون کارکرد حذف شوند
+فضای سفید زیاد، سلسلهمراتب آرام، بدون کارتهای calm Premium
+.قالبی UI شلوغ، سایههای سنگین یا
+کرم گرم + سبز جنگلی عمیق + تایپوگرافی فارسی identity TAHDIG
+.سبز ثابت Footer + تمیز
+قیمتها فقط یورو )€(، قوانین ارسال و مالیات context Finland
+.مطابق بازار فنالند، بدون تومان
+تمام صفحات فارسی راستبهچپ، اما ساختار فنی first RTL
+.آماده باشد LTR English/Finnish برای
+۳. Design Tokens
+رنگها ۳.۱
+کاربرد مقدار پیشنهادی Token
+--color-forest-900 #173D32 Footer، CTA عنوانهای ،اصلی
+Active کلیدی، حالت
+--color-forest-700 #285A4A Hover ثانویه تعاملی عناصر و
+--color-cream-050 #FBF7EF صفحات اصلی پسزمینه
+--color-cream-100 #F3EBDD ثانویه سطوح، input hover، divider
+نرم
+--color-ink-900 #1F2522 اصلی متن
+--color-ink-600 #656B67 و ثانویه متن metadata
+--color-line #D9D2C6 Divider و border ظریف بسیار
+--color-error #9E3F36 فرم خطاهای
+--color-success #2D6A4F موجودی و موفقیت
+فقط جزئیات بستهبندی و محتوای 42A78B# gold-color--
+عمومی UI تصویری؛ نه
+<PARSED TEXT FOR PAGE: 3 / 8>
+تایپوگرافی ۳.۲
+Style Desktop Mobile Weight / Line height
+Display / H1 48 px 34 px 500 / 1.15
+H2 34 px 28 px 500 / 1.25
+H3 24 px 21 px 500 / 1.35
+Body L 18 px 17 px 400 / 1.7
+Body 16 px 16 px 400 / 1.65
+Small 14 px 14 px 400 / 1.55
+Caption 12 px 12 px 400 / 1.45
+Price 18 px 17 px 500 / 1.4
+اعداد قیمت .serif-sans ,Arial ,ui-system :Fallback .یا فونت برند تأییدشده Vazirmatn :فونت پیشنهادی فارسی
+.برای خوانایی بازار فنالند digits Latin ترجیحًا
+۳.۳ Spacing / Radius / Motion
+مقادیر گروه
+Spacing scale 4, 8, 12, 16, 24, 32, 48, 64, 96, 120 px
+Container desktop 1280 حداکثر px؛ padding 72-48 افقی px
+Container tablet padding 32 افقی px
+Container mobile padding 20 افقی px
+فقط px ؛ 999input px برای کارت محصول؛ 6 0 Radius
+های ضروریpill
+بسیار نرم shadow فقط modal ؛none :پیشفرض Shadow
+Motion 180-240 ms، ease-outبدون ؛ bounce و parallax سنگین
+۴. Breakpoints و Grid
+رفتار / Grid عرض Breakpoint
+ستون؛ محصول 2 ستونه یا 1 4 px 0-767 Mobile
+ستونه برای تصاویر بزرگ
+ستون؛ محصول 2 یا 3 ستونه 8 px 768-1199 Tablet
+ستون؛ محصول 4 ستونه 12 px 1200-1599 Desktop
+Wide 1600+ px Container ثابت؛ whitespace افزایش
+یابد، نه عرض بینهایت محتوا
+.به منوی ساده و آیکونهای ضروری کاهش یابد Mobile در Header 
+ Filter در PLP/Search به Drawer یا Bottom Sheet شود؛ تبدیل Sidebar ممنوع دائمی.
+.واقعی برای ستونهای لینک تبدیل شود Accordion به Mobile در Footer 
+ Load More جای Pagination در عددی Search Results شود استفاده.
+۵. Component Specification
+۵.۱ Header
+Specification ویژگی
+ارتفاع Desktop: 88-96 px؛ Mobile: 64-72 px
+؛ سبز جنگلی، متن کرم، قابل مخفی شدن درpx 28-32 bar Announcement
+Mobile
+موقعیت و عرض ثابت در تمام صفحات لوگو
+<PARSED TEXT FOR PAGE: 4 / 8>
+حداقل 44×44 target touch ؛px یکدست 1.5 Stroke آیکونها
+px
+border با پسزمینه کرم و scroll px اختیاری؛ پس از 80 behavior Sticky
+نرم
+۵.۲ Footer
+Specification ویژگی
+کامل در تمام صفحات Green Forest رنگ
+متن Cream / white warmکنتراست ؛ WCAG AA
+ساختار Newsletter + Shopping + Service + Brand/Social
+همیشه باز Newsletter ؛Accordion ستونهای لینک به Mobile
+%حدود 20 opacity کرم با Divider
+۵.۳ Product Card
+رفتار State
+؛ تصویر، نام، وزن و قیمتshadow و border بدون Default
+Hover Image scale 1.02-1.04، 220 تیره؛ سبز نام ms
+Focus Outline 2 واضح px با offsetبرای ؛ keyboard
+Out of stock تصویر opacity 55% + متنی؛ برچسب CTA غیرفعال
+بسیار کوچک، بدون badge قیمت قبلی خطخورده؛ Sale
+قرمز جیغ
+پر/خالی state ؛label-aria آیکون قلب با Wishlist
+۵.۴ Buttons و Inputs
+قانون Component
+px سبز جنگلی، متن کرم، حداقل ارتفاع 48 button Primary
+Secondary Transparent، border 1 سبز px
+hover ظریف در arrow یا underline بدون قاب؛ action Text
+focus نرم؛ px 1 border پایین یا border ،پسزمینه کرم Input
+واضح
+text/icon ،؛ فقط رنگ کافی نیستfield متن خطا زیر Error
+هم الزم است
+؛ کنتراست متن حفظallowed-not cursor و 45% Opacity Disabled
+شود
+۵.۵ Search Results
+.استاندارد صفحات محتوایی 1H تیتر حدود %10-5 کوچکتر از 
+.سنگین box خطی و تقریبًا نامرئی؛ بدون field Search 
+.موقت Drawer فیلتر با یک کنترل متنی کوچک و 
+.بدون کارت بصری ،Desktop چهارستونه Grid 
+کوتاه اضافه translate/fade پایین نتایج: یک خط ظریف + فلش رو به پایین. با کلیک 4 یا 8 محصول جدید با 
+.شود
+.تعداد محصوالت اضافهشده را اعالم کند live-aria نباید به ابتدای صفحه بپرد؛ اعالن focus ،More Load پس از 
+<PARSED TEXT FOR PAGE: 5 / 8>
+۶. Component States Matrix
+Component Default Hover Focus Disabled Loading Error/Empty
+Button Ready Darken 5% 2px outline 45% opacity Spinner +
+label
+Inline
+message
+Input Value/
+placeholder
+Border
+stronger Visible ring Muted Skeleton
+optional Text + icon
+Product card Image/data Subtle zoom Outline card
+link N/A Image
+skeleton
+Out-of-stock
+badge
+Load more Arrow Translate 2px Outline Hidden at end Spinner Retry action
+Accordion Closed Label
+emphasis Outline N/A N/A
+Fallback
+expanded
+content
+۷. Prototype / User Flows
+خرید اصلی ۷.۱
+Home → Category → PLP/Search → PDP → Add to Cart → Cart → Checkout (Address → Delivery →
+Payment → Review) → Order Confirmation
+حساب کاربری ۷.۲
+Login/Register → My Account → Orders / Addresses / Account Details / Wishlist → Order Details
+جستجو و کشف ۷.۳
+Search Open → Query → Results → Filter Drawer / Sort → Load More → PDP | No Results →
+Suggestions / Categories
+خطاها ۷.۴
+Payment Failure → Keep cart + retry | Out of Stock → Alternative products | 404 → Search +
+categories | Network Error → Retry
+۸. Functional Requirements
+Feature Requirement
+با قالب بازار فنالند؛ مثال 12,90 € EUR همه قیمتها Currency
+.localization یا مطابق تصمیم
+و قواعد آن مطابق پیکربندی فروشگاه VAT نمایش Tax
+.فنالند
+Inventory موجودی real-time یا near real-timeاز جلوگیری ؛
+overselling در checkout.
+حداقل 30 روز برای کاربر مهمان؛ cart Persistent Cart
+.login پس از merge
+Load More محصول؛ 4/8 بار هر URL state و scroll position حفظ
+.شود
+Search Debounce 250-350 ms؛ typo toleranceپیشنهاد ؛
+category/product.
+Filter Price, category, brand, dietary, availabilityتعداد ؛ active
+.نمایش داده شود filters
+Checkout Guest checkout، validation inline، سفارش خالصه
+sticky در Desktop.
+هایstate انتخابی؛ PSP روشهای مناسب فنالند طبق Payment
+<PARSED TEXT FOR PAGE: 6 / 8>
+pending/failed/success.
+Language آماده ساختار fa-IR RTL و fi-FI/en-FI LTR.
+Email Order confirmation, shipment, refund, password reset
+templates.
+۹. Content & Asset Checklist
+.avatar social و favicon ،نسخه سبز و نسخه کرم ،SVG لوگو در 
+.حداقل 1600×،1600 پسزمینه و نور یکدست ،AVIF/WebP تصاویر محصول 
+.موجودی، مواد تشکیلدهنده، آلرژنها و شرایط نگهداری ،VAT ،قیمت ،EAN ،SKU ،نام، برند، وزن 
+ متن About، Contact، FAQ، Delivery، Returns، Privacy، Terms و Cookie Policy.
+.ثابت برای نام محصوالت glossary ترجمه فارسی/فنالندی/انگلیسی با 
+.آدرس، ایمیل، تلفن و شبکههای اجتماعی واقعی برند 
+.محدوده ارسال، هزینهها، حد ارسال رایگان و زمان تحویل - با یورو و قواعد فنالند 
+۱۰. Accessibility و SEO
+الزام موضوع
+برای متن و کنترلها AA 2.2 WCAG Contrast
+ها بدون ماوس قابل انجامflow تمام Keyboard
+Focus Focus visible حذف بدون و outline
+Semantic HTML header/nav/main/footer، heading order صحیح
+خالی alt کاربردی؛ تصاویر تزئینی alt Images
+Forms label واقعی، aria-describedby خطا برای
+Motion prefers-reduced-motion شود پشتیبانی
+SEO Product schema، BreadcrumbList، Organization،
+canonical URLs
+Performance LCP < 2.5s تصاویر هدف؛ responsive و lazy load زیر fold
+۱۱. Developer Handoff Structure
+ Figma: Pages / Foundations / Components / Patterns / Screens / Prototype / Archive.
+ نامگذاری: component/variant/stateمثال ؛ button/primary/hover.
+ Design tokens در JSON یا CSS variables شود تحویل.
+ Assets فقط SVG برای icon/logo و WebP/AVIF تصاویر برای.
+ هر component دارای props، states، responsive behavior و accessibility notes باشد.
+.ساخته شود review component یا محیط Storybook ،merge قبل از 
+ Visual regression برای Header، Footer، Product Card، Checkout و Search شود اجرا.
+۱۲. CSS Token Starter
+:root {
+ --color-forest-900: #173D32;
+ --color-forest-700: #285A4A;
+ --color-cream-050: #FBF7EF;
+ --color-cream-100: #F3EBDD;
+ --color-ink-900: #1F2522;
+ --color-ink-600: #656B67;
+<PARSED TEXT FOR PAGE: 7 / 8>
+ --color-line: #D9D2C6;
+ --space-1: 4px; --space-2: 8px; --space-3: 12px;
+ --space-4: 16px; --space-6: 24px; --space-8: 32px;
+ --space-12: 48px; --space-16: 64px; --space-24: 96px;
+ --radius-input: 6px;
+ --motion-fast: 180ms; --motion-base: 220ms;
+ --container: 1280px;
+}
+۱۳. QA Acceptance Checklist
+معیار پذیرش مرحله
+و نسبت تصاویر با Footer/Header ،فاصلهها، فونت، رنگ Visual
+.تطبیق دارد Figma
+px تمام صفحات در ،360 ،768 1280 و 1440 Responsive
+.بررسی شدهاند
+RTL/LTR جهت، icon direction، form alignment و mixed content
+.درست است
+سناریوهای checkout و cart ،قیمت، مالیات، موجودی Commerce
+.خطا را پوشش میدهند
+Accessibility Keyboard، screen reader، contrast و reduced motion
+.تست شدهاند
+بودجه عملکرد را رعایت JavaScript و fonts ،تصاویر Performance
+.میکنند
+یا اطالعات ساختگی در placeholder هیچ تومان، متن Content
+.باقی نمانده production
+فایلهایی که باید در پکیج نهایی وجود داشته باشند ۱۴.
+ 01_TAHDIG_Figma_Master.fig لینک یا Figma صحیح دسترسی با
+ 02_TAHDIG_Design_System_v1.0
+ 03_TAHDIG_Prototype_Flows
+ 04_TAHDIG_Developer_Handoff_v1.0 (سند همین(
+ 05_Assets/Logos/Icons/Product-Images
+ 06_Content/Product-Data/Translations/Legal
+ 07_QA_Acceptance_Checklist
+و تصمیمات نهایی طراحی Changelog_08 
+تصمیمات قطعی پروژه ۱۵.
+تصمیم موضوع
+با فلش رو به پایین؛ بدون شمارهگذاری More Load pagination Search
+سبز جنگلی کامل در همه صفحات Footer
+Filter Overlay/Drawerبدون ؛ Sidebar دائمی
+Product cards بدون shadow و border سنگین
+Currency EUR فقط
+Visual language Apple/Jony Ive restraint + Aesop calm + Scandinavian
+whitespace
+عدم استفاده از الگوهای بصری avoidance Template
+Shopify/WooCommerce/Material
+<PARSED TEXT FOR PAGE: 8 / 8>
+سند پایان — TAHDIG Design System & Developer Handoff v1.0

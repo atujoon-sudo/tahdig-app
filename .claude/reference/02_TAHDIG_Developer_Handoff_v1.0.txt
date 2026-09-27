@@ -1,0 +1,113 @@
+<PARSED TEXT FOR PAGE: 1 / 5>
+TAHDIG Persian Foods — Developer Handoff — v 1.0
+TAHDIG Developer Handoff 
+مشخصات پیادهسازی، معماری کامپوننت و قواعد تحویل فرانتاند
+TAHDIG Persian Foods • Finland • v 1.0
+.1 دامنه پروژه
+این سند مرجع پیادهسازی تمام صفحات تأییدشده فروشگاه TAHDIG است: ،PDP ،PLP ،Landing Category ،Homepage
+Search Results، Cart، Checkout، Order Confirmation، Login/Register، My Account، Orders، Order Details، 
+.Maintenance و Addresses، Account Details، Wishlist، About، Contact، FAQ، Journal، Search Empty، 404
+.2 معماری پیشنهادی - end Front
+.آن معادل یا Storybook با Component driven architecture - 
+.Page Template و Foundation، Primitive، Composite الیههای تفکیک 
+ تمام رنگها، فاصلهها و تایپوگرافی از Tokens Design خوانده شوند؛ مقدار - coded Hard محدود شود.
+.ابتدا از en FI - و fa FI - ، fi FI - برای i n 18 پشتیبانی 
+.Journal و محصول صفحات SEO برای SSR/SSG 
+.3 ساختار کامپوننت
+نمونهها سطح
+Foundation Color tokens typography spacing breakpoints , , , , 
+<PARSED TEXT FOR PAGE: 2 / 5>
+TAHDIG Persian Foods — Developer Handoff — v 1.0
+motion
+Primitive
+Button IconButton Input Select Checkbox Radio , , , , , , 
+Divider Badge , 
+Composite
+Header Footer ProductTile Price QuantityStepper , , , , , 
+SearchField FilterDrawer , 
+Commerce
+CartLine OrderSummary AddressForm , , , 
+PaymentMethod StockState , 
+Templates PLP PDP Search Account Checkout Editorial Page , , , , , 
+Design Tokens قرارداد .4
+ باشد؛ کامپوننتها نباید مستقیمًا Hex ًا فایل . - json tokens design داخل این پکیج مرجع اولیه است. نامگذاری Semantic از 
+استفاده کنند.
+استفاده نمونه
+var( color brand forest) -- - - CTA، Footer، Active
+var( color surface cream) -- - - اصلی Background
+var( space ) -- -6 px 32 فاصله
+var( radius md) -- - استاندارد Radius
+var( motion fast) -- - Hover ms 200 
+.5 رفتار صفحات کلیدی
+رفتار الزامی صفحه
+PLP / Search هر Load More متنی؛ Sort ؛Drawer/Overlay فقط Filter
+<PARSED TEXT FOR PAGE: 3 / 5>
+TAHDIG Persian Foods — Developer Handoff — v 1.0
+بار 4 یا 8 محصول طبق API
+PDP
+responsive Gallery، انتخاب Variant، موجودی، افزودن 
+/ به سبد، اطالعات ارسال مرجوعی
+Cart
+Undo با Reload، Remove بدون Quantity بهروزرسانی
+Desktop در Summary sticky ،کوتاه
+Checkout
+Address ،لحظهای Guest checkout، Validation
+autocomplete در صورت امکان، Summary ثابت
+Account
+Empty states، Order status ،دسترس قابل Navigation
+و جزئیات Tracking
+Wishlist
+/ افزودن حذف optimistic، انتقال به Cart، وضعیت Out
+of stock
+Journal
+Article، Related ساختار ،SEO metadata
+products/articles
+.6 Stateهای کامپوننت
+Stateها کامپوننت
+Button Default Hover Focus Active Disabled Loading , , , , , 
+Input Empty Filled Focus Error Disabled Read only , , , , , -
+Product In stock Low stock Out of stock Sale New , , , , 
+Cart Empty Populated Updating Error , , , 
+Checkout Idle Validating Payment processing Success Failure , , , , 
+Search Initial Results No results Loading Error , , , , 
+Load More Idle Loading End of list Error + Retry , , , 
+<PARSED TEXT FOR PAGE: 4 / 5>
+TAHDIG Persian Foods — Developer Handoff — v 1.0
+.7 API و داده
+ تمام قیمتها به سنت ذخیره شوند و با . NumberFormat Intl برای EUR نمایش داده شوند.
+id slug localizedName sku price compareAtPrice weight images stock allergens ingredients , , , , , , , , , , , :محصول هر 
+.origin categoryIds , 
+ سبد سمت سرور برای کاربران Login و Session پایدار برای Guest.
+.Payment callback و Place Order برای Idempotency 
+.fieldErrors و code، message با استاندارد Error response 
+Performance Budget .8
+هدف شاخص
+LCP Mobile G 4 روی s 2.5 ≤
+INP ms 200 ≤
+CLS 0.1 ≤
+Hero/Product image AVIF/WebP، responsive srcset
+Initial JS 
+ترجیحًا > 200 gzip KB برای مسیرهای عمومی ًا
+Fonts Self hosted - ، subset، font display swap - : 
+Metadata و SEO .9
+ Title و Description محلیسازیشده برای هر صفحه.
+.brand و priceCurrency=EUR، availability شامل Product structured data 
+<PARSED TEXT FOR PAGE: 5 / 5>
+TAHDIG Persian Foods — Developer Handoff — v 1.0
+.Category/PDP برای BreadcrumbList 
+.Journal برای Article schema 
+.fa FI/fi FI/en FI - - - برای Canonical، hreflang 
+.noindex با Checkout و Account، Cart صفحات 
+.10 امنیت و حریم خصوصی
+ : Consent GDPR شفاف، notice Privacy / ، حق حذف دریافت داده.
+ عدم ذخیره اطالعات کارت؛ استفاده از PSP معتبر.
+.فرمها CSRF/XSS protections، Secure cookies، rate limiting 
+ الگها فاقد داده حساس و آدرس کامل پرداخت باشند.
+Definition of Done .11
+.Desktop/Tablet/Mobile در Pixel review 
+ تمام Stateها در Storybook یا محیط تست قابل مشاهده.
+.Screen Reader و Keyboard تست 
+ تست RTL و سه زبان.
+.هدف محدوده در Core Web Vitals 
+.Sandbox PSP در Checkout تست 
+ checklist QA این پکیج بدون Blocker بسته شود.
