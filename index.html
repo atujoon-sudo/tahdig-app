@@ -421,15 +421,10 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 .t-band{padding-bottom:44px}
 #home .t-search-zone+.t-sec{padding-top:36px}
 #home .t-meal{margin-top:12px}
-/* Category carousel: centre snap + active item settles (phones only) */
+/* Category carousel: centre snap (phones only) */
 .t-cats{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-inline:calc(50% - 44px)}
 .t-cat{scroll-snap-align:center;scroll-snap-stop:normal}
-.t-cat-disc{transform:scale(.96);opacity:.84;transform-origin:50% 100%;transition:transform 220ms cubic-bezier(.34,1.25,.64,1),opacity 200ms ease}
-.t-cat>span:last-child{opacity:.86;transition:opacity 200ms ease}
-.t-cat.is-active .t-cat-disc{transform:scale(1.06);opacity:1}
-.t-cat.is-active>span:last-child{opacity:1;font-weight:600}
 }
-@media(max-width:480px) and (prefers-reduced-motion:reduce){.t-cat-disc,.t-cat>span:last-child{transition:none}}
 </style>
 </head>
 <body data-screen="home">
@@ -595,12 +590,7 @@ function tCard(p){return `<article class="t-card${p.stock?'':' is-oos'}"><button
 function refreshCardAdd(id){const p=products.find(x=>x.id===id);if(!p)return;document.querySelectorAll(`[data-add="${id}"]`).forEach(el=>{const had=!!el.querySelector('.pc-step'),f=el.contains(document.activeElement);el.innerHTML=cardAddHTML(p,!had);if(f)el.querySelector('button')?.focus({preventScroll:true})});document.querySelectorAll(`[data-tadd="${id}"]`).forEach(el=>{const had=!!el.querySelector('.t-stepper'),f=el.contains(document.activeElement);el.innerHTML=tAddHTML(p,!had&&cart[id]>0);if(f)el.querySelector('button')?.focus({preventScroll:true})})}
 function bumpBadge(){if(matchMedia('(prefers-reduced-motion: reduce)').matches||!navBadge.animate)return;navBadge.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:280,easing:'cubic-bezier(.23,1,.32,1)'})}
 function tQty(id,d){if(d>0){const first=!cart[id];if(!addToCart(id,1))return;if(first)showToast('به سبد اضافه شد');bumpBadge()}else{cart[id]=Math.max(0,(cart[id]||0)-1);if(!cart[id])delete cart[id];updateBadge();saveState()}refreshCardAdd(id)}
-function renderHome(){tQuick.innerHTML=QUICK.map(([l,q])=>`<button class="t-chip" aria-label="${l.replace(/ـ/g,'')}" onclick="tSearchGo('${q}')">${l}</button>`).join('');tCats.innerHTML=categories.map(c=>`<button class="t-cat" onclick="goShopCat('${c.id}')"><span class="t-cat-disc" aria-hidden="true"><span class="t-ph">${TI('image')}</span></span><span>${c.name}</span></button>`).join('');tPicks.innerHTML=products.slice(0,6).map(tCard).join('');tCatActive()}
-/* Category carousel (phones): mark the item nearest the row's visual centre */
-const tCatMQ=matchMedia('(max-width:480px)');let tCatRaf=0;
-function tCatActive(){tCatRaf=0;const items=tCats.children;if(!tCatMQ.matches){for(const el of items)el.classList.remove('is-active');return}const r=tCats.getBoundingClientRect();if(!r.width)return;const mid=r.left+r.width/2;let best=null,bestD=Infinity;for(const el of items){const b=el.getBoundingClientRect(),d=Math.abs(b.left+b.width/2-mid);if(d<bestD){bestD=d;best=el}}for(const el of items)el.classList.toggle('is-active',el===best)}
-tCats.addEventListener('scroll',()=>{if(!tCatRaf)tCatRaf=requestAnimationFrame(tCatActive)},{passive:true});
-addEventListener('resize',()=>{if(!tCatRaf)tCatRaf=requestAnimationFrame(tCatActive)});
+function renderHome(){tQuick.innerHTML=QUICK.map(([l,q])=>`<button class="t-chip" aria-label="${l.replace(/ـ/g,'')}" onclick="tSearchGo('${q}')">${l}</button>`).join('');tCats.innerHTML=categories.map(c=>`<button class="t-cat" onclick="goShopCat('${c.id}')"><span class="t-cat-disc" aria-hidden="true"><span class="t-ph">${TI('image')}</span></span><span>${c.name}</span></button>`).join('');tPicks.innerHTML=products.slice(0,6).map(tCard).join('')}
 function tSearchGo(q){shopQuery=q||'';shopCategoryFilter='all';shopLimit=SHOP_PAGE;showTab('shop')}
 function goShopCat(id){shopCategoryFilter=id;shopQuery='';shopLimit=SHOP_PAGE;showTab('shop')}
 function goToShopSearch(){showTab('shop');shopSearchInput.focus({preventScroll:true})}
