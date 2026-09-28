@@ -421,9 +421,9 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 .t-band{padding-bottom:44px}
 #home .t-search-zone+.t-sec{padding-top:36px}
 #home .t-meal{margin-top:12px}
-/* Category carousel: centre snap (phones only) */
-.t-cats{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-inline:calc(50% - 44px)}
-.t-cat{scroll-snap-align:center;scroll-snap-stop:normal}
+/* Category carousel: gentle edge snap (phones only) */
+.t-cats{scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.t-cat{scroll-snap-align:start;scroll-snap-stop:normal}
 }
 </style>
 </head>
