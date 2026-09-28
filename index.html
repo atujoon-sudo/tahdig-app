@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FBF8F2">
 <title>تهدیگ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--green:#1D4438;--green-dark:#132F27;--cream:#F6F1E6;--cream2:#EFE7D6;--orange:#E37B32;--gold:#C9A15A;--text:#2A2A26;--muted:#7C766A;--line:#E3DBC8;--radius-lg:18px;--radius-md:14px;--radius-sm:10px}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html,body{height:100%}body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--cream);color:var(--text);max-width:430px;margin:0 auto;position:relative;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px));padding-top:env(safe-area-inset-top,0px)}button,input{font-family:inherit}button:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.screen{display:none}.screen.active{display:block;animation:fade .15s ease}@keyframes fade{from{opacity:0}to{opacity:1}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html,body{height:100%}body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--cream);color:var(--text);max-width:430px;margin:0 auto;position:relative;padding-bottom:0;padding-top:0}button,input{font-family:inherit}button:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.screen{display:none}.screen.active{display:block;animation:fade .15s ease}@keyframes fade{from{opacity:0}to{opacity:1}}
 .ph{background:linear-gradient(150deg,var(--cream2),#e4d9bd);display:flex;align-items:center;justify-content:center;color:var(--green);position:relative;overflow:hidden}.ph .icon{width:30%;height:30%;opacity:.55;stroke-width:1.3}.ph.recipe{background:linear-gradient(150deg,#dfd2ae,#c8b98d)}
 .topbar{background:var(--green);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}.topbar .brand b{font-size:18px;font-weight:800;color:var(--gold)}.loc-btn{background:none;border:none;color:#cfe0d8;font-size:10.5px;display:flex;align-items:center;gap:4px;margin-top:3px;cursor:pointer;padding:6px 0}.loc-btn .icon{width:12px;height:12px}.icon-btn{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;border:none;color:#fff;position:relative;cursor:pointer}.icon-btn .icon{width:18px;height:18px}
 .searchbar{background:#fff;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px;border:1px solid var(--line)}.searchbar input{border:none;outline:none;background:none;width:100%;color:var(--text)}.clear-x{background:var(--cream2);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer}.section{padding:0 16px;margin:24px 0}.section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}.section-title{font-size:14.5px;font-weight:700}.section-sub{font-size:11px;color:var(--muted);margin-top:2px}.see-all,.link-arrow{font-size:11.5px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:3px;cursor:pointer;background:none;border:none;padding:8px 0;min-height:44px}
@@ -140,7 +140,7 @@ body{max-width:none;margin:0;padding:0!important;background:var(--t-page)}
 .t-press{transition:transform 140ms var(--ease-out)}.t-press:active{transform:scale(.97)}
 
 /* Header */
-.t-header{background:var(--t-cream);border-bottom:1px solid var(--t-line);padding-top:env(safe-area-inset-top,0px);position:relative;z-index:20}
+.t-header{background:var(--t-cream);border-bottom:1px solid var(--t-line);position:relative;z-index:20}
 .t-header-in{height:108px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
 .t-menu-btn{justify-self:start;width:48px;height:48px;margin-inline-start:-6px;display:grid;place-items:center;border:0;background:none;color:var(--t-green);cursor:pointer;border-radius:14px}
 .t-menu-btn .t-ic{width:28px;height:28px;stroke-width:2}
@@ -309,7 +309,7 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 .t-marquee:hover .t-marquee-track{animation-play-state:paused}
 @keyframes t-marquee{to{transform:translateX(50%)}}
 .t-bank{height:38px;padding-inline:18px;border-radius:10px;background:#EAE5DA;color:#9A958A;display:grid;place-items:center;font-size:13px;font-weight:600;letter-spacing:.06em;direction:ltr;white-space:nowrap}
-.t-bottom{margin-top:40px;background:#FFF9EE;padding:20px 0 calc(24px + env(safe-area-inset-bottom,0px))}
+.t-bottom{margin-top:40px;background:#FFF9EE;padding:20px 0 24px}
 .t-bottom p{text-align:center;font-size:14px;color:var(--t-ink-2)}
 .t-pay{margin-top:18px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;direction:ltr}
 .t-pay span{height:32px;border-radius:7px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06);display:grid;place-items:center;font-size:9.5px;font-weight:700;color:#A8A397}
@@ -402,6 +402,11 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 .t-stepper.enter{transition:opacity 160ms ease}@starting-style{.t-stepper.enter{transform:none}}
 }
 </style>
+<style id="vpDebugCss">/* TEMP: viewport diagnostic */
+#vpProbe{position:fixed;top:0;left:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+#vpDebug{position:fixed;left:8px;bottom:8px;z-index:9999;max-width:calc(100vw - 16px);padding:8px 30px 8px 10px;border-radius:8px;background:rgba(0,0,0,.8);color:#fff;font:11px/1.5 ui-monospace,Menlo,monospace;direction:ltr;text-align:left;white-space:pre-wrap;word-break:break-word;pointer-events:auto}
+#vpDebug button{position:absolute;top:2px;right:2px;width:28px;height:28px;border:0;background:none;color:#fff;font-size:16px;cursor:pointer}
+</style>
 </head>
 <body data-screen="home">
 <svg width="0" height="0" style="position:absolute">
@@ -443,6 +448,7 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 <div class="sheet-overlay" id="locOverlay" aria-hidden="true" onclick="if(event.target===this)closeLocSheet()"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="locT" tabindex="-1"><div class="sheet-drag"><div class="sheet-grab"></div><h3 id="locT">کد پستی محل تحویل</h3></div><div class="hint">این کد فقط ذخیره می‌شود؛ محدوده ارسال واقعی در نسخه نهایی بررسی خواهد شد.</div><div class="field"><input id="postalInput" maxlength="5" inputmode="numeric" autocomplete="postal-code" enterkeyhint="done" aria-label="کد پستی" placeholder="۵ رقم، مثلاً 00100" onkeydown="if(event.key==='Enter')checkPostal()"></div><button class="btn btn-orange btn-block" onclick="checkPostal()">ذخیره کد پستی</button></div></div>
 <div class="sheet-overlay" id="confirmOverlay" aria-hidden="true" onclick="if(event.target===this)closeConfirm()"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" tabindex="-1"><div class="sheet-drag"><div class="sheet-grab"></div><h3 id="confirmTitle"></h3></div><div class="hint" id="confirmMsg"></div><div style="display:flex;gap:10px"><button class="btn btn-outline" style="flex:1;justify-content:center" onclick="closeConfirm()">انصراف</button><button class="btn btn-orange" style="flex:1;justify-content:center" id="confirmBtn">تأیید</button></div></div></div>
 
+<!-- TEMP: viewport diagnostic --><div id="vpProbe" aria-hidden="true"></div><div id="vpDebug" role="status" aria-label="viewport diagnostic"><button aria-label="Hide diagnostic" onclick="vpDebug.hidden=true">×</button><span id="vpDebugText"></span></div>
 <script>
 function faNum(n){const f=['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];return String(n).split('').map(c=>c==='.'?'٫':(f[c]??c)).join('')}
 function iconF(id){return `<svg class="icon"><use href="#i-${id}"/></svg>`}
@@ -579,6 +585,30 @@ function renderDrawer(){const cur=navStack.at(-1)?.screen;tDrawerNav.innerHTML=[
 function openDrawer(){renderDrawer();drawerReturn=document.activeElement;tDrawer.classList.add('open');tDrawer.setAttribute('aria-hidden','false');document.querySelector('.t-menu-btn').setAttribute('aria-expanded','true');document.documentElement.classList.add('sheet-lock');setTimeout(()=>tDrawer.querySelector('.t-drawer-panel').focus({preventScroll:true}),60)}
 function closeDrawer(viaNav){if(!tDrawer.classList.contains('open'))return;tDrawer.classList.remove('open');tDrawer.setAttribute('aria-hidden','true');document.querySelector('.t-menu-btn').setAttribute('aria-expanded','false');if(!document.querySelector('.sheet-overlay.open'))document.documentElement.classList.remove('sheet-lock');if(!viaNav)drawerReturn?.focus?.({preventScroll:true})}
 document.addEventListener('keydown',e=>{if(!tDrawer.classList.contains('open'))return;if(e.key==='Escape'){closeDrawer();return}if(e.key==='Tab'){const f=[...tDrawer.querySelectorAll('button')];const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+
+/* TEMP: viewport diagnostic */
+(function(){if(location.hash==='#nodebug'){vpDebug.hidden=true;return}
+function px(v){return Math.round(parseFloat(v)||0)}
+function run(){const vv=window.visualViewport,cs=getComputedStyle(vpProbe),rs=getComputedStyle(document.documentElement),hd=document.querySelector('.t-header');
+const metas=[...document.querySelectorAll('meta[name="viewport"]')].map(m=>m.content).join(' | ');
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+vpDebugText.textContent=[
+'innerWidth x innerHeight   '+innerWidth+' x '+innerHeight,
+'docEl.clientWidth/Height   '+document.documentElement.clientWidth+' x '+document.documentElement.clientHeight,
+'visualViewport w x h       '+(vv?Math.round(vv.width)+' x '+Math.round(vv.height):'n/a'),
+'visualViewport.scale       '+(vv?vv.scale.toFixed(3):'n/a'),
+'devicePixelRatio           '+devicePixelRatio,
+'screen                     '+screen.width+' x '+screen.height,
+'safe-area top/bottom       '+px(cs.paddingTop)+' / '+px(cs.paddingBottom),
+'safe-area left/right       '+px(cs.paddingLeft)+' / '+px(cs.paddingRight),
+'display-mode standalone    '+standalone,
+':root padding top/bottom   '+px(rs.paddingTop)+' / '+px(rs.paddingBottom),
+'header rendered height     '+(hd?Math.round(hd.getBoundingClientRect().height):'n/a'),
+'root font-size             '+rs.fontSize,
+'in iframe                  '+(window.self!==window.top),
+'viewport meta              '+(metas||'none')
+].join('\n')}
+run();addEventListener('resize',run);addEventListener('orientationchange',run);window.visualViewport&&(visualViewport.addEventListener('resize',run),visualViewport.addEventListener('scroll',run));setTimeout(run,600);setTimeout(run,2000)})();
 loadState();updateBadge();renderHome();renderShop();renderRecipeCats();renderRecipeList();if(coAddress.postal)if(window.locLabel)locLabel.textContent='کد پستی '+coAddress.postal;
 </script>
 </body>
