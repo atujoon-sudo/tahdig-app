@@ -1,0 +1,30 @@
+// Generates tahdig.theme.css (Tailwind v4 @theme) from tokens.ts — run: node styles/build-theme.mjs
+// tokens.ts stays the single source of truth; commit the generated CSS.
+import { readFileSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+const dir = fileURLToPath(new URL('.', import.meta.url));
+const src = readFileSync(dir + 'tokens.ts', 'utf8');
+const block = (name) => { const m = src.match(new RegExp(`export const ${name} = \\{([\\s\\S]*?)\\n\\}`)); return m ? m[1] : ''; };
+const pairs = (body) => [...body.matchAll(/^\s*([A-Za-z0-9]+):\s*'([^']+)'/gm)].map((m) => [m[1], m[2]]);
+const num = (body) => [...body.matchAll(/([A-Za-z0-9]+):\s*([\d.]+)/g)].map((m) => [m[1], m[2]]);
+const out = [];
+out.push('/* GENERATED from tokens.ts by build-theme.mjs — do not edit by hand. Tailwind CSS v4. */');
+out.push('@theme {');
+for (const [k, v] of pairs(block('colors'))) out.push(`  --color-tahdig-${k}: ${v};`);
+out.push(`  --font-tahdig: var(--font-vazirmatn, Vazirmatn), Vazirmatn, Tahoma, sans-serif;`);
+for (const [k, v] of num(block('radius'))) out.push(`  --radius-tahdig-${k}: ${v}px;`);
+for (const [k, v] of pairs(block('shadow'))) out.push(`  --shadow-tahdig-${k}: ${v};`);
+for (const [k, v] of num(block('screens'))) if (k === 'xs') out.push(`  --breakpoint-${k}: ${v}px;`);
+out.push(`  --container-tahdig-container: 1200px;`);
+const motion = block('motion');
+out.push(`  --ease-tahdig-out: ${motion.match(/easeOut: '([^']+)'/)[1]};`);
+out.push(`  --ease-tahdig-drawer: ${motion.match(/easeDrawer: '([^']+)'/)[1]};`);
+out.push(`  --animate-tahdig-marquee: tahdig-marquee 28s linear infinite;`);
+out.push(`  --animate-tahdig-marquee-ltr: tahdig-marquee-ltr 28s linear infinite;`);
+out.push(`  --animate-tahdig-fade: tahdig-fade .15s ease;`);
+out.push(`  @keyframes tahdig-marquee { to { transform: translateX(50%); } }`);
+out.push(`  @keyframes tahdig-marquee-ltr { to { transform: translateX(-50%); } }`);
+out.push(`  @keyframes tahdig-fade { from { opacity: 0; } to { opacity: 1; } }`);
+out.push('}');
+writeFileSync(dir + 'tahdig.theme.css', out.join('\n') + '\n');
+console.log('wrote tahdig.theme.css');

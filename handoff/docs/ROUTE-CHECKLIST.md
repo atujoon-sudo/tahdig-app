@@ -7,6 +7,8 @@ Route paths are **examples**; keep the production routing. For every route:
 - [ ] Checked at 390, 430, 768, 820, 1024, 1280 and 1440px against the prototype (`reference/prototype/index.html#<hash>`).
 - [ ] No horizontal page overflow; keyboard focus visible; every icon button has an accessible name.
 - [ ] Footer variant is correct: `full`, `info` or `lite`.
+- [ ] The page stays a Server Component. Only the islands (header shell, search, cart controls, forms) are client.
+- [ ] `fa` renders RTL, identical to the prototype. `fi` / `en` render LTR from `<html dir>` with no overflow.
 
 Prototype hashes are listed so each route can be compared with the reference directly.
 
@@ -30,7 +32,7 @@ Prototype hashes are listed so each route can be compared with the reference dir
 
 ## Search — prototype `#/products?q=…`
 - [ ] Results reuse `ProductGrid`. The count reads "N محصول".
-- [ ] Query matching stays in Meilisearch. **Recommendation:** index `latinTitle` (English · Finnish) and synonyms
+- [ ] Query matching stays in Meilisearch; bind `SearchBar` per MIGRATION-GUIDE §5 (no client search engine). **Recommendation:** index `latinTitle` (English · Finnish) and synonyms
       so "rice", "riisi" and "sahrami" find Persian products (the prototype demonstrates this behaviour).
 - [ ] Empty results: `EmptyState` with suggestion chips and "مشاهده همه محصولات".
 
@@ -90,7 +92,7 @@ Prototype hashes are listed so each route can be compared with the reference dir
 
 ## Account — prototype `#/account`
 - [ ] Phones: profile + navigation only. From 768px: navigation column plus `AccountOverview` cards.
-- [ ] Signed-out state shows "ورود یا ساخت حساب" → the existing auth flow.
+- [ ] Signed-out state shows "ورود یا ساخت حساب" (`signInHref`) → the production login route, which starts the Shopify Customer Account API sign-in (passwordless customer authentication with a one-time email code). No password fields.
 
 ## Orders — prototype `#/account/orders`
 - [ ] `OrderList` from the Customer Account API. Empty state with "شروع خرید".

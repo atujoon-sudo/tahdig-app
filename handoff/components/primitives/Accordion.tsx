@@ -1,3 +1,4 @@
+/* Server-safe: native <details>, no state. */
 import * as React from 'react';
 import { Icon, type IconName } from './Icon';
 import type { SpecRow } from '../types';

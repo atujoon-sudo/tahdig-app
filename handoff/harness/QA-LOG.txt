@@ -1,0 +1,24 @@
+sample {"docW":390,"vw":390,"dir":"rtl","lang":"fa","h":true,"txt":1772,"font":"Vazirmatn, \"Vazirmatn Fallback\", Vazirma"}
+fa: 119 renders, no overflow, no JS errors, dir/lang correct
+sample {"docW":390,"vw":390,"dir":"ltr","lang":"en","h":true,"txt":1761,"font":"Vazirmatn, \"Vazirmatn Fallback\", Vazirma"}
+en: 119 renders, no overflow, no JS errors, dir/lang correct
+sample {"docW":390,"vw":390,"dir":"ltr","lang":"fi","h":true,"txt":1754,"font":"Vazirmatn, \"Vazirmatn Fallback\", Vazirma"}
+fi: 68 renders, no overflow, no JS errors, dir/lang correct
+== 390: all matched
+== 430: all matched
+== 820: all matched
+== 1024: all matched
+== 1440: all matched
+390 height 1456 1456 diff px 2431 (0.428%) bands 160:209 180:420 240:363 260:76 500:204 520:216 820:100 840:135 880:35 900:218 920:137 940:58 1000:92 1020:147
+430 height 1450 1450 diff px 2600 (0.417%) bands 160:209 180:420 240:363 260:76 500:204 520:216 800:167 820:121 880:244 900:173 920:92 980:59 1000:120 1020:110
+820 height 1605 1605 diff px 5202 (0.395%) bands 200:57 220:572 300:53 320:386 600:84 620:538 960:223 980:604 1000:133 1020:225 1040:769 1060:454 1080:274 1120:166 1140:456 1160:188
+1024 height 1350 1350 diff px 8325 (0.602%) bands 200:223 220:478 300:425 360:794 380:530 600:541 940:665 960:596 980:177 1000:52 1020:853 1040:886 1060:499 1080:355 1120:116 1140:293 1160:696 1180:127
+1440 height 1350 1350 diff px 8379 (0.431%) bands 200:223 220:478 300:425 360:794 380:530 600:588 940:668 960:596 980:178 1000:52 1020:853 1040:886 1060:499 1080:358 1120:116 1140:293 1160:696 1180:127
+text nodes checked: 2662  failing combinations: 3
+1.08 (need 4.5) 13.5px/400 fg rgba(236, 230, 215, 0.78) on rgb(245,240,230) "بـرنج ایرانی" [relative inline-flex h-8 flex-none items-center rounded-[10p] pages: home@390,home@1024
+2.51 (need 4.5) 9.5px/700 fg rgb(168, 163, 151) on rgb(255,255,255) "VISA" [grid h-[34px] place-items-center overflow-hidden whitespace-] pages: home@390,products@390,product@390,product-oos@390
+2.51 (need 4.5) 10.5px/700 fg rgb(168, 163, 151) on rgb(255,255,255) "VISA" [grid h-[34px] place-items-center overflow-hidden whitespace-] pages: home@1024,products@1024,product@1024,product-oos@1024
+text nodes checked: 2662  failing combinations: 3
+1.08 (need 4.5) 13.5px/400 fg rgba(236, 230, 215, 0.78) on rgb(245,240,230) "بـرنج ایرانی" [relative inline-flex h-8 flex-none items-center rounded-[10p] pages: home@390,home@1024
+2.51 (need 4.5) 9.5px/700 fg rgb(168, 163, 151) on rgb(255,255,255) "VISA" [grid h-[34px] place-items-center overflow-hidden whitespace-] pages: home@390,products@390,product@390,product-oos@390
+2.51 (need 4.5) 10.5px/700 fg rgb(168, 163, 151) on rgb(255,255,255) "VISA" [grid h-[34px] place-items-center overflow-hidden whitespace-] pages: home@1024,products@1024,product@1024,product-oos@1024

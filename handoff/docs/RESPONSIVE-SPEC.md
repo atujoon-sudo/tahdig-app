@@ -128,6 +128,26 @@ The container is at most 1200px wide, with 16px / 24px / 32px side gutters (belo
 - Brand, contact and social stay centred at max 640px.
 
 ## Touch targets and sizes
-- Minimum interactive target 44px: crumbs 40px tall rows plus spacing, trash 44px, `TextAction` 44px, footer links 44px.
-- Controls: inputs 52px, primary CTA 56px, choice chips 48px, add-to-cart 56×52px, stepper buttons 44px (36px in cart lines).
+- Minimum effective interactive target 44×44. Small visible controls get a transparent `::after` hit-area extension, so nothing moves:
+  - cart-line stepper buttons: 36px visible;
+  - the discount-code ×;
+  - quick chips: 32px visible;
+  - breadcrumbs: 40px visible;
+  - the recipe "دارم" toggle;
+  - the "افزودن" row buttons.
+  Full list in ACCESSIBILITY.md.
+- Controls:
+  - inputs 52px;
+  - primary CTA 56px;
+  - choice chips 48px;
+  - add-to-cart 56×52px;
+  - stepper buttons 44px (36px visible in cart lines).
 - Inputs use 16px text so iOS Safari does not zoom.
+
+## Direction (fi / en)
+- The same breakpoints apply. Everything mirrors through logical properties and `rtl:` / `ltr:` variants. Nothing is hard-coded left/right.
+- The drawer enters from the left.
+- The bank marquee runs the other way.
+- Arrows and chevrons flip.
+- The quantity stepper order is − n +.
+- Verified on the Next 16 build at all seven widths with no overflow.

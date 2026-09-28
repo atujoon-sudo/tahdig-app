@@ -119,13 +119,16 @@ const PATHS: Record<IconName, { viewBox: string; body: React.ReactNode }> = {
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> { name: IconName; size?: number }
 
-/** Decorative by default (aria-hidden). Give the parent control an accessible name. */
+/** Directional icons mirror automatically in LTR (Finnish / English). */
+const MIRROR_IN_LTR = new Set<IconName>(['arrow-left', 'chev-left']);
+
+/** Server-safe. Decorative by default (aria-hidden). Give the parent control an accessible name. */
 export function Icon({ name, size = 22, className, strokeWidth, ...rest }: IconProps) {
   const icon = PATHS[name];
   return (
     <svg viewBox={icon.viewBox} width={size} height={size} aria-hidden="true" focusable="false"
       fill="none" stroke="currentColor" strokeWidth={strokeWidth ?? 1.7} strokeLinecap="round" strokeLinejoin="round"
-      className={cn('shrink-0', className)} {...rest}>
+      className={cn('shrink-0', MIRROR_IN_LTR.has(name) && 'ltr:-scale-x-100', className)} {...rest}>
       {icon.body}
     </svg>
   );

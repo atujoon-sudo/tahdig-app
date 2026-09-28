@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { cn } from '../lib/cn';
-import { useUI } from '../provider';
+import { TLink } from '../lib/next';
 
+/* Server-safe. Pass onClick only from a Client Component parent. */
 export type ButtonVariant = 'primary' | 'gold' | 'ghost' | 'outline' | 'white';
 const VARIANT: Record<ButtonVariant, string> = {
   primary: 'bg-tahdig-green text-white shadow-tahdig-button hover:bg-[#1F5343]',
@@ -19,17 +20,16 @@ type Common = { variant?: ButtonVariant; size?: keyof typeof SIZE; block?: boole
 type AsButton = Common & React.ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
 type AsLink = Common & { href: string; 'aria-label'?: string };
 
-/** Primary action. Renders the provider Link when `href` is set. */
+/** Primary action. Renders next/link when `href` is set. */
 export function Button(props: AsButton | AsLink) {
-  const { Link } = useUI();
   const { variant = 'primary', size = 'md', block, className, children } = props;
   const cls = cn(
-    'inline-flex items-center justify-center gap-3 whitespace-nowrap font-bold leading-[1.2] transition-[transform,background-color,filter] duration-[140ms] ease-tahdig-out active:scale-[.98]',
+    'inline-flex cursor-pointer items-center justify-center gap-3 whitespace-nowrap font-bold leading-[1.2] transition-[transform,background-color,filter] duration-[140ms] ease-tahdig-out active:scale-[.98]',
     '[&_svg]:h-[22px] [&_svg]:w-[22px] disabled:opacity-45 disabled:pointer-events-none aria-disabled:opacity-45 aria-disabled:pointer-events-none',
     SIZE[size], VARIANT[variant], block && 'flex w-full', className,
   );
   if ('href' in props && props.href !== undefined) {
-    return <Link href={props.href} className={cls} aria-label={props['aria-label']}>{children}</Link>;
+    return <TLink href={props.href} className={cls} aria-label={props['aria-label']}>{children}</TLink>;
   }
   const { variant: _v, size: _s, block: _b, className: _c, children: _ch, ...rest } = props as AsButton;
   return <button type="button" className={cls} {...rest}>{children}</button>;
@@ -37,5 +37,5 @@ export function Button(props: AsButton | AsLink) {
 
 /** Quiet inline text action (e.g. "افزودن به خرید دوره‌ای", "ویرایش") */
 export function TextAction({ className, children, ...rest }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  return <button type="button" className={cn('inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-tahdig-heading [&_svg]:h-[18px] [&_svg]:w-[18px]', className)} {...rest}>{children}</button>;
+  return <button type="button" className={cn('inline-flex min-h-11 cursor-pointer items-center gap-2 text-[15px] font-semibold text-tahdig-heading [&_svg]:h-[18px] [&_svg]:w-[18px]', className)} {...rest}>{children}</button>;
 }

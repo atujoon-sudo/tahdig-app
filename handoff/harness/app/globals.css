@@ -1,0 +1,9 @@
+/* Tailwind CSS 4 (CSS-first). Production: same three imports in its global stylesheet. */
+@import "tailwindcss";
+@import "../src/ui/tahdig/styles/tahdig.theme.css";
+@import "../src/ui/tahdig/styles/tahdig.css";
+
+/* Tailwind 4 scans the project automatically; make sure the UI layer is included. */
+@source "../src/ui/tahdig";
+
+html, body { margin: 0; background: #F4EFE4; }

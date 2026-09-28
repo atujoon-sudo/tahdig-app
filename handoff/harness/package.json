@@ -1,0 +1,16 @@
+{
+  "name": "tahdig-next16-harness",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "sync": "node sync-ui.mjs",
+    "typecheck": "tsc --noEmit",
+    "build": "next build",
+    "start": "next start -p 3100"
+  },
+  "dependencies": { "next": "16.2.10", "react": "19.2.4", "react-dom": "19.2.4", "zustand": "^5.0.0" },
+  "devDependencies": {
+    "typescript": "^5.6.0", "@types/react": "^19.2.0", "@types/react-dom": "^19.2.0", "@types/node": "^22.0.0",
+    "tailwindcss": "^4.1.0", "@tailwindcss/postcss": "^4.1.0"
+  }
+}

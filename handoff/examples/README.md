@@ -1,12 +1,12 @@
 # Examples
 
-- `Preview.tsx`: a **wiring example** that shows how a page container maps state into the UI
-  components. It uses a local `useState` cart and mock `fixtures.ts`. In production the same
-  props come from the Zustand cart store, SWR data, Meilisearch results and the Shopify layers.
-- `preview-build/`: a static build of `Preview.tsx` (React 18 + Tailwind 3 + the TAHDIG preset).
-  Open `preview-build/index.html?page=home` from disk. The pages are:
+- `Preview.tsx` (`'use client'`) is a **wiring example**. It shows how a client page container maps state into the UI
+  components for 16 pages:
   `home, products, product, product-oos, recipes, recipe, cart, cart-empty, bundles, bundle,
   recurring, account, orders, addresses, favorites, policy`.
+- `cartStore.ts` is a minimal **Zustand** store standing in for the production cart store. The real store also calls the Shopify
+  cart mutations.
+- `fixtures.ts` holds mock view models mirroring the prototype catalog. In production, mappers build these from Shopify and Meilisearch data.
 
-To render the preview inside the production app, add a dev-only route that renders
-`<Preview page={searchParams.page ?? 'home'} />`. It needs no data connections.
+Run them in the Next 16 harness (`../harness`): `/fa/preview/<page>`, `/en/preview/<page>`, `/fi/preview/<page>`.
+For a Server Component page built from the same sections plus client islands, open `/fa/server`.

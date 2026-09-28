@@ -1,6 +1,6 @@
 /**
  * TAHDIG design tokens — the approved values from the reference prototype
- * (assets/css/tahdig.css). Single source for the Tailwind preset and for any
+ * (assets/css/tahdig.css). Single source for the Tailwind 4 theme (build-theme.mjs → tahdig.theme.css) and for any
  * JS that needs a value (e.g. matchMedia breakpoints).
  */
 export const colors = {
@@ -9,11 +9,14 @@ export const colors = {
   heading: '#1D5243',      // section / page headings
   ink: '#1F2421',          // body text, product names
   ink2: '#4B4F4A',         // secondary body text
-  slate: '#5A6F80',        // secondary / meta text (AA on cream)
-  slateSoft: '#6A8193',    // approved home hero copy + search placeholder only
-  gold: '#B5892F',         // accent CTA, cart badge, highlighted social
+  slate: '#576B7C',        // secondary / meta text — AA (≥4.5:1) on every surface it is used on
+  slateSoft: '#5B6F7E',    // home hero copy + search placeholder/icons — AA on page and cream
+  gold: '#B5892F',         // accent fills: meal CTA (large text), highlighted social icon, gold icons
+  goldAA: '#947026',       // gold fill behind WHITE normal-size text (cart/drawer count badges, promo pill) — 4.56:1
+  goldText: '#86621F',     // gold-toned small text on the light gold badge (#F4E8CF) — 4.56:1
+  goldStep: '#CAA35E',     // meal-step numerals on greenDeep — 4.55:1 (border stays goldSoft)
   goldSoft: '#C9A15A',     // meal-step outlines, bank card border
-  goldText: '#E9B45E',     // "ته‌دیگ" highlight in newsletter heading
+  goldHighlight: '#E9B45E', // "ته‌دیگ" highlight in newsletter heading
   cream: '#FBF8F2',        // surfaces: header, cards, panels
   page: '#F4EFE4',         // page background
   beige: '#E4DBCA',        // category discs, bundles promo, stepper on beige

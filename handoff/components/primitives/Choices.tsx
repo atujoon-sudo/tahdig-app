@@ -1,9 +1,10 @@
+/* Shared (no hooks): render from a Client Component when passing onChange. */
 import * as React from 'react';
 import { cn } from '../lib/cn';
 
 export interface ChoiceItem { id: string; label: React.ReactNode; disabled?: boolean; unavailable?: boolean }
 
-const chip = 'inline-flex min-h-12 items-center justify-center gap-2 rounded-tahdig-control px-[18px] text-[15px] font-semibold text-tahdig-ink shadow-[inset_0_0_0_1.5px_#D9D0BE] transition-[background-color,color,box-shadow,transform] duration-150 active:scale-[.97] hover:bg-[#E9E4DA] aria-checked:bg-tahdig-green aria-checked:text-white aria-checked:shadow-none aria-checked:hover:bg-tahdig-green';
+const chip = 'inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-tahdig-control px-[18px] text-[15px] font-semibold text-tahdig-ink shadow-[inset_0_0_0_1.5px_#D9D0BE] transition-[background-color,color,box-shadow,transform] duration-150 active:scale-[.97] hover:bg-[#E9E4DA] aria-checked:bg-tahdig-green aria-checked:text-white aria-checked:shadow-none aria-checked:hover:bg-tahdig-green';
 
 /** Single-select chips: variants (weight), servings, delivery frequency. */
 export function ChoiceChips({ label, labelledBy, items, value, onChange, className }: {
@@ -27,7 +28,7 @@ export function OptionCards({ label, items, value, onChange }: { label: string; 
         const on = value === it.id;
         return (
           <button key={it.id} type="button" role="radio" aria-checked={on} onClick={() => onChange(it.id)}
-            className={cn('flex min-h-16 items-center gap-3.5 rounded-2xl bg-white px-4 py-3 text-start transition-shadow', on ? 'bg-[#FDFCF8] shadow-[inset_0_0_0_1.5px_#1C4A3D]' : 'shadow-[inset_0_0_0_1px_#E3DCCD] hover:shadow-[inset_0_0_0_1px_#D9D0BE]')}>
+            className={cn('flex min-h-16 cursor-pointer items-center gap-3.5 rounded-2xl bg-white px-4 py-3 text-start transition-shadow', on ? 'bg-[#FDFCF8] shadow-[inset_0_0_0_1.5px_#1C4A3D]' : 'shadow-[inset_0_0_0_1px_#E3DCCD] hover:shadow-[inset_0_0_0_1px_#D9D0BE]')}>
             <span className={cn('h-[22px] w-[22px] flex-none rounded-full', on ? 'shadow-[inset_0_0_0_6px_#1C4A3D]' : 'shadow-[inset_0_0_0_1.5px_#D9D0BE]')} />
             <span><b className="block text-[15.5px] font-bold text-tahdig-ink">{it.title}</b>{it.hint && <small className="block text-[13px] text-tahdig-slate">{it.hint}</small>}</span>
           </button>

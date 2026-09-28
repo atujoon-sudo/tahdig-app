@@ -1,0 +1,56 @@
+/* GENERATED from tokens.ts by build-theme.mjs — do not edit by hand. Tailwind CSS v4. */
+@theme {
+  --color-tahdig-green: #1C4A3D;
+  --color-tahdig-greenDeep: #25443A;
+  --color-tahdig-heading: #1D5243;
+  --color-tahdig-ink: #1F2421;
+  --color-tahdig-ink2: #4B4F4A;
+  --color-tahdig-slate: #576B7C;
+  --color-tahdig-slateSoft: #5B6F7E;
+  --color-tahdig-gold: #B5892F;
+  --color-tahdig-goldAA: #947026;
+  --color-tahdig-goldText: #86621F;
+  --color-tahdig-goldStep: #CAA35E;
+  --color-tahdig-goldSoft: #C9A15A;
+  --color-tahdig-goldHighlight: #E9B45E;
+  --color-tahdig-cream: #FBF8F2;
+  --color-tahdig-page: #F4EFE4;
+  --color-tahdig-beige: #E4DBCA;
+  --color-tahdig-beige2: #EFEADF;
+  --color-tahdig-chip: #F0ECE4;
+  --color-tahdig-sand: #F2EDE3;
+  --color-tahdig-line: #E3DCCD;
+  --color-tahdig-line2: #D9D0BE;
+  --color-tahdig-trustBg: #FAF7F1;
+  --color-tahdig-bottomBg: #FFF9EE;
+  --color-tahdig-danger: #B5462F;
+  --color-tahdig-ok: #2F6B4F;
+  --color-tahdig-okBg: #E6EFE8;
+  --color-tahdig-warnBg: #F7EEDB;
+  --color-tahdig-text: #2A2A26;
+  --font-tahdig: var(--font-vazirmatn, Vazirmatn), Vazirmatn, Tahoma, sans-serif;
+  --radius-tahdig-card: 22px;
+  --radius-tahdig-panel: 18px;
+  --radius-tahdig-button: 16px;
+  --radius-tahdig-control: 14px;
+  --radius-tahdig-small: 12px;
+  --radius-tahdig-thumb: 16px;
+  --radius-tahdig-pill: 22px;
+  --shadow-tahdig-card: 0 14px 28px -14px rgba(150,120,70,.24), 0 2px 5px rgba(150,120,70,.05);
+  --shadow-tahdig-soft: 0 10px 16px -12px rgba(120,100,60,.25);
+  --shadow-tahdig-button: 0 10px 18px -10px rgba(28,74,61,.7);
+  --shadow-tahdig-cartButton: 0 10px 20px -8px rgba(28,74,61,.55);
+  --shadow-tahdig-search: 0 12px 26px -12px rgba(60,50,30,.22);
+  --shadow-tahdig-contact: 0 14px 26px -14px rgba(28,74,61,.7);
+  --shadow-tahdig-toast: 0 14px 28px -12px rgba(20,40,32,.5);
+  --breakpoint-xs: 481px;
+  --container-tahdig-container: 1200px;
+  --ease-tahdig-out: cubic-bezier(.23,1,.32,1);
+  --ease-tahdig-drawer: cubic-bezier(.32,.72,0,1);
+  --animate-tahdig-marquee: tahdig-marquee 28s linear infinite;
+  --animate-tahdig-marquee-ltr: tahdig-marquee-ltr 28s linear infinite;
+  --animate-tahdig-fade: tahdig-fade .15s ease;
+  @keyframes tahdig-marquee { to { transform: translateX(50%); } }
+  @keyframes tahdig-marquee-ltr { to { transform: translateX(-50%); } }
+  @keyframes tahdig-fade { from { opacity: 0; } to { opacity: 1; } }
+}

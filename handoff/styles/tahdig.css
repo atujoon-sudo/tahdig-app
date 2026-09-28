@@ -1,7 +1,9 @@
 /*
  * TAHDIG UI layer — the few rules Tailwind utilities cannot express cleanly.
- * Import once in the production global stylesheet, after @tailwind base.
+ * Tailwind CSS 4: import once in the global stylesheet, after `@import "tailwindcss"` and
+ * `tahdig.theme.css`. The @layer names below are Tailwind 4's native cascade layers.
  * Everything is scoped to .tahdig-root (set by <TahdigRoot>) or t-* classes.
+ * Direction is inherited from <html dir>; LTR variants live in the components (rtl:/ltr:).
  */
 @layer base {
   .tahdig-root {
@@ -60,7 +62,8 @@
 
   /* numbered method steps use Persian numerals */
   .t-method { counter-reset: m; }
-  .t-method > li::before { counter-increment: m; content: counter(m, persian); }
+  .t-method > li::before { counter-increment: m; content: counter(m); }
+  .t-method:lang(fa) > li::before { content: counter(m, persian); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,3 +1,4 @@
+/* Server-safe presentational surfaces. */
 import * as React from 'react';
 import { cn } from '../lib/cn';
 import { Icon, type IconName } from './Icon';
@@ -12,7 +13,7 @@ export function Note({ tone = 'info', icon = 'info', className, children }: { to
   return <p className={cn('flex items-start gap-2.5 rounded-tahdig-control px-3.5 py-3 text-[13.5px] leading-[1.8]', NOTE[tone], className)}><Icon name={icon} size={20} className="mt-0.5" /><span>{children}</span></p>;
 }
 
-const BADGE = { neutral: 'bg-tahdig-sand text-tahdig-ink2', gold: 'bg-[#F4E8CF] text-[#8A6520]', ok: 'bg-tahdig-okBg text-tahdig-ok', muted: 'bg-[#ECE9E3] text-tahdig-slate' };
+const BADGE = { neutral: 'bg-tahdig-sand text-tahdig-ink2', gold: 'bg-[#F4E8CF] text-tahdig-goldText', ok: 'bg-tahdig-okBg text-tahdig-ok', muted: 'bg-[#ECE9E3] text-tahdig-slate' };
 export function Badge({ tone = 'neutral', className, children }: { tone?: keyof typeof BADGE; className?: string; children: React.ReactNode }) {
   return <span className={cn('inline-flex h-[26px] items-center rounded-lg px-2.5 text-[12.5px] font-bold', BADGE[tone], className)}>{children}</span>;
 }
@@ -34,7 +35,7 @@ export function EmptyState({ icon = 'bag', title, text, children }: { icon?: Ico
 }
 
 /** Page heading block for inner pages. */
-export function PageHeader({ title, meta, intro }: { title: string; meta?: string; intro?: string }) {
+export function PageHeader({ title, meta, intro }: { title: string; meta?: React.ReactNode; intro?: string }) {
   return (
     <header className="pt-1.5">
       <h1 className="text-[26px] font-black leading-[1.45] text-tahdig-ink [text-wrap:balance] md:text-[30px] lg:text-[34px]">{title}</h1>

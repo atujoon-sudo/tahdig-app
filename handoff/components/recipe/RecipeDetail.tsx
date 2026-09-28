@@ -1,9 +1,11 @@
 'use client';
-import * as React from 'react';
+/* Client Component: servings, ingredient selection and pantry toggles are interactive. */
+import { tpl } from '../labels';
 import { cn } from '../lib/cn';
-import { faDigits, moneyText } from '../lib/format';
+import { moneyText } from '../lib/format';
+import { TLink } from '../lib/next';
 import { useUI } from '../provider';
-import type { Crumb, ImageData, IngredientRow, Money, PantryRow, RecipeCardData } from '../types';
+import type { Crumb, ImageData, IngredientRow, Money, PantryRow } from '../types';
 import { Breadcrumbs } from '../primitives/Breadcrumbs';
 import { Button } from '../primitives/Button';
 import { ChoiceChips } from '../primitives/Choices';
@@ -11,37 +13,7 @@ import { Icon } from '../primitives/Icon';
 import { Media } from '../primitives/Media';
 import { Note } from '../primitives/Surfaces';
 import { Container } from '../layout/Container';
-
-export function RecipeMeta({ difficulty, servings, time }: { difficulty: string; servings: number; time: string }) {
-  const { labels } = useUI();
-  return (
-    <div className="mt-3.5 flex min-h-11 items-center justify-between gap-2 rounded-xl bg-tahdig-sand px-3.5 text-[13.5px] text-tahdig-ink2 [&_svg]:text-tahdig-gold">
-      <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><Icon name="bolt" size={18} />{difficulty}</span>
-      <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><Icon name="person" size={18} />{labels.people(faDigits(servings))}</span>
-      <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><Icon name="timer" size={18} />{time}</span>
-    </div>
-  );
-}
-
-export function RecipeCard({ recipe: r, headingLevel = 3 }: { recipe: RecipeCardData; headingLevel?: 2 | 3 }) {
-  const { Link, labels } = useUI();
-  const H = headingLevel === 2 ? 'h2' : 'h3';
-  return (
-    <article className="flex flex-col rounded-tahdig-card bg-tahdig-cream px-4 pb-[18px] pt-4 shadow-tahdig-card">
-      <Link href={r.href} tabIndex={-1} aria-hidden="true" className="block overflow-hidden rounded-2xl">
-        <Media image={r.image} className="aspect-[4/3] w-full bg-[linear-gradient(160deg,#F3EEE5,#EAE2D3)]" placeholderIcon="bowl" iconSize={56} />
-      </Link>
-      <RecipeMeta difficulty={r.difficulty} servings={r.servings} time={r.time} />
-      <H className="mt-4 px-1 text-[18px] font-bold leading-[1.6] text-tahdig-ink"><Link href={r.href} className="hover:text-tahdig-heading">{r.title}</Link></H>
-      <Button href={r.href} block className="mt-4" aria-label={`${labels.viewIngredients} ${r.title}`}>{labels.viewIngredients}<Icon name="arrow-left" /></Button>
-    </article>
-  );
-}
-
-/** 1 column → 2 (640) → 3 (1024). */
-export function RecipeGrid({ recipes }: { recipes: RecipeCardData[] }) {
-  return <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">{recipes.map((r) => <RecipeCard key={r.id} recipe={r} />)}</div>;
-}
+import { RecipeMeta } from './RecipeCards';
 
 export interface RecipeDetailProps {
   crumbs: Crumb[];
@@ -62,7 +34,7 @@ export interface RecipeDetailProps {
  * ≥768: dish column (hero, title, method) | sticky shopping column.
  */
 export function RecipeDetail(p: RecipeDetailProps) {
-  const { labels, Link, formatAmount } = useUI();
+  const { labels, formatAmount, formatNumber } = useUI();
   const oos = p.ingredients.filter((i) => !i.available).length;
   return (
     <Container className="pb-2">
@@ -78,7 +50,7 @@ export function RecipeDetail(p: RecipeDetailProps) {
           <section aria-labelledby="rd-serv" className="mt-8 md:mt-0">
             <h2 id="rd-serv" className="text-[19px] font-extrabold leading-normal text-tahdig-heading">{labels.servingsQ}</h2>
             <ChoiceChips className="mt-3.5" labelledBy="rd-serv" value={String(p.selectedServings)} onChange={(v) => p.onServingsChange(Number(v))}
-              items={p.servingOptions.map((n) => ({ id: String(n), label: labels.people(faDigits(n)) }))} />
+              items={p.servingOptions.map((n) => ({ id: String(n), label: tpl(labels.people, formatNumber(n)) }))} />
           </section>
 
           <section aria-labelledby="rd-ing" className="mt-8">
@@ -87,13 +59,13 @@ export function RecipeDetail(p: RecipeDetailProps) {
             <div className="mt-3.5 rounded-tahdig-card bg-tahdig-cream px-4 py-1.5 shadow-tahdig-card">
               {p.ingredients.map((i) => (
                 <div key={i.id} className={cn('grid grid-cols-[auto_56px_1fr_auto] items-center gap-3 border-b border-tahdig-line py-3.5 last:border-b-0', !i.available && 'opacity-65')}>
-                  <button type="button" role="checkbox" aria-checked={i.available && i.selected} disabled={!i.available} onClick={() => p.onToggleIngredient(i.id)} aria-label={`خرید ${i.title}`}
-                    className={cn('relative grid h-[26px] w-[26px] place-items-center rounded-lg text-white after:absolute after:-inset-2.5', i.available && i.selected ? 'bg-tahdig-green' : 'bg-white shadow-[inset_0_0_0_1.5px_#D9D0BE] disabled:bg-tahdig-chip')}>
+                  <button type="button" role="checkbox" aria-checked={i.available && i.selected} disabled={!i.available} onClick={() => p.onToggleIngredient(i.id)} aria-label={tpl(labels.buyItem, i.title)}
+                    className={cn('relative grid h-[26px] w-[26px] cursor-pointer place-items-center rounded-lg text-white after:absolute after:-inset-2.5 disabled:cursor-default', i.available && i.selected ? 'bg-tahdig-green' : 'bg-white shadow-[inset_0_0_0_1.5px_#D9D0BE] disabled:bg-tahdig-chip')}>
                     <Icon name="check" size={16} strokeWidth={2.6} className={i.available && i.selected ? '' : 'opacity-0'} />
                   </button>
                   <Media image={i.image} className="h-14 w-14 rounded-xl" iconSize={22} />
                   <div className="min-w-0">
-                    <div className={cn('text-[15px] font-semibold leading-[1.6]', i.selected && i.available ? 'text-tahdig-ink' : 'text-tahdig-slate')}><Link href={i.href} className="hover:text-tahdig-heading">{i.title}</Link></div>
+                    <div className={cn('text-[15px] font-semibold leading-[1.6]', i.selected && i.available ? 'text-tahdig-ink' : 'text-tahdig-slate')}><TLink href={i.href} className="hover:text-tahdig-heading">{i.title}</TLink></div>
                     <div className="text-[13px] text-tahdig-slate">{i.needLabel} · {i.packLabel}</div>
                   </div>
                   <div className={cn('whitespace-nowrap text-[15px] font-bold tabular-nums', i.selected && i.available ? 'text-tahdig-ink' : 'text-tahdig-slate')}>
@@ -102,15 +74,15 @@ export function RecipeDetail(p: RecipeDetailProps) {
                 </div>
               ))}
             </div>
-            {oos > 0 && <Note tone="warn" className="mt-3">{faDigits(oos)} ماده فعلاً ناموجود است و به سبد اضافه نمی‌شود.</Note>}
+            {oos > 0 && <Note tone="warn" className="mt-3">{tpl(labels.oosIngredients, formatNumber(oos))}</Note>}
             <div className="mt-4 grid gap-3">
               <div className="flex items-baseline justify-between text-[14.5px] text-tahdig-slate">
-                <span>{faDigits(p.selection.productCount)} محصول · {faDigits(p.selection.packCount)} بسته</span>
+                <span>{tpl(labels.selectionSummary, formatNumber(p.selection.productCount), formatNumber(p.selection.packCount))}</span>
                 <b className="text-[20px] tabular-nums text-tahdig-ink">{moneyText(p.selection.total, formatAmount)}</b>
               </div>
               <Button block onClick={p.onAddIngredients} disabled={!p.selection.productCount || p.addBusy}><Icon name="cart" />{labels.addIngredients}</Button>
             </div>
-            {!!p.addedCount && <Note tone="ok" icon="check" className="mt-3">{faDigits(p.addedCount)} محصول به سبد اضافه شد · <Link href={p.cartHref} className="font-bold underline underline-offset-4">{labels.viewCart}</Link></Note>}
+            {!!p.addedCount && <Note tone="ok" icon="check" className="mt-3">{tpl(labels.addedToCart, formatNumber(p.addedCount))} · <TLink href={p.cartHref} className="font-bold underline underline-offset-4">{labels.viewCart}</TLink></Note>}
           </section>
 
           <section aria-labelledby="rd-other" className="mt-8">
@@ -121,8 +93,8 @@ export function RecipeDetail(p: RecipeDetailProps) {
                 <div key={x.id} className="flex min-h-14 items-center gap-2.5 rounded-2xl bg-tahdig-cream py-2 pe-2 ps-4 shadow-[inset_0_0_0_1px_#E3DCCD]">
                   <span className="flex-1 text-[15px] text-tahdig-ink">{x.label}{x.soldHere && <small className="block text-[12.5px] text-tahdig-slate">{labels.soldHere}</small>}</span>
                   {x.soldHere && !x.have && p.onBuyPantry && <Button variant="ghost" size="sm" onClick={() => p.onBuyPantry?.(x.id)}><Icon name="plus" />{labels.buy}</Button>}
-                  <button type="button" role="checkbox" aria-checked={x.have} onClick={() => p.onTogglePantry(x.id)} aria-label={`${x.label} را دارم`}
-                    className={cn('inline-flex min-h-10 items-center gap-1.5 rounded-xl px-3.5 text-[14px] font-semibold', x.have ? 'bg-tahdig-okBg text-tahdig-ok' : 'text-tahdig-ink shadow-[inset_0_0_0_1.5px_#D9D0BE]')}>
+                  <button type="button" role="checkbox" aria-checked={x.have} onClick={() => p.onTogglePantry(x.id)} aria-label={tpl(labels.iHaveItem, x.label)}
+                    className={cn('relative inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-xl px-3.5 text-[14px] font-semibold after:absolute after:inset-x-0 after:-inset-y-0.5', x.have ? 'bg-tahdig-okBg text-tahdig-ok' : 'text-tahdig-ink shadow-[inset_0_0_0_1.5px_#D9D0BE]')}>
                     {x.have && <Icon name="check" size={16} strokeWidth={2.4} />}{labels.iHave}
                   </button>
                 </div>
