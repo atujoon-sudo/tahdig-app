@@ -21,7 +21,7 @@
 :root{
   /* colour */
   --t-green:#1C4A3D;--t-green-deep:#25443A;--t-heading:#1D5243;
-  --t-ink:#1F2421;--t-ink-2:#4B4F4A;--t-slate:#6A8193;
+  --t-ink:#1F2421;--t-ink-2:#4B4F4A;--t-slate:#5A6F80;--t-slate-soft:#6A8193;
   --t-gold:#B5892F;--t-gold-soft:#C9A15A;--t-gold-text:#E9B45E;
   --t-cream:#FBF8F2;--t-page:#F4EFE4;--t-beige:#E4DBCA;--t-beige-2:#EFEADF;--t-chip:#F0ECE4;--t-sand:#F2EDE3;
   --t-line:#E3DCCD;--t-line-2:#D9D0BE;
@@ -111,7 +111,7 @@ html.t-lock,html.t-lock body{overflow:hidden}
 .t-stepper.on-beige{background:var(--t-beige)}
 
 /* Price */
-.t-price{display:flex;align-items:baseline;gap:6px;font-size:20px;font-weight:800;color:var(--t-ink);font-variant-numeric:tabular-nums}
+.t-price{display:flex;align-items:baseline;gap:6px;white-space:nowrap;font-size:20px;font-weight:800;color:var(--t-ink);font-variant-numeric:tabular-nums}
 .t-price .cur{color:var(--t-slate);font-weight:600}
 .t-price s{font-size:12.5px;font-weight:500;color:var(--t-slate)}
 .t-oos{font-size:16px;color:var(--t-slate)}
@@ -127,7 +127,7 @@ html.t-lock,html.t-lock body{overflow:hidden}
 .t-err{font-size:13px;color:var(--t-danger)}
 .t-inline-form{height:60px;display:flex;align-items:center;gap:8px;padding-inline:18px 6px;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1px var(--t-line)}
 .t-inline-form:focus-within{box-shadow:inset 0 0 0 1.5px var(--t-green)}
-.t-inline-form input{flex:1;min-width:0;height:100%;border:0;outline:0;background:none;color:var(--t-ink)}
+.t-inline-form input{flex:1;min-width:0;width:100%;height:100%;border:0;outline:0;background:none;color:var(--t-ink)}
 .t-inline-form input::placeholder{color:var(--t-slate);font-size:14.5px}
 .t-inline-form .t-btn{height:48px;border-radius:14px;padding-inline:20px;font-size:15px;box-shadow:none}
 
@@ -177,9 +177,9 @@ html.t-lock,html.t-lock body{overflow:hidden}
 /* ---------- 5. Search (approved, frozen) ---------- */
 .t-search{height:62px;display:flex;align-items:center;gap:4px;padding-inline:20px 7px;border-radius:31px;background:var(--t-cream);box-shadow:0 12px 26px -12px rgba(60,50,30,.22)}
 .t-search input{flex:1;min-width:0;height:100%;border:0;outline:0;background:none;font-family:inherit;font-size:16px;color:var(--t-ink)}
-.t-search input::placeholder{color:var(--t-slate);font-size:14px}
+.t-search input::placeholder{color:var(--t-slate-soft);font-size:14px}
 .t-search input::-webkit-search-cancel-button{display:none}
-.t-search-ic{width:40px;height:44px;display:grid;place-items:center;border:0;background:none;color:var(--t-slate);cursor:pointer;border-radius:12px}
+.t-search-ic{width:40px;height:44px;display:grid;place-items:center;border:0;background:none;color:var(--t-slate-soft);cursor:pointer;border-radius:12px}
 .t-search-ic .t-ic{width:21px;height:21px}
 .t-search-go{width:48px;height:48px;display:grid;place-items:center;flex:none;border:0;border-radius:14px;background:var(--t-green);color:#fff;cursor:pointer;box-shadow:0 8px 16px -8px rgba(28,74,61,.6);transition:transform 140ms var(--ease-out)}
 .t-search-go:active{transform:scale(.94)}
@@ -188,7 +188,7 @@ html.t-lock,html.t-lock body{overflow:hidden}
 /* ---------- 6. Home (hero → meal approved, frozen) ---------- */
 .t-hero{padding-top:48px}
 .t-hero h1{font-size:34px;font-weight:900;line-height:1.35;color:var(--t-heading);text-wrap:balance}
-.t-hero p{margin-top:6px;font-size:15.5px;line-height:1.8;color:var(--t-slate)}
+.t-hero p{margin-top:6px;font-size:15.5px;line-height:1.8;color:var(--t-slate-soft)}
 .t-search-zone{margin-top:56px;background:linear-gradient(to bottom,transparent 31px,var(--t-green) 31px)}
 .t-band{position:relative;overflow:hidden;padding-bottom:62px;background-image:radial-gradient(circle at 12% 70%,rgba(255,255,255,.035) 0 60px,transparent 61px),radial-gradient(circle at 88% 80%,rgba(255,255,255,.035) 0 70px,transparent 71px)}
 .t-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-top:24px;padding-inline:var(--t-gutter);scroll-padding-inline:var(--t-gutter);overscroll-behavior-x:contain}
@@ -257,9 +257,9 @@ html.t-lock,html.t-lock body{overflow:hidden}
 .t-promo.is-beige .t-ph{background:rgba(255,255,255,.35)}
 
 /* ---------- 9. Page scaffolding (inner pages) ---------- */
-.t-crumbs{display:flex;align-items:center;gap:8px;padding:22px 0 20px;font-size:14.5px;color:var(--t-slate);overflow-x:auto;scrollbar-width:none;white-space:nowrap;margin-inline:calc(var(--t-gutter)*-1);padding-inline:var(--t-gutter)}
+.t-crumbs{display:flex;align-items:center;gap:8px;padding:18px 0 16px;font-size:14.5px;color:var(--t-slate);overflow-x:auto;scrollbar-width:none;white-space:nowrap;margin-inline:calc(var(--t-gutter)*-1);padding-inline:var(--t-gutter)}
 .t-crumbs::-webkit-scrollbar{display:none}
-.t-crumbs a,.t-crumbs button{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:32px;border:0;background:none;font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+.t-crumbs a,.t-crumbs button{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;border:0;background:none;font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
 .t-crumbs .t-ic{width:17px;height:17px}.t-crumbs .sep{flex:none;width:14px;height:14px}
 .t-crumbs [aria-current]{flex:none;color:var(--t-ink);font-weight:700}
 .t-page-head{padding-top:6px}
@@ -302,7 +302,7 @@ html.t-lock,html.t-lock body{overflow:hidden}
 .t-empty .t-btn,.t-empty .t-pill{margin-top:18px}
 
 /* ---------- 11. Product detail ---------- */
-.t-pd{display:grid;gap:0}
+.t-pd{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
 .t-gallery-main{position:relative;aspect-ratio:1/1;border-radius:var(--t-r-card);background:linear-gradient(160deg,#F6F2EA,#EEE8DC);box-shadow:inset 0 0 0 1px var(--t-line);overflow:hidden}
 .t-gallery-main .t-ic{width:18%;height:18%;max-width:64px;max-height:64px;stroke-width:1.2;color:#C4B9A4}
 .t-gallery-tools{position:absolute;inset-inline:14px;top:14px;display:flex;justify-content:space-between;pointer-events:none}
@@ -330,7 +330,7 @@ html.t-lock,html.t-lock body{overflow:hidden}
 .t-pd-opt{margin-top:24px}
 .t-pd-opt>h2{font-size:16.5px;font-weight:700;color:var(--t-ink);margin-bottom:12px}
 .t-pd-buy{margin-top:26px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
-.t-pd-price small{display:block;font-size:13px;color:var(--t-slate);margin-bottom:2px}
+.t-pd-unit{display:block;font-size:13.5px;color:var(--t-slate);margin-bottom:2px}
 .t-pd-price .t-price{font-size:28px}
 .t-pd-price .t-price s{font-size:14px}
 .t-pd-cta{margin-top:16px}
@@ -409,7 +409,9 @@ html.t-lock,html.t-lock body{overflow:hidden}
 .t-have-row{display:flex;align-items:center;gap:10px;min-height:56px;padding:8px 8px 8px 8px;padding-inline-start:16px;border-radius:16px;background:var(--t-cream);box-shadow:inset 0 0 0 1px var(--t-line)}
 .t-have-row>span{flex:1;font-size:15px;color:var(--t-ink)}
 .t-have-row .t-choice{min-height:40px;padding-inline:14px;font-size:14px;border-radius:12px}
-.t-have-row .t-choice[aria-pressed="true"]{background:var(--t-ok-bg);color:var(--t-ok)}
+.t-have-row .t-choice[aria-checked="true"]{background:var(--t-ok-bg);color:var(--t-ok);box-shadow:none}
+.t-have-row .t-choice .t-ic{width:16px;height:16px;stroke-width:2.4}
+.t-have-row>span small{display:block;font-size:12.5px;color:var(--t-slate)}
 .t-method{list-style:none;margin-top:16px;display:grid;gap:14px;counter-reset:m}
 .t-method li{display:flex;gap:14px;align-items:flex-start}
 .t-method li::before{counter-increment:m;content:counter(m,persian);flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--t-gold-soft);color:var(--t-gold);display:grid;place-items:center;font-size:15px;font-weight:700;margin-top:2px}
@@ -760,10 +762,9 @@ body.has-buybar.buybar-on .toast{bottom:calc(96px + env(safe-area-inset-bottom,0
 .t-co-steps{max-width:640px}
 .t-rec{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);column-gap:32px}
 .t-rec-set{position:sticky;top:24px}
-.t-info,.t-help{max-width:820px}
-.t-acct{max-width:720px}
 }
 @media(min-width:1280px){
+.t-acct-main .t-list{grid-template-columns:repeat(3,minmax(0,1fr))}
 .t-rail{grid-template-columns:repeat(4,minmax(0,1fr))}
 .t-rail>.t-card:nth-child(n+5){display:none}
 .t-list{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -772,6 +773,112 @@ body.has-buybar.buybar-on .toast{bottom:calc(96px + env(safe-area-inset-bottom,0
 @media(min-width:1024px){
 .t-buybar{display:none}
 body.has-buybar .t-bottom{padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+}
+
+
+/* ---------- CRO additions (kept quiet on purpose) ---------- */
+.t-card-price{display:grid;gap:0}
+.t-unit{font-size:12.5px;line-height:1.5;color:var(--t-slate);font-variant-numeric:tabular-nums}
+.t-latin{margin-top:2px;font-size:14px;color:var(--t-slate);text-align:right}
+.t-assure{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:14px;font-size:13px;color:var(--t-ink-2)}
+.t-assure li{display:inline-flex;align-items:center;gap:6px}
+.t-assure .t-ic{width:17px;height:17px;color:var(--t-gold)}
+.t-notify{padding:16px;border-radius:18px;background:var(--t-sand)}
+.t-notify>p{font-size:14px;line-height:1.9;color:var(--t-ink-2)}
+.t-notify>p b{color:var(--t-ink)}
+.t-notify .t-inline-form{margin-top:12px;height:56px}
+.t-notify .t-inline-form .t-btn{height:44px;gap:8px}
+.t-notify .t-err{margin-top:6px}
+.t-comp{padding:18px 20px 10px}
+.t-comp h2{font-size:16.5px;font-weight:800;color:var(--t-heading)}
+.t-comp-rows{margin-top:6px}
+.t-comp .t-pick-row a{color:var(--t-ink)}
+.t-sum-pay{margin-top:16px}
+.t-sum-pay .t-paylogos{grid-template-columns:repeat(3,1fr)}
+.t-sum-pay p{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;color:var(--t-slate)}
+.t-sum-pay .t-ic{width:15px;height:15px;color:var(--t-gold)}
+.t-sumrow>b.muted{font-weight:600;color:var(--t-ink-2)}
+.t-suggest{margin-top:16px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.t-suggest .t-tab{height:40px;font-size:14px}
+.t-empty .t-suggest+.t-btn{margin-top:14px}
+
+/* Account: side (profile + navigation) | main */
+.t-acct{margin-top:20px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.t-acct-side{display:grid;gap:14px}
+.t-acct-side .t-menu{margin-top:0}
+.t-menu a[aria-current="page"]{background:#F6F2EA;color:var(--t-heading)}
+.t-ov{display:grid;gap:14px}
+.t-ov-card{padding:18px 20px}
+.t-ov-card header{display:flex;align-items:center;gap:10px}
+.t-ov-card header>.t-ic{width:22px;height:22px;color:var(--t-gold)}
+.t-ov-card h2{font-size:16.5px;font-weight:800;color:var(--t-heading)}
+.t-ov-card header .t-link{margin-inline-start:auto;min-height:40px;font-size:14px}
+.t-ov-card p{margin-top:8px;font-size:14.5px;line-height:1.9;color:var(--t-ink)}
+.t-ov-card .ltr{direction:ltr;unicode-bidi:isolate}
+@media(max-width:767px){.t-acct:not(.is-sub) .t-acct-main,.t-acct.is-sub .t-acct-side{display:none}}
+
+/* Info pages: article + help column */
+.t-doc{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+.t-doc .t-info{margin-top:24px}
+.t-doc-side{display:grid;gap:20px}
+.t-doc-side .t-help{margin-top:0}
+.t-doc-nav{margin-top:0}
+.t-doc-nav h2{padding:16px 20px 4px;font-size:14px;font-weight:700;color:var(--t-slate)}
+.t-doc-nav a{min-height:52px;font-size:15px;font-weight:600}
+
+/* ---------- Tablet (768–1023) as its own layout state ---------- */
+@media(min-width:768px){
+.t-list{gap:24px}
+.t-footer-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:start}
+.t-footer-cols .t-links{margin-top:40px}
+/* product + bundle: image | information */
+.t-pd{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:32px;align-items:start}
+.t-pd-gallery{position:sticky;top:20px;max-width:none}
+.t-thumbs{grid-template-columns:repeat(4,1fr)}
+.t-pd-info{padding-top:0}
+.t-pd-info h1{font-size:24px}
+/* recipe: dish | shopping column */
+.t-rd{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"hero shop" "head shop" "method shop";grid-template-rows:auto auto 1fr;column-gap:28px}
+.t-rd-hero{grid-area:hero;aspect-ratio:4/3}.t-rd-head{grid-area:head}.t-rd-method{grid-area:method}
+.t-rd-shop{grid-area:shop;align-self:start;position:sticky;top:20px}
+.t-rd-shop>.t-rd-sec:first-child{margin-top:0}
+/* cart / checkout / recurring: main | side */
+.t-cart,.t-co,.t-rec{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:24px}
+.t-cart-side,.t-co-side,.t-rec-set{position:sticky;top:20px}
+.t-cart-side{display:grid;gap:20px}
+.t-co-side{order:0}
+.t-cart{grid-template-areas:"lines side" "comp side";grid-template-rows:auto 1fr}
+.t-lines{grid-area:lines}.t-cart-side{grid-area:side;align-self:start}.t-comp{grid-area:comp;align-self:start}
+.t-rec-acts{grid-template-columns:minmax(0,1fr)}
+.t-done{max-width:600px;margin-inline:auto}
+/* account: profile + navigation | content */
+.t-acct{grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:24px}
+.t-acct-side{position:sticky;top:20px}
+.t-acct-main .t-list{grid-template-columns:minmax(0,1fr)}
+.t-orders{margin-top:0}
+.t-addr-form{grid-template-columns:1fr 1fr;display:grid}
+.t-addr-form .f-street,.t-addr-form>.t-btn{grid-column:1/-1}
+/* info pages: helper panels side by side under the article */
+.t-doc-side{grid-template-columns:1fr 1fr}
+}
+/* In the narrower two-column tablet cart the line keeps its stacked layout */
+@media(min-width:768px) and (max-width:1023px){
+.t-cline{grid-template-columns:80px 1fr;grid-template-areas:"img info" "ctl ctl";align-items:start}
+.t-cline-img{width:80px;height:80px}
+}
+@media(min-width:1024px){
+.t-list{gap:28px}
+.t-pd{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);column-gap:56px}
+.t-pd-info h1{font-size:28px}
+.t-rd{column-gap:48px}.t-rd-hero{aspect-ratio:16/10}
+.t-cart,.t-co,.t-rec{column-gap:32px}
+.t-acct{grid-template-columns:340px minmax(0,1fr);gap:32px}
+.t-ov{grid-template-columns:1fr 1fr}
+.t-orders{grid-template-columns:1fr 1fr}
+.t-acct-main .t-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+.t-doc{grid-template-columns:minmax(0,1fr) 340px;gap:32px}
+.t-doc-side{grid-template-columns:1fr;position:sticky;top:24px;margin-top:24px}
+.t-rec-acts{grid-template-columns:1fr 1fr}
 }
 
 /* ---------- 21. Hover (fine pointers only) ---------- */
@@ -956,41 +1063,41 @@ const v=(id,sku,title,price,opts={})=>({id:'gid://shopify/ProductVariant/'+id,sk
 const DRY_STORAGE='در جای خشک و خنک، دور از نور مستقیم و رطوبت نگهداری شود. پس از بازکردن بسته، آن را کاملاً بسته نگه دارید.';
 
 const collections=[
-{handle:'rice',title:'برنج و غلات',description:'بهترین برنج‌های ایرانی و خارجی، انواع جو، آرد و بلغور با کیفیت عالی و دانه‌های سالم و طبیعی'},
-{handle:'spice',title:'ادویه و چاشنی',description:'ادویه‌ها، سبزی‌های خشک و چاشنی‌های معطر برای طعم اصیل غذای ایرانی'},
-{handle:'pickle',title:'ترشیجات',description:'ترشی‌ها و شورهای خانگی و محلی برای کنار هر سفره'},
-{handle:'legume',title:'حبوبات',description:'حبوبات تمیز و درجه‌یک برای خورشت‌ها، آش‌ها و پلوها'},
-{handle:'canned',title:'کنسرو و آماده',description:'کنسروها و مواد آماده برای آشپزی سریع‌تر، بدون کم کردن از کیفیت'},
-{handle:'nuts',title:'خشکبار',description:'خشکبار و آجیل تازه و منتخب از بهترین باغ‌ها'}];
+{handle:'rice',latinTitle:'Rice & grains · Riisi ja viljat',title:'برنج و غلات',description:'بهترین برنج‌های ایرانی و خارجی، انواع جو، آرد و بلغور با کیفیت عالی و دانه‌های سالم و طبیعی'},
+{handle:'spice',latinTitle:'Spices · Mausteet',title:'ادویه و چاشنی',description:'ادویه‌ها، سبزی‌های خشک و چاشنی‌های معطر برای طعم اصیل غذای ایرانی'},
+{handle:'pickle',latinTitle:'Pickles · Säilykkeet',title:'ترشیجات',description:'ترشی‌ها و شورهای خانگی و محلی برای کنار هر سفره'},
+{handle:'legume',latinTitle:'Legumes · Palkokasvit',title:'حبوبات',description:'حبوبات تمیز و درجه‌یک برای خورشت‌ها، آش‌ها و پلوها'},
+{handle:'canned',latinTitle:'Canned & oils · Säilykkeet ja öljyt',title:'کنسرو و آماده',description:'کنسروها و مواد آماده برای آشپزی سریع‌تر، بدون کم کردن از کیفیت'},
+{handle:'nuts',latinTitle:'Nuts & dried fruit · Pähkinät',title:'خشکبار',description:'خشکبار و آجیل تازه و منتخب از بهترین باغ‌ها'}];
 const allProductsDescription='مواد غذایی اصیل ایرانی، منتخب و باکیفیت؛ همه محصولات ته‌دیگ در یک‌جا';
 
 const products=[
-{id:'gid://shopify/Product/1',legacyResourceId:1,handle:'tarom-hashemi-rice',title:'برنج طارم هاشمی درجه یک',vendor:'ته‌دیگ اورجینال',productType:'rice',collections:['rice'],tags:['برنج','غلات','معطر','اورگانیک','ایرانی'],badge:'پرفروش',
+{id:'gid://shopify/Product/1',legacyResourceId:1,handle:'tarom-hashemi-rice',latinTitle:'Tarom Hashemi rice · Riisi',searchTerms:'rice riisi basmati tarom hashemi',title:'برنج طارم هاشمی درجه یک',vendor:'ته‌دیگ اورجینال',productType:'rice',collections:['rice'],tags:['برنج','غلات','معطر','اورگانیک','ایرانی'],badge:'پرفروش',
  description:'از یک محصول غذایی با کیفیت بالا که با دقت برای راحتی روزمره انتخاب شده است، لذت ببرید. این محصول برای ارائه طعم عالی و تازگی قابل اعتماد انتخاب شده است.',
  options:[{name:'وزن',values:['۱ کیلوگرم','۵ کیلوگرم','۱۰ کیلوگرم']}],
  variants:[v(101,'GM1000-11','۱ کیلوگرم',5.9,{pack:{qty:1,unit:'kg'}}),v(102,'GM1000-21','۵ کیلوگرم',24.5,{pack:{qty:5,unit:'kg'}}),v(103,'GM1000-41','۱۰ کیلوگرم',45,{pack:{qty:10,unit:'kg'}})],
  defaultVariant:'gid://shopify/ProductVariant/103',recurring:true,
  metafields:{stockNote:'موجود در انبار فنلاند',specs:[['تاریخ تولید','مرداد ۱۴۰۵'],['وزن محصول','۱، ۵، ۱۰ کیلوگرم'],['تاریخ انقضاء','مرداد ۱۴۰۷'],['نوع بسته‌بندی','کیسه نخی'],['مناسب برای','چلو و پلوهای مجلسی']],storage:DRY_STORAGE,cooking:'برنج را چند مرتبه با آب سرد بشویید. در صورت تمایل، پیش از پخت در آب و نمک خیس کنید و سپس به روش کته یا آبکش بپزید. مقدار آب و زمان پخت با توجه به روش انتخابی متفاوت است.'},
  related:['saffron-sargol','polo-spice-mix','dried-ghormeh-herbs']},
-{id:'gid://shopify/Product/2',legacyResourceId:2,handle:'saffron-sargol',title:'زعفران سرگل ممتاز',vendor:'مزرعه قائنات',productType:'spice',collections:['spice'],tags:['زعفران','ادویه','ایرانی'],badge:'جدید',
+{id:'gid://shopify/Product/2',legacyResourceId:2,handle:'saffron-sargol',latinTitle:'Saffron (Sargol) · Sahrami',searchTerms:'saffron sahrami zafaran',title:'زعفران سرگل ممتاز',vendor:'مزرعه قائنات',productType:'spice',collections:['spice'],tags:['زعفران','ادویه','ایرانی'],badge:'جدید',
  variants:[v(201,'TD-2001','۱۰ گرم',22,{compareAt:26,pack:{qty:10,unit:'g'}})],recurring:true,
  metafields:{stockNote:'موجود در انبار فنلاند',specs:[['وزن محصول','۱۰ گرم']],storage:DRY_STORAGE},related:['tarom-hashemi-rice','olive-oil-extra-virgin']},
-{id:'gid://shopify/Product/3',legacyResourceId:3,handle:'polo-spice-mix',title:'ادویه مخصوص پلویی',vendor:'ته‌دیگ اورجینال',productType:'spice',collections:['spice'],tags:['ادویه','چاشنی'],
+{id:'gid://shopify/Product/3',legacyResourceId:3,handle:'polo-spice-mix',latinTitle:'Rice spice mix · Riisimauste',searchTerms:'spice mix mauste advieh polo',title:'ادویه مخصوص پلویی',vendor:'ته‌دیگ اورجینال',productType:'spice',collections:['spice'],tags:['ادویه','چاشنی'],
  variants:[v(301,'TD-3001','۴۰۰ گرم',12,{pack:{qty:400,unit:'g'}})],recurring:true,
  metafields:{stockNote:'موجود در انبار فنلاند',specs:[['وزن محصول','۴۰۰ گرم']],storage:DRY_STORAGE},related:['tarom-hashemi-rice','dried-ghormeh-herbs']},
-{id:'gid://shopify/Product/4',legacyResourceId:4,handle:'olive-oil-extra-virgin',title:'روغن زیتون فرابکر',vendor:'باغ زیتون',productType:'canned',collections:['canned'],tags:['روغن','زیتون'],
+{id:'gid://shopify/Product/4',legacyResourceId:4,handle:'olive-oil-extra-virgin',latinTitle:'Extra virgin olive oil · Oliiviöljy',searchTerms:'olive oil oliiviöljy öljy',title:'روغن زیتون فرابکر',vendor:'باغ زیتون',productType:'canned',collections:['canned'],tags:['روغن','زیتون'],
  variants:[v(401,'TD-4001','۵۰۰ میلی‌لیتر',14,{pack:{qty:500,unit:'ml'}})],recurring:true,
  metafields:{stockNote:'موجود در انبار فنلاند',specs:[['حجم','۵۰۰ میلی‌لیتر']]},related:['bulgarian-pickles','pistachio-akbari']},
-{id:'gid://shopify/Product/5',legacyResourceId:5,handle:'red-kidney-beans',title:'لوبیا قرمز درجه یک',vendor:'ته‌دیگ اورجینال',productType:'legume',collections:['legume'],tags:['حبوبات','لوبیا'],
+{id:'gid://shopify/Product/5',legacyResourceId:5,handle:'red-kidney-beans',latinTitle:'Red kidney beans · Kidneypavut',searchTerms:'kidney beans pavut papu lubia',title:'لوبیا قرمز درجه یک',vendor:'ته‌دیگ اورجینال',productType:'legume',collections:['legume'],tags:['حبوبات','لوبیا'],
  variants:[v(501,'TD-5001','۹۰۰ گرم',8,{available:false,pack:{qty:900,unit:'g'}})],recurring:true,
  metafields:{specs:[['وزن محصول','۹۰۰ گرم']],storage:DRY_STORAGE},related:['polo-spice-mix','dried-ghormeh-herbs']},
-{id:'gid://shopify/Product/6',legacyResourceId:6,handle:'dried-ghormeh-herbs',title:'سبزی خشک قورمه‌سبزی',vendor:'کوهستان',productType:'spice',collections:['spice'],tags:['سبزی خشک','قورمه‌سبزی'],badge:'پرفروش',
+{id:'gid://shopify/Product/6',legacyResourceId:6,handle:'dried-ghormeh-herbs',latinTitle:'Dried herbs for ghormeh sabzi · Kuivatut yrtit',searchTerms:'herbs yrtit ghormeh sabzi kuivattu',title:'سبزی خشک قورمه‌سبزی',vendor:'کوهستان',productType:'spice',collections:['spice'],tags:['سبزی خشک','قورمه‌سبزی'],badge:'پرفروش',
  variants:[v(601,'TD-6001','۲۰۰ گرم',9,{pack:{qty:200,unit:'g'}})],recurring:true,
  metafields:{stockNote:'موجود در انبار فنلاند',specs:[['وزن محصول','۲۰۰ گرم']],storage:DRY_STORAGE},related:['tarom-hashemi-rice','red-kidney-beans']},
-{id:'gid://shopify/Product/7',legacyResourceId:7,handle:'bulgarian-pickles',title:'خیارشور بلغاری ممتاز',vendor:'باغ ترشی',productType:'pickle',collections:['pickle'],tags:['ترشی','خیارشور'],
+{id:'gid://shopify/Product/7',legacyResourceId:7,handle:'bulgarian-pickles',latinTitle:'Pickled cucumbers · Suolakurkut',searchTerms:'pickles pickled cucumber suolakurkku kurkku',title:'خیارشور بلغاری ممتاز',vendor:'باغ ترشی',productType:'pickle',collections:['pickle'],tags:['ترشی','خیارشور'],
  variants:[v(701,'TD-7001','۷۰۰ گرم',7,{compareAt:9,pack:{qty:700,unit:'g'}})],recurring:true,
  metafields:{stockNote:'موجود در انبار فنلاند',specs:[['وزن محصول','۷۰۰ گرم']]},related:['olive-oil-extra-virgin','pistachio-akbari']},
-{id:'gid://shopify/Product/8',legacyResourceId:8,handle:'pistachio-akbari',title:'پسته اکبری درجه یک',vendor:'خشکبار رفسنجان',productType:'nuts',collections:['nuts'],tags:['خشکبار','پسته'],
+{id:'gid://shopify/Product/8',legacyResourceId:8,handle:'pistachio-akbari',latinTitle:'Akbari pistachios · Pistaasipähkinät',searchTerms:'pistachio pistaasi pähkinä nuts',title:'پسته اکبری درجه یک',vendor:'خشکبار رفسنجان',productType:'nuts',collections:['nuts'],tags:['خشکبار','پسته'],
  variants:[v(801,'TD-8001','۵۰۰ گرم',19,{pack:{qty:500,unit:'g'}})],recurring:true,
  metafields:{stockNote:'موجود در انبار فنلاند',specs:[['وزن محصول','۵۰۰ گرم']],storage:DRY_STORAGE},related:['olive-oil-extra-virgin','bulgarian-pickles']}];
 
@@ -1004,10 +1111,10 @@ const bundles=[
 
 /* Recipes: Shopify metaobjects (type "recipe") that reference products. */
 const recipes=[
-{handle:'sabzi-polo-mahi',title:'سبزی‌پلو با ماهی',category:'برنجی',time:'۱ ساعت و ۳۰ دقیقه',difficulty:'آسان',servings:4,ingredients:[{handle:'tarom-hashemi-rice',qty:600,unit:'g'},{handle:'dried-ghormeh-herbs',qty:200,unit:'g'}],pantry:['نمک','روغن','زردچوبه'],steps:['برنج را خیس کرده و بشویید.','سبزی معطر را آماده کنید.','برنج و سبزی را لایه‌ای دم کنید.','ماهی را جداگانه آماده و سرو کنید.']},
-{handle:'ghormeh-sabzi',title:'خورشت قورمه‌سبزی',category:'خورشت‌ها',time:'۲ ساعت',difficulty:'متوسط',servings:4,ingredients:[{handle:'dried-ghormeh-herbs',qty:200,unit:'g'},{handle:'red-kidney-beans',qty:450,unit:'g'},{handle:'polo-spice-mix',qty:120,unit:'g'}],pantry:['نمک','فلفل','روغن','لیمو عمانی'],steps:['سبزی‌ها را با روغن تفت دهید تا معطر شوند.','گوشت را اضافه کرده و کمی تفت دهید.','لوبیا و آب را اضافه کنید و بپزید.','لیمو عمانی را اضافه و روی حرارت ملایم دم کنید.']},
-{handle:'gheimeh',title:'خورشت قیمه',category:'خورشت‌ها',time:'۱ ساعت و ۴۵ دقیقه',difficulty:'آسان',servings:4,ingredients:[{handle:'red-kidney-beans',qty:400,unit:'g'},{handle:'polo-spice-mix',qty:80,unit:'g'}],pantry:['پیاز','روغن','آب لیمو'],steps:['پیاز را تفت دهید.','مواد خورشت را اضافه کنید.','با آب بپزید تا نرم شود.','با سیب‌زمینی سرخ‌شده سرو کنید.']},
-{handle:'zereshk-polo',title:'زرشک‌پلو',category:'برنجی',time:'۱ ساعت',difficulty:'آسان',servings:4,ingredients:[{handle:'tarom-hashemi-rice',qty:600,unit:'g'},{handle:'saffron-sargol',qty:5,unit:'g'}],pantry:['کره','شکر'],steps:['برنج را دم کنید.','زرشک را تفت دهید.','زعفران دم‌کرده را اضافه کنید.','با مرغ سرو کنید.']},
+{handle:'sabzi-polo-mahi',title:'سبزی‌پلو با ماهی',category:'برنجی',time:'۱ ساعت و ۳۰ دقیقه',difficulty:'آسان',servings:4,ingredients:[{handle:'tarom-hashemi-rice',qty:600,unit:'g'},{handle:'dried-ghormeh-herbs',qty:200,unit:'g'}],pantry:['ماهی','نمک','روغن','زردچوبه'],steps:['برنج را خیس کرده و بشویید.','سبزی معطر را آماده کنید.','برنج و سبزی را لایه‌ای دم کنید.','ماهی را جداگانه آماده و سرو کنید.']},
+{handle:'ghormeh-sabzi',title:'خورشت قورمه‌سبزی',category:'خورشت‌ها',time:'۲ ساعت',difficulty:'متوسط',servings:4,ingredients:[{handle:'dried-ghormeh-herbs',qty:200,unit:'g'},{handle:'red-kidney-beans',qty:450,unit:'g'},{handle:'polo-spice-mix',qty:120,unit:'g'}],pantry:['گوشت خورشتی','نمک','فلفل','روغن','لیمو عمانی'],steps:['سبزی‌ها را با روغن تفت دهید تا معطر شوند.','گوشت را اضافه کرده و کمی تفت دهید.','لوبیا و آب را اضافه کنید و بپزید.','لیمو عمانی را اضافه و روی حرارت ملایم دم کنید.']},
+{handle:'gheimeh',title:'خورشت قیمه',category:'خورشت‌ها',time:'۱ ساعت و ۴۵ دقیقه',difficulty:'آسان',servings:4,ingredients:[{handle:'red-kidney-beans',qty:400,unit:'g'},{handle:'polo-spice-mix',qty:80,unit:'g'}],pantry:['گوشت خورشتی','پیاز','روغن','آب لیمو'],steps:['پیاز را تفت دهید.','مواد خورشت را اضافه کنید.','با آب بپزید تا نرم شود.','با سیب‌زمینی سرخ‌شده سرو کنید.']},
+{handle:'zereshk-polo',title:'زرشک‌پلو',category:'برنجی',time:'۱ ساعت',difficulty:'آسان',servings:4,ingredients:[{handle:'tarom-hashemi-rice',qty:600,unit:'g'},{handle:'saffron-sargol',qty:5,unit:'g'}],pantry:['مرغ','کره','شکر'],steps:['برنج را دم کنید.','زرشک را تفت دهید.','زعفران دم‌کرده را اضافه کنید.','با مرغ سرو کنید.']},
 {handle:'adas-polo',title:'عدس‌پلو',category:'برنجی',time:'۵۰ دقیقه',difficulty:'آسان',servings:4,ingredients:[{handle:'tarom-hashemi-rice',qty:500,unit:'g'},{handle:'red-kidney-beans',qty:300,unit:'g'}],pantry:['خرما','پیاز داغ','دارچین'],steps:['عدس را نیم‌پز کنید.','برنج و عدس را دم کنید.','با خرما و پیاز داغ سرو کنید.']}];
 /* Pantry items that can also be bought from the store */
 const pantryMatches={'روغن':'olive-oil-extra-virgin'};
@@ -1027,8 +1134,11 @@ support:{title:'پشتیبانی'},shipping:{title:'ارسال و تحویل'},r
 
 const shop={name:'ته‌دیگ',currencyCode:'EUR',locale:'fa',country:'FI',
  shippingText:'روش‌ها، هزینه و زمان تقریبی تحویل پس از واردکردن نشانی در مرحله پرداخت نمایش داده می‌شود. پس از ارسال، اطلاعات پیگیری سفارش در اختیارت قرار می‌گیرد.',
- /* In production these come from Shopify shipping profiles and discount rules */
- freeShippingThreshold:40,standardShippingFee:5,discountCodes:{TAHDIG10:{type:'percentage',value:.1}}};
+ /* Shipping cost, free-shipping threshold, carriers and delivery times are NOT
+    confirmed yet. Leave them null: the UI then says shipping is calculated at
+    checkout. Set numbers here (or read Shopify shipping profiles) once decided. */
+ freeShippingThreshold:null,standardShippingFee:null,
+ discountCodes:{TAHDIG10:{type:'percentage',value:.1}}};
 
 window.TAHDIG_MOCK={shop,collections,allProductsDescription,products,bundles,recipes,pantryMatches,pages};
 })();
@@ -1065,7 +1175,7 @@ function normVariant(raw,product){
   return{id:raw.id,sku:raw.sku,title:raw.title,price,compareAt,available:raw.availableForSale,pack,unitPrice,productHandle:product.handle,kind:'product'};
 }
 function normProduct(raw){
-  const p={id:raw.id,legacyId:raw.legacyResourceId,handle:raw.handle,title:raw.title,vendor:raw.vendor,collection:raw.collections[0],tags:raw.tags||[],badge:raw.badge||null,
+  const p={id:raw.id,legacyId:raw.legacyResourceId,handle:raw.handle,title:raw.title,latinTitle:raw.latinTitle||'',searchTerms:raw.searchTerms||'',vendor:raw.vendor,collection:raw.collections[0],tags:raw.tags||[],badge:raw.badge||null,
     description:raw.description||'',recurringEligible:!!raw.recurring,optionName:raw.options?.[0]?.name||'وزن',
     stockNote:raw.metafields?.stockNote||'',specs:raw.metafields?.specs||[],storage:raw.metafields?.storage||'',cooking:raw.metafields?.cooking||'',related:raw.related||[]};
   p.variants=raw.variants.map(x=>normVariant(x,p));
@@ -1101,7 +1211,10 @@ const Catalog={
   variant:id=>variants.get(id)||null,
   inCollection:h=>h&&h!=='all'?products.filter(p=>p.collection===h):products.slice(),
   related(p,n=4){const list=p.related.map(h=>byHandle.get(h)).filter(Boolean);products.forEach(x=>{if(list.length<n&&x!==p&&!list.includes(x)&&x.collection===p.collection)list.push(x)});products.forEach(x=>{if(list.length<n&&x!==p&&!list.includes(x))list.push(x)});return list.slice(0,n)},
-  search(q,list=products){const n=normFa(q);if(!n)return list;return list.filter(p=>[p.title,p.vendor,p.tags.join(' '),collections.find(c=>c.handle===p.collection)?.title].some(s=>normFa(s).includes(n)))},
+  /* matches Persian, English and Finnish names, tags and collection names; every word must match */
+  search(q,list=products){const words=normFa(q).split(' ').filter(Boolean);if(!words.length)return list;return list.filter(p=>{const c=collections.find(x=>x.handle===p.collection),hay=normFa([p.title,p.latinTitle,p.searchTerms,p.vendor,p.tags.join(' '),c?.title,c?.latinTitle].join(' '));return words.every(w=>hay.includes(w))})},
+  /* restrained cart complements: related products of what is in the cart, in stock, not already added */
+  complements(lines,n=3){const inCart=new Set(lines.map(l=>l.product.handle)),seen=new Set(),out=[];lines.forEach(l=>{const rel=l.product.kind==='bundle'?[]:l.product.related;rel.forEach(h=>{const p=byHandle.get(h);if(p&&p.available&&!inCart.has(h)&&!seen.has(h)&&out.length<n){seen.add(h);out.push(p)}})});return out},
   sort(list,mode){const l=list.slice(),pr=p=>p.defaultVariant.price;if(mode==='cheap')l.sort((a,b)=>pr(a)-pr(b));if(mode==='expensive')l.sort((a,b)=>pr(b)-pr(a));if(mode==='new')l.sort((a,b)=>b.legacyId-a.legacyId);return l},
   /* recipe helper: packs needed for an ingredient at a serving count */
   packsFor(ing,servings,baseServings){const v=ing.product.defaultVariant,need=Math.round(ing.qty*servings/baseServings);if(!v.pack||!UNIT[ing.unit]||!UNIT[v.pack.unit]||UNIT[ing.unit][0]!==UNIT[v.pack.unit][0])return{need,packs:null};return{need,packs:Math.max(1,Math.ceil(need*UNIT[ing.unit][1]/(v.pack.qty*UNIT[v.pack.unit][1])))}}
@@ -1134,8 +1247,11 @@ const Cart={
   removeCode(c){cartState.codes=cartState.codes.filter(x=>x!==c);commit()},
   /* mirrors Shopify cart.cost: subtotal, discount allocations, shipping estimate */
   totals(){const lines=this.lines(),subtotal=lines.reduce((s,l)=>s+l.total,0);let discount=0;cartState.codes.forEach(c=>{const d=RAW.shop.discountCodes[c];if(d?.type==='percentage')discount+=subtotal*d.value});
-    const after=subtotal-discount,free=RAW.shop.freeShippingThreshold,shipping=!lines.length||after>=free?0:RAW.shop.standardShippingFee;
-    return{subtotal,discount,shipping,total:after+shipping,freeRemaining:Math.max(0,free-after),freeThreshold:free,count:this.count()}}
+    const after=subtotal-discount;
+    /* shipping stays null (= calculated at checkout) until the business confirms its rules */
+    const fee=RAW.shop.standardShippingFee,free=RAW.shop.freeShippingThreshold,known=fee!=null;
+    const shipping=!known?null:(free!=null&&after>=free?0:fee);
+    return{subtotal,discount,shipping,shippingKnown:known,total:after+(shipping||0),freeThreshold:free,freeRemaining:free!=null?Math.max(0,free-after):null,count:this.count()}}
 };
 function commit(){save('cart',cartState);emit('cart')}
 
@@ -1157,13 +1273,14 @@ const Recurring={
   resume(){recState.status='active';commitRec()},
   cancel(){recState.status='cancelled';recState.skipNext=false;commitRec()},
   toggleSkip(){if(recState.status!=='active')return;recState.skipNext=!recState.skipNext;commitRec()},
-  estimate(){const items=this.items(),subtotal=items.reduce((s,l)=>s+l.total,0);return{subtotal,shipping:!items.length||subtotal>=RAW.shop.freeShippingThreshold?0:RAW.shop.standardShippingFee,count:items.reduce((s,l)=>s+l.qty,0)}},
+  estimate(){const items=this.items(),subtotal=items.reduce((s,l)=>s+l.total,0);return{subtotal,count:items.reduce((s,l)=>s+l.qty,0)}},
   nextDelivery(){const f=FREQS.find(x=>x[0]===recState.frequency)||FREQS[1],d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+(recState.status==='draft'?7:f[2]*(recState.skipNext?2:1)));return d}
 };
 function commitRec(){save('recurring',recState);emit('recurring')}
 
 /* ---------- Customer (guest prototype) ---------- */
-const custState=load('customer',{address:{name:'',contact:'',street:'',postal:'',city:''},orders:[],favorites:[]});
+const custState=load('customer',{address:{name:'',contact:'',street:'',postal:'',city:''},orders:[],favorites:[],notify:{}});
+custState.notify=custState.notify||{};
 const Customer={
   address:()=>({...custState.address}),
   saveAddress(a){custState.address={...a};save('customer',custState);emit('customer')},
@@ -1172,6 +1289,9 @@ const Customer={
   isFav:h=>custState.favorites.includes(h),
   toggleFav(h){const i=custState.favorites.indexOf(h);i<0?custState.favorites.push(h):custState.favorites.splice(i,1);save('customer',custState);emit('favorites');return i<0},
   favorites:()=>custState.favorites.map(h=>byHandle.get(h)).filter(Boolean),
+  /* back-in-stock request for a variant; stored locally in the prototype */
+  notifyEmail:vid=>custState.notify[vid]||'',
+  requestNotify(vid,email){custState.notify[vid]=email;save('customer',custState);emit('notify')},
   /* prototype only: Shopify creates the order after checkout */
   placeOrder(meta){const t=Cart.totals(),o={id:'TD-'+Math.floor(100000+Math.random()*900000),lines:Cart.lines().map(l=>({title:l.product.title,variant:l.variant.title,qty:l.qty,total:l.total})),total:t.total,placedAt:new Date().toISOString(),status:'در حال آماده‌سازی',...meta};custState.orders.push(o);save('customer',custState);Cart.clear();emit('customer');return o}
 };
@@ -1193,7 +1313,7 @@ const FA='۰۱۲۳۴۵۶۷۸۹';
 const faNum=n=>String(n).replace(/\d/g,d=>FA[d]).replace(/\./g,'٫');
 const toEn=s=>String(s).replace(/[۰-۹]/g,d=>FA.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
 /* 45 → ۴۵ · 44.8 → ۴۴٫۸۰ */
-const amount=n=>faNum(Number.isInteger(Math.round(n*100)/100)?Math.round(n):n.toFixed(2));
+const amount=n=>{const r=Math.round(n*100)/100,str=Number.isInteger(r)?String(Math.round(r)):r.toFixed(2),[i,d]=str.split('.');return faNum(i.replace(/\B(?=(\d{3})+(?!\d))/g,',').replace(/,/g,'٬')+(d?'.'+d:''))};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const attr=o=>Object.entries(o).filter(([,v])=>v!==undefined&&v!==null&&v!==false).map(([k,v])=>v===true?k:`${k}="${esc(v)}"`).join(' ');
 
@@ -1217,16 +1337,18 @@ function stepper({scope,vid,qty,name,size='',min=0,enter=false,tone=''}){
 }
 /* <AddToCartControl> — cart button that becomes a stepper once added */
 function addControl(p,v,qty,enter){
-  if(!v.available)return `<button type="button" class="t-bell-btn" data-action="notify" aria-label="وقتی ${esc(p.title)} موجود شد خبرم کن">${icon('bell')}</button>`;
+  if(!v.available)return `<a class="t-bell-btn" href="#/product/${p.handle}?notify=1" aria-label="وقتی ${esc(p.title)} موجود شد خبرم کن">${icon('bell')}</a>`;
   if(!qty)return `<button type="button" class="t-add-btn" data-action="qty" data-d="1" data-scope="cart" data-v="${esc(v.id)}" aria-label="افزودن ${esc(p.title)} به سبد">${icon('cart')}</button>`;
   return stepper({scope:'cart',vid:v.id,qty,name:p.title,enter});
 }
+/* <UnitPrice> — comparison price (€/kg, €/L), shown when the pack is not already 1 kg / 1 L */
+const unitPrice=(v,cls='t-unit')=>v.unitPrice&&!(v.pack&&v.pack.qty===1&&(v.pack.unit==='kg'||v.pack.unit==='l'))?`<span class="${cls}">هر ${v.unitPrice.unit==='لیتر'?'لیتر':'کیلو'} ${amount(v.unitPrice.value)} €</span>`:'';
 /* <ProductCard> */
 function productCard(p,qty){
   const v=p.defaultVariant,href=`#/product/${p.handle}`;
   return `<article class="t-card${p.available?'':' is-oos'}"><a class="t-card-media t-ph" href="${href}" tabindex="-1" aria-hidden="true">${icon('image')}</a>`+
   `<div class="t-card-info"><h3 class="t-card-name"><a class="t-card-link" href="${href}">${esc(p.title)}</a></h3><span class="t-card-weight">${esc(v.title)}</span></div>`+
-  `<div class="t-card-foot">${p.available?price(v):'<span class="t-oos">ناموجود</span>'}<div data-qty-for="${esc(v.id)}">${addControl(p,v,qty)}</div></div></article>`;
+  `<div class="t-card-foot">${p.available?`<div class="t-card-price">${price(v)}${unitPrice(v)}</div>`:'<span class="t-oos">ناموجود</span>'}<div data-qty-for="${esc(v.id)}">${addControl(p,v,qty)}</div></div></article>`;
 }
 /* <Breadcrumbs> */
 function crumbs(items,cls=''){
@@ -1258,7 +1380,7 @@ const helpPanel=()=>`<section class="t-help" aria-labelledby="tHelpT"><h2 id="tH
 /* Dates shown in the Gregorian calendar with Persian digits (Nordic market) */
 const date=(d,o={day:'numeric',month:'long'})=>{try{return new Intl.DateTimeFormat('fa-IR-u-ca-gregory-nu-arabext',o).format(d)}catch(e){return faNum(d.toISOString().slice(0,10))}};
 
-window.UI={faNum,toEn,amount,esc,attr,icon,ph,money,price,stepper,addControl,productCard,crumbs,recipeMeta,recipeCard,bundleCard,empty,accItem,specList,payLogos,helpPanel,date};
+window.UI={unitPrice,faNum,toEn,amount,esc,attr,icon,ph,money,price,stepper,addControl,productCard,crumbs,recipeMeta,recipeCard,bundleCard,empty,accItem,specList,payLogos,helpPanel,date};
 })();
 
 </script>
@@ -1279,7 +1401,7 @@ const shopUI={c:'all',q:'',sort:'popular',limit:SHOP_PAGE};
 const recipesUI={cat:'همه',q:''};
 const pdUI={};          // per product handle: {vid, qty, img}
 const bundleUI={};      // per bundle handle: {qty}
-const recipeUI={};      // per recipe handle: {serv, off:Set, lacking:Set}
+const recipeUI={};      // per recipe handle: {serv, off:Set, have:Set, added}
 const coUI={step:1,errors:{},window:'morning',payment:'card',order:null};
 const recUI={picker:false,q:''};
 let current=null;       // {name, args, params}
@@ -1369,7 +1491,7 @@ function renderShop(){
   $('#resultCount').textContent=`${faNum(list.length)} محصول`;
   $('#productGrid').innerHTML=list.slice(0,shopUI.limit).map(p=>U.productCard(p,Cart.qty(p.defaultVariant.id))).join('');
   $('#tMore').hidden=list.length<=shopUI.limit;
-  $('#shopEmpty').innerHTML=list.length?'':U.empty({ic:'search',title:shopUI.q?`برای «${shopUI.q}» محصولی پیدا نشد`:'محصولی پیدا نشد',text:'نام محصول را کوتاه‌تر بنویس یا در همه دسته‌ها جستجو کن.',action:`<button type="button" class="t-btn is-primary is-sm" data-action="shop-reset">مشاهده همه محصولات</button>`});
+  $('#shopEmpty').innerHTML=list.length?'':U.empty({ic:'search',title:shopUI.q?`برای «${shopUI.q}» محصولی پیدا نشد`:'محصولی پیدا نشد',text:'نام محصول را کوتاه‌تر بنویس؛ جستجو به فارسی، انگلیسی و فنلاندی کار می‌کند.',action:`<div class="t-suggest" aria-label="جستجوهای پیشنهادی">${['برنج','زعفران','ادویه','Rice','Sahrami'].map(q=>`<button type="button" class="t-tab no-n" data-action="suggest" data-q="${q}">${q}</button>`).join('')}</div><button type="button" class="t-btn is-primary is-sm" data-action="shop-reset">مشاهده همه محصولات</button>`});
 }
 
 /* ---------- Product detail ---------- */
@@ -1385,9 +1507,9 @@ VIEWS.product=(handle,params)=>{
     <button type="button" data-action="toast" data-msg="بزرگ‌نمایی تصویر با عکس‌های نهایی محصول فعال می‌شود" aria-label="بزرگ‌نمایی تصویر">${icon('zoom')}</button></div></div>
    <div class="t-thumbs" role="group" aria-label="تصاویر محصول">${[0,1,2,3].map(i=>`<button type="button" class="t-thumb" data-action="thumb" data-k="${i}" aria-label="تصویر ${faNum(i+1)}" aria-current="${st.img===i}">${icon('image')}</button>`).join('')}</div>
   </div><div class="t-pd-info" id="pdBuy">${pdBuy(p,st)}</div></div></div>
-  <section class="t-sec" aria-labelledby="pdRelT"><h2 class="t-title" id="pdRelT">همراه این محصول</h2><div class="t-rail">${Catalog.related(p,4).map(x=>U.productCard(x,Cart.qty(x.defaultVariant.id))).join('')}</div></section>
+  <section class="t-sec" aria-labelledby="pdRelT"><h2 class="t-title" id="pdRelT">${p.available?'همراه این محصول':'محصولات مشابه'}</h2><div class="t-rail">${Catalog.related(p,4).map(x=>U.productCard(x,Cart.qty(x.defaultVariant.id))).join('')}</div></section>
   <div class="t-buybar" id="pdBar" aria-hidden="true" inert>${pdBar(p,st)}</div>`;
-  return{title:p.title,html,buybar:true,mount(){watchBuybar('#pdCta','#pdBar')}};
+  return{title:p.title,html,buybar:true,mount(){watchBuybar('#pdCta','#pdBar');if(params.get('notify'))setTimeout(()=>$('#notifyEmail')?.focus({preventScroll:false}),120)}};
 };
 function pdBuy(p,st){
   const v=p.variants.find(x=>x.id===st.vid),inCart=Cart.qty(v.id),inRec=Recurring.qty(v.id);
@@ -1396,13 +1518,17 @@ function pdBuy(p,st){
     p.storage&&U.accItem({ic:'box',title:'شرایط نگهداری',body:`<p>${esc(p.storage)}</p>`}),
     p.cooking&&U.accItem({ic:'pot',title:'روش پخت',body:`<p>${esc(p.cooking)}</p>`}),
     U.accItem({ic:'truck',title:'روش ارسال',body:`<p>${esc(Catalog.shop.shippingText)}</p>`})].filter(Boolean).join('');
-  return `<h1>${esc(p.title)}</h1>
+  const notified=Customer.notifyEmail(v.id);
+  const notify=notified?`<p class="t-note is-ok">${icon('check')}<span>وقتی «${esc(p.title)}» دوباره موجود شد، به <b dir="ltr">${esc(notified)}</b> خبر می‌دهیم.</span></p>`
+    :`<form class="t-notify" data-form="notify" data-v="${esc(v.id)}" novalidate><p><b>فعلاً ناموجود است.</b> ایمیلت را بگذار تا به محض موجود شدن خبرت کنیم.</p><div class="t-inline-form"><input id="notifyEmail" type="email" inputmode="email" autocomplete="email" enterkeyhint="send" placeholder="ایمیل شما" aria-label="ایمیل برای اطلاع از موجود شدن" aria-describedby="notifyErr"><button class="t-btn is-primary">${icon('bell')}خبرم کن</button></div><p class="t-err" id="notifyErr" role="alert"></p></form>`;
+  return `<h1>${esc(p.title)}</h1>${p.latinTitle?`<p class="t-latin" lang="en" dir="ltr">${esc(p.latinTitle)}</p>`:''}
   <div class="t-pd-meta"><span><span class="k">کد محصول:</span> <span class="sku">${esc(v.sku)}</span></span><span class="t-stock${v.available?'':' is-out'}">${v.available?esc(p.stockNote||'موجود'):'ناموجود'}</span></div>
   ${p.tags.length?`<p class="t-pd-tags">${p.tags.map(esc).join('، ')}</p>`:''}
   <div class="t-pd-desc">${esc(p.description||'توضیحات کامل این محصول به‌زودی اضافه می‌شود.')}</div>
   ${p.variants.length>1?`<div class="t-pd-opt"><h2 id="pdOptT">انتخاب ${esc(p.optionName)}</h2><div class="t-choices" role="radiogroup" aria-labelledby="pdOptT">${p.variants.map(x=>`<button type="button" class="t-choice" role="radio" data-action="variant" data-v="${esc(x.id)}" aria-checked="${x.id===v.id}"${x.available?'':' data-unavailable'}>${esc(x.title)}</button>`).join('')}</div></div>`:''}
-  <div class="t-pd-buy"><div class="t-pd-price">${v.unitPrice&&p.variants.length>1?`<small>هر ${v.unitPrice.unit} ${amount(v.unitPrice.value)} €</small>`:''}${price(v)}</div>${v.available?U.stepper({scope:'pd',vid:v.id,qty:st.qty,name:p.title,min:1,tone:'on-beige'}):''}</div>
-  <div class="t-pd-cta" id="pdCta">${v.available?`<button type="button" class="t-btn is-primary is-block" data-action="pd-add" data-v="${esc(v.id)}">${icon('cart')}<span>افزودن به سبد</span><span class="sep" aria-hidden="true">—</span><span>${amount(v.price*st.qty)} €</span></button>`:`<button type="button" class="t-btn is-ghost is-block" data-action="notify">${icon('bell')}وقتی موجود شد خبرم کن</button>`}</div>
+  <div class="t-pd-buy"><div class="t-pd-price">${U.unitPrice(v,'t-pd-unit')}${price(v)}</div>${v.available?U.stepper({scope:'pd',vid:v.id,qty:st.qty,name:p.title,min:1,tone:'on-beige'}):''}</div>
+  <div class="t-pd-cta" id="pdCta">${v.available?`<button type="button" class="t-btn is-primary is-block" data-action="pd-add" data-v="${esc(v.id)}">${icon('cart')}<span>افزودن به سبد</span><span class="sep" aria-hidden="true">—</span><span>${amount(v.price*st.qty)} €</span></button>`:notify}</div>
+  ${v.available?`<ul class="t-assure" aria-label="اطمینان خرید"><li>${icon('lock')}پرداخت امن</li><li>${icon('truck')}ارسال قابل پیگیری</li><li>${icon('help')}پشتیبانی به زبان خودت</li></ul>`:''}
   ${inCart?`<p class="t-note is-ok" style="margin-top:12px">${icon('check')}<span>${faNum(inCart)} عدد از این محصول در سبد توست · <a href="#/cart" style="font-weight:700;text-decoration:underline;text-underline-offset:4px">مشاهده سبد</a></span></p>`:''}
   ${p.recurringEligible&&v.available?`<div class="t-pd-recur">${inRec?`<a class="t-link" href="#/recurring">${icon('repeat')}در فهرست خرید دوره‌ای توست (${faNum(inRec)} عدد)</a>`:`<button type="button" class="t-link" data-action="rec-add" data-v="${esc(v.id)}">${icon('repeat')}افزودن به خرید دوره‌ای</button>`}</div>`:''}
   <div class="t-acc">${acc}</div>`;
@@ -1440,9 +1566,9 @@ VIEWS.recipe=(handle)=>{
   </div></div>`;
   return{title:r.title,html};
 };
-function recipeState(r){return recipeUI[r.handle]||(recipeUI[r.handle]={serv:r.servings,off:new Set(),lacking:new Set()})}
+function recipeState(r){return recipeUI[r.handle]||(recipeUI[r.handle]={serv:r.servings,off:new Set(),have:new Set()})}
 function recipeShop(r){
-  const st=recipeState(r);let n=0,packs=0,total=0;
+  const st=recipeState(r);let n=0,packs=0,total=0;st.have=st.have||new Set();
   const rows=r.ingredients.map(ing=>{const p=ing.product,v=p.defaultVariant,{need,packs:k}=Catalog.packsFor(ing,st.serv,r.servings),on=v.available&&!st.off.has(p.handle);
     if(on&&k){n++;packs+=k;total+=v.price*k}
     return `<div class="t-ing-row${v.available?'':' is-oos'}${on?'':' is-off'}"><button type="button" class="t-check" role="checkbox" data-action="ing" data-k="${p.handle}" aria-checked="${on}" aria-label="خرید ${esc(p.title)}"${v.available?'':' disabled'}>${icon('check')}</button>${U.ph('thumb')}<div><div class="name"><a href="#/product/${p.handle}">${esc(p.title)}</a></div><div class="need">نیاز: ${faNum(need)} ${ing.unit==='g'?'گرم':esc(ing.unit)} · ${k===null?'بسته قابل محاسبه نیست':`${faNum(k)} بسته ${esc(v.title)}`}</div></div><div class="amt">${v.available?`${amount(v.price*(k||0))} €`:'ناموجود'}</div></div>`}).join('');
@@ -1451,7 +1577,8 @@ function recipeShop(r){
   <section class="t-rd-sec" aria-labelledby="rdIT"><h2 id="rdIT">مواد قابل خرید از ته‌دیگ</h2><p class="t-sub">تعداد بسته‌ها بر اساس تعداد نفرات حساب شده است. هر مورد را که نمی‌خواهی بردار.</p>
    <div class="t-ing">${rows}</div>${oos?`<p class="t-note is-warn" style="margin-top:12px">${icon('info')}<span>${faNum(oos)} ماده فعلاً ناموجود است و به سبد اضافه نمی‌شود.</span></p>`:''}
    <div class="t-ing-sum"><div class="line"><span>${faNum(n)} محصول · ${faNum(packs)} بسته</span><b>${amount(total)} €</b></div><button type="button" class="t-btn is-primary is-block" data-action="recipe-add" data-k="${r.handle}"${n?'':' aria-disabled="true"'}>${icon('cart')}افزودن مواد به سبد</button></div></section>
-  <section class="t-rd-sec" aria-labelledby="rdHT"><h2 id="rdHT">احتمالاً در خانه داری</h2><p class="t-sub">اگر چیزی را نداری، علامت بزن تا در فهرستت بماند.</p><div class="t-have">${r.pantry.map(x=>{const lack=st.lacking.has(x.name),canBuy=lack&&x.product?.available;return `<div class="t-have-row"><span>${esc(x.name)}</span>${canBuy?`<button type="button" class="t-btn is-ghost is-sm" data-action="pantry-buy" data-k="${x.product.handle}">${icon('plus')}خرید</button>`:''}<button type="button" class="t-choice" data-action="have" data-k="${esc(x.name)}" aria-pressed="${!lack}">${lack?'ندارم':'دارم'}</button></div>`}).join('')}</div></section>`;
+  ${st.added?`<p class="t-note is-ok" style="margin-top:12px">${icon('check')}<span>${faNum(st.added)} محصول به سبد اضافه شد · <a href="#/cart" style="font-weight:700;text-decoration:underline;text-underline-offset:4px">مشاهده سبد</a></span></p>`:''}</section>
+  <section class="t-rd-sec" aria-labelledby="rdHT"><h2 id="rdHT">مواد دیگر این غذا</h2><p class="t-sub">این مواد را ته‌دیگ نمی‌فروشد و باید جداگانه تهیه شود؛ آنچه در خانه داری را علامت بزن.</p><div class="t-have">${r.pantry.map(x=>{const has=st.have.has(x.name),sold=x.product?.available;return `<div class="t-have-row"><span>${esc(x.name)}${sold?'<small>در ته‌دیگ موجود است</small>':''}</span>${sold&&!has?`<button type="button" class="t-btn is-ghost is-sm" data-action="pantry-buy" data-k="${x.product.handle}">${icon('plus')}خرید</button>`:''}<button type="button" class="t-choice" role="checkbox" data-action="have" data-k="${esc(x.name)}" aria-checked="${has}" aria-label="${esc(x.name)} را دارم">${has?icon('check'):''}دارم</button></div>`}).join('')}</div></section>`;
 }
 VIEWS.recipe.update=()=>{};
 
@@ -1507,7 +1634,7 @@ VIEWS.recurring=()=>{
     <div class="t-status"><h3 style="margin:0">وضعیت</h3><span class="t-badge ${cls}">${label}</span></div>
     <div><h3 id="recFT">فاصله ارسال</h3><div class="t-choices" role="radiogroup" aria-labelledby="recFT">${Recurring.FREQS.map(([k,l])=>`<button type="button" class="t-choice" role="radio" data-action="rec-freq" data-k="${k}" aria-checked="${s.frequency===k}">${l}</button>`).join('')}</div></div>
     ${s.status==='cancelled'?'':`<div class="t-next">${icon('calendar')}<div><small>${s.status==='paused'?'ارسال‌ها متوقف است':s.status==='draft'?'اولین ارسال (پس از فعال‌سازی)':'ارسال بعدی'}${s.skipNext&&s.status==='active'?' · یک ارسال رد شد':''}</small><b>${s.status==='paused'?'—':U.date(Recurring.nextDelivery(),{weekday:'long',day:'numeric',month:'long'})}</b></div></div>`}
-    <div class="t-sumrows" style="margin-top:0"><div class="t-sumrow"><span>مبلغ هر ارسال (تقریبی)</span><b>${amount(est.subtotal)} €</b></div><div class="t-sumrow"><span>هزینه ارسال</span><b>${est.subtotal?(est.shipping?amount(est.shipping)+' €':'رایگان'):'—'}</b></div></div>
+    <div class="t-sumrows" style="margin-top:0"><div class="t-sumrow"><span>مبلغ هر ارسال (تقریبی)</span><b>${amount(est.subtotal)} €</b></div><div class="t-sumrow"><span>هزینه ارسال</span><b class="muted">هنگام ثبت محاسبه می‌شود</b></div></div>
     ${acts}
     <p class="t-sub" style="font-size:13px">مبلغ نهایی هر ارسال بر اساس قیمت روز محصولات محاسبه می‌شود. هر زمان می‌توانی فهرست، فاصله ارسال یا وضعیت را تغییر دهی.</p>
    </aside></div>
@@ -1528,23 +1655,28 @@ VIEWS.cart=()=>{
    <section class="t-panel t-code" aria-labelledby="codeT"><h2 id="codeT">کد تخفیف داری؟</h2><p>کد را وارد کن تا تخفیف روی سفارشت اعمال شود.</p>
     <form class="t-inline-form" data-form="code" novalidate><input id="codeIn" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done" placeholder="کد تخفیف" aria-label="کد تخفیف" aria-describedby="codeErr"><button class="t-btn is-primary">اعمال کد</button></form><p class="t-err" id="codeErr" role="alert"></p></section>
    ${summary(t,codes,true)}
-  </div></div></div>`;
+  </div>${complements(lines)}</div></div>`;
   return{title:'سبد خرید',html};
 };
+/* restrained complements: at most 3 related in-stock products, compact rows, one-tap add */
+function complements(lines){const list=Catalog.complements(lines,3);if(!list.length)return '';
+  return `<section class="t-panel t-comp" aria-labelledby="compT"><h2 id="compT">شاید این‌ها را هم لازم داشته باشی</h2><div class="t-comp-rows">${list.map(p=>{const v=p.defaultVariant;return `<div class="t-pick-row">${U.ph('thumb')}<div><a href="#/product/${p.handle}">${esc(p.title)}</a><small>${esc(v.title)} · ${amount(v.price)} €</small></div><button type="button" class="t-btn is-ghost" data-action="qty" data-d="1" data-scope="cart" data-v="${esc(v.id)}" aria-label="افزودن ${esc(p.title)} به سبد">${icon('plus')}افزودن</button></div>`}).join('')}</div></section>`}
+function shipRow(t,withMeter){
+  if(!t.shippingKnown)return `<div class="t-sumrow"><span>هزینه ارسال</span><b class="muted">در مرحله بعد</b><span class="full">هزینه ارسال پس از وارد کردن نشانی محاسبه می‌شود</span></div>`;
+  return `<div class="t-sumrow"><span>هزینه ارسال</span><b>${t.shipping?amount(t.shipping)+' €':'رایگان'}</b>${withMeter&&t.freeThreshold!=null?`<span class="full">${t.freeRemaining?`${amount(t.freeRemaining)} € تا ارسال رایگان`:'ارسال رایگان برای این سفارش فعال است'}</span>${t.freeRemaining?`<div class="t-ship-meter" style="flex-basis:100%;margin-top:0"><div class="bar"><i style="width:${Math.min(100,(1-t.freeRemaining/t.freeThreshold)*100)}%"></i></div></div>`:''}`:''}</div>`}
 function summary(t,codes,withCta){
   return `<section class="t-panel t-summary" aria-labelledby="sumT"><h2 id="sumT">سبد خرید شما</h2><p class="t-sub">${faNum(t.count)} محصول در سبد خرید</p>
   <div class="t-sumrows"><div class="t-sumrow"><span>جمع محصولات</span><b>${amount(t.subtotal)} €</b></div>
-   <div class="t-sumrow"><span>هزینه ارسال</span><b>${t.shipping?amount(t.shipping)+' €':'ارسال رایگان'}</b><span class="full">${t.freeRemaining?`فقط ${amount(t.freeRemaining)} € تا ارسال رایگان`:'ارسال رایگان برای سفارش شما فعال شد'}</span>${t.freeRemaining?`<div class="t-ship-meter" style="flex-basis:100%;margin-top:0"><div class="bar"><i style="width:${Math.min(100,(1-t.freeRemaining/t.freeThreshold)*100)}%"></i></div></div>`:''}</div>
+   ${shipRow(t,true)}
    ${t.discount?`<div class="t-sumrow is-disc"><span>تخفیف</span><b>−${amount(t.discount)} €</b>${codes.map(c=>`<span class="code"><span>${esc(c)}</span>${withCta?`<button type="button" data-action="code-remove" data-k="${esc(c)}" aria-label="حذف کد تخفیف ${esc(c)}">${icon('x-circle')}</button>`:''}</span>`).join('')}</div>`:''}</div>
-  <div class="t-total"><span>جمع کل</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p>
-  ${withCta?`<a class="t-btn is-primary is-block" href="#/checkout">ادامه و انتخاب روش ارسال</a>`:''}</section>`;
+  <div class="t-total"><span>${t.shippingKnown?'جمع کل':'جمع کل (بدون ارسال)'}</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p>
+  ${withCta?`<a class="t-btn is-primary is-block" href="#/checkout">ادامه و انتخاب روش ارسال</a><div class="t-sum-pay">${U.payLogos()}<p>${icon('lock')}پرداخت از مسیرهای امن و معتبر</p></div>`:''}</section>`;
 }
 
 /* ---------- Checkout (prototype of Shopify Checkout) ----------
    Production: redirect to cart.checkoutUrl (Shopify Checkout, branded with
    Checkout Extensibility). These steps only demonstrate the flow. */
 const CO_STEPS=['اطلاعات تماس','ارسال','پرداخت','بررسی'];
-const WINDOWS=[['morning','صبح','ساعت ۸ تا ۱۲'],['afternoon','بعدازظهر','ساعت ۱۲ تا ۱۶'],['evening','عصر','ساعت ۱۶ تا ۲۰']];
 const PAYMENTS=[['card','کارت بانکی','Visa، Mastercard'],['apple','Apple Pay',''],['google','Google Pay','']];
 VIEWS.checkout=()=>{
   if(coUI.step===5&&coUI.order)return doneView();
@@ -1556,11 +1688,11 @@ VIEWS.checkout=()=>{
      ${field('name','نام و نام خانوادگی',a.name,{ac:'name'})}${field('contact','ایمیل یا شماره تماس',a.contact,{ac:'email',ltr:true})}${field('street','نشانی',a.street,{ac:'street-address'})}
      <div class="t-row2">${field('postal','کد پستی',a.postal,{ac:'postal-code',im:'numeric',max:5,ltr:true})}${field('city','شهر',a.city,{ac:'address-level2',ek:'done'})}</div>
      <button class="t-btn is-primary is-block">ادامه به روش ارسال ${icon('arrow-left')}</button></form>`,
-   2:()=>`<h2>روش و زمان ارسال</h2><p class="t-sub">تحویل درب منزل به نشانی ${esc(a.postal)} ${esc(a.city)}</p><div class="t-options" role="radiogroup" aria-label="زمان تحویل">${WINDOWS.map(([k,n,d])=>`<button type="button" class="t-option" role="radio" data-action="co-window" data-k="${k}" aria-checked="${coUI.window===k}"><span class="t-radio"></span><span><b>${n}</b><small>${d}</small></span></button>`).join('')}</div><p class="t-note">${icon('info')}<span>بازه‌های تحویل نمونه هستند و در نسخه نهایی بر اساس نشانی تو نمایش داده می‌شوند.</span></p><button type="button" class="t-btn is-primary is-block" data-action="co-step" data-k="3">ادامه به پرداخت ${icon('arrow-left')}</button>`,
+   2:()=>`<h2>روش ارسال</h2><p class="t-sub">ارسال به ${esc(a.street)}، ${esc(a.postal)} ${esc(a.city)}</p><div class="t-options" role="radiogroup" aria-label="روش ارسال"><button type="button" class="t-option" role="radio" aria-checked="true"><span class="t-radio"></span><span><b>ارسال به نشانی ثبت‌شده</b><small>هزینه و زمان تقریبی تحویل در این مرحله نمایش داده می‌شود</small></span></button></div><p class="t-note">${icon('info')}<span>روش‌ها، هزینه و زمان تحویل در نسخه نهایی بر اساس نشانی تو از سامانه ارسال خوانده می‌شود. پس از ارسال، کد پیگیری سفارش را دریافت می‌کنی.</span></p><button type="button" class="t-btn is-primary is-block" data-action="co-step" data-k="3">ادامه به پرداخت ${icon('arrow-left')}</button>`,
    3:()=>`<h2>روش پرداخت</h2><p class="t-sub">پرداخت از مسیرهای امن و معتبر.</p><div class="t-options" role="radiogroup" aria-label="روش پرداخت">${PAYMENTS.map(([k,n,d])=>`<button type="button" class="t-option" role="radio" data-action="co-pay" data-k="${k}" aria-checked="${coUI.payment===k}"><span class="t-radio"></span><span><b>${n}</b>${d?`<small>${d}</small>`:''}</span></button>`).join('')}</div><p class="t-note">${icon('lock')}<span>این نسخه پیش‌نمایش است و هیچ مبلغی دریافت نمی‌شود.</span></p><button type="button" class="t-btn is-primary is-block" data-action="co-step" data-k="4">بررسی سفارش ${icon('arrow-left')}</button>`,
    4:()=>`<h2>بررسی و ثبت سفارش</h2><p class="t-sub">اطلاعات را یک بار دیگر بررسی کن.</p><div class="t-review">
      <div class="t-review-row"><div><small>گیرنده و نشانی</small><b>${esc(a.name)} · ${esc(a.street)}، ${esc(a.postal)} ${esc(a.city)}</b></div><button type="button" class="t-link" data-action="co-step" data-k="1">ویرایش</button></div>
-     <div class="t-review-row"><div><small>ارسال</small><b>تحویل درب منزل · ${WINDOWS.find(w=>w[0]===coUI.window)[1]} (${WINDOWS.find(w=>w[0]===coUI.window)[2]})</b></div><button type="button" class="t-link" data-action="co-step" data-k="2">ویرایش</button></div>
+     <div class="t-review-row"><div><small>ارسال</small><b>ارسال به نشانی ثبت‌شده · قابل پیگیری</b></div><button type="button" class="t-link" data-action="co-step" data-k="2">ویرایش</button></div>
      <div class="t-review-row"><div><small>پرداخت</small><b>${PAYMENTS.find(p=>p[0]===coUI.payment)[1]}</b></div><button type="button" class="t-link" data-action="co-step" data-k="3">ویرایش</button></div></div>
      <button type="button" class="t-btn is-primary is-block" data-action="co-place">ثبت سفارش — ${amount(t.total)} €</button>`}[coUI.step]();
   const mini=Cart.lines().map(l=>`<li><span class="img t-ph">${icon(l.product.kind==='bundle'?'gift':'image')}<em>${faNum(l.qty)}</em></span><span class="nm">${esc(l.product.title)}<small>${l.product.kind==='bundle'?'پکیج':esc(l.variant.title)}</small></span><b>${amount(l.total)} €</b></li>`).join('');
@@ -1568,36 +1700,52 @@ VIEWS.checkout=()=>{
   <header class="t-page-head"><h1>تکمیل سفارش</h1></header>
   <ol class="t-co-steps" aria-label="مراحل سفارش">${CO_STEPS.map((s,i)=>`<li class="${i+1<coUI.step?'done':''}"${i+1===coUI.step?' aria-current="step"':''}><span class="n">${i+1<coUI.step?icon('check'):faNum(i+1)}</span>${s}</li>`).join('')}</ol>
   <div class="t-co"><section class="t-panel t-co-main" aria-live="polite">${body}</section>
-   <aside class="t-panel t-co-side" aria-label="خلاصه سفارش"><details id="coSum"${matchMedia('(min-width:1024px)').matches?' open':''}><summary>خلاصه سفارش<b>${amount(t.total)} €</b>${icon('down')}</summary><div class="inner"><ul class="t-mini">${mini}</ul>
-    <div class="t-sumrows" style="margin-top:12px"><div class="t-sumrow"><span>جمع محصولات</span><b>${amount(t.subtotal)} €</b></div>${t.discount?`<div class="t-sumrow is-disc"><span>تخفیف (${esc(Cart.codes().join('، '))})</span><b>−${amount(t.discount)} €</b></div>`:''}<div class="t-sumrow"><span>هزینه ارسال</span><b>${t.shipping?amount(t.shipping)+' €':'رایگان'}</b></div></div>
-    <div class="t-total"><span>جمع کل</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p></div></details></aside></div></div>`;
+   <aside class="t-panel t-co-side" aria-label="خلاصه سفارش"><details id="coSum"${matchMedia('(min-width:768px)').matches?' open':''}><summary>خلاصه سفارش<b>${amount(t.total)} €</b>${icon('down')}</summary><div class="inner"><ul class="t-mini">${mini}</ul>
+    <div class="t-sumrows" style="margin-top:12px"><div class="t-sumrow"><span>جمع محصولات</span><b>${amount(t.subtotal)} €</b></div>${t.discount?`<div class="t-sumrow is-disc"><span>تخفیف (${esc(Cart.codes().join('، '))})</span><b>−${amount(t.discount)} €</b></div>`:''}${shipRow(t,false)}</div>
+    <div class="t-total"><span>${t.shippingKnown?'جمع کل':'جمع کل (بدون ارسال)'}</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p></div></details></aside></div></div>`;
   return{title:'تکمیل سفارش — '+CO_STEPS[coUI.step-1],footer:'lite',html,mount(){if(coUI.step===1&&Object.keys(coUI.errors).length)$('#view [aria-invalid="true"]')?.focus()}};
 };
 function doneView(){const o=coUI.order;return{title:'سفارش ثبت شد',footer:'lite',html:`<div class="t-wrap t-page-end" style="padding-top:24px"><section class="t-panel t-done"><div class="ok">${icon('check')}</div><h1>سفارشت با موفقیت ثبت شد</h1><p>از خریدت ممنونیم. وضعیت سفارش را در «سفارش‌های من» دنبال کن.</p><div class="no">شماره سفارش: <b>${esc(o.id)}</b></div><p>مبلغ کل: ${amount(o.total)} €</p><div class="acts"><a class="t-btn is-primary is-block" href="#/account/orders">مشاهده سفارش‌های من</a><a class="t-btn is-ghost is-block" href="#/">بازگشت به صفحه اصلی</a></div></section></div>`}}
 
 /* ---------- Account ---------- */
-VIEWS.account=()=>{
+/* Account: profile + navigation column | content column (side-by-side from tablet up) */
+function accountShell(active,title,main){
   const rs=Recurring.state(),orders=Customer.orders().length,favs=Customer.favorites().length;
-  const row=(href,ic,label,note)=>`<a href="${href}">${icon(ic)}<span>${label}${note?`<br><small>${note}</small>`:''}</span>${icon('chev-left','chev')}</a>`;
-  return{title:'حساب کاربری',html:`<div class="t-wrap t-page-end">${U.crumbs([['حساب کاربری']])}<header class="t-page-head"><h1>حساب کاربری</h1></header>
-  <div class="t-acct" style="margin-top:20px"><section class="t-panel t-acct-card"><span class="t-avatar">${icon('user')}</span><div><b>کاربر مهمان</b><small>برای پیگیری آسان‌تر سفارش‌ها وارد حساب شو.</small></div></section>
-  <button type="button" class="t-btn is-primary is-block" style="margin-top:14px" data-action="toast" data-msg="ورود به حساب در نسخه نهایی فعال می‌شود">ورود یا ساخت حساب</button>
-  <nav class="t-panel t-menu" aria-label="حساب من">${row('#/account/orders','doc','سفارش‌های من',orders?`${faNum(orders)} سفارش`:'')}${row('#/account/addresses','pin','آدرس‌های من',Customer.hasAddress()?Customer.address().city:'')}${row('#/recurring','repeat','خرید دوره‌ای من',REC_STATUS[rs.status][0])}${row('#/account/favorites','heart','علاقه‌مندی‌ها',favs?`${faNum(favs)} محصول`:'')}</nav>
-  <nav class="t-panel t-menu" aria-label="راهنما">${row('#/page/support','help','پشتیبانی')}${row('#/page/payment','card','روش‌های پرداخت')}${row('#/page/shipping','truck','ارسال و تحویل')}${row('#/page/returns','undo','مرجوعی و بازپرداخت')}</nav></div></div>`};
+  const row=(key,href,ic,label,note)=>`<a href="${href}"${key&&key===active?' aria-current="page"':''}>${icon(ic)}<span>${label}${note?`<br><small>${esc(note)}</small>`:''}</span>${icon('chev-left','chev')}</a>`;
+  const side=`<section class="t-panel t-acct-card"><span class="t-avatar">${icon('user')}</span><div><b>کاربر مهمان</b><small>برای پیگیری آسان‌تر سفارش‌ها وارد حساب شو.</small></div></section>
+  <button type="button" class="t-btn is-primary is-block" data-action="toast" data-msg="ورود به حساب در نسخه نهایی فعال می‌شود">ورود یا ساخت حساب</button>
+  <nav class="t-panel t-menu" aria-label="حساب من">${row('orders','#/account/orders','doc','سفارش‌های من',orders?`${faNum(orders)} سفارش`:'')}${row('addresses','#/account/addresses','pin','آدرس‌های من',Customer.hasAddress()?Customer.address().city:'')}${row('','#/recurring','repeat','خرید دوره‌ای من',REC_STATUS[rs.status][0])}${row('favorites','#/account/favorites','heart','علاقه‌مندی‌ها',favs?`${faNum(favs)} محصول`:'')}</nav>
+  <nav class="t-panel t-menu" aria-label="راهنما">${row('','#/page/support','help','پشتیبانی')}${row('','#/page/payment','card','روش‌های پرداخت')}${row('','#/page/shipping','truck','ارسال و تحویل')}${row('','#/page/returns','undo','مرجوعی و بازپرداخت')}</nav>`;
+  const crumbs=active?[['حساب کاربری','#/account'],[title]]:[['حساب کاربری']];
+  return `<div class="t-wrap t-page-end">${U.crumbs(crumbs)}<header class="t-page-head"><h1>${title}</h1></header><div class="t-acct${active?' is-sub':''}"><aside class="t-acct-side" aria-label="حساب من">${side}</aside><div class="t-acct-main">${main}</div></div></div>`;
+}
+VIEWS.account=()=>{
+  const last=Customer.orders()[0],rs=Recurring.state(),ri=Recurring.items(),a=Customer.address(),favs=Customer.favorites();
+  const card=(ic,t,href,link,body)=>`<section class="t-panel t-ov-card"><header>${icon(ic)}<h2>${t}</h2><a class="t-link" href="${href}">${link}${icon('chev-left')}</a></header>${body}</section>`;
+  const main=`<div class="t-ov">
+   ${card('doc','سفارش اخیر','#/account/orders','همه سفارش‌ها',last?`<p><b class="ltr">${esc(last.id)}</b> <span class="t-badge is-gold">${esc(last.status)}</span></p><p class="t-sub">${U.date(new Date(last.placedAt),{day:'numeric',month:'long'})} · ${faNum(last.lines.reduce((s,l)=>s+l.qty,0))} قلم · ${amount(last.total)} €</p>`:`<p class="t-sub">هنوز سفارشی ثبت نکرده‌ای.</p>`)}
+   ${card('repeat','خرید دوره‌ای','#/recurring','مدیریت',`<p><span class="t-badge ${REC_STATUS[rs.status][1]}">${REC_STATUS[rs.status][0]}</span></p><p class="t-sub">${ri.length?`${faNum(ri.length)} محصول در فهرست`+(rs.status==='active'?` · ارسال بعدی ${U.date(Recurring.nextDelivery())}`:''):'فهرستت هنوز خالی است.'}</p>`)}
+   ${card('pin','نشانی تحویل','#/account/addresses',Customer.hasAddress()?'ویرایش':'افزودن',Customer.hasAddress()?`<p class="t-sub"><b>${esc(a.name)}</b><br>${esc(a.street)}، ${esc(a.postal)} ${esc(a.city)}</p>`:`<p class="t-sub">هنوز نشانی ثبت نشده است.</p>`)}
+   ${card('heart','علاقه‌مندی‌ها','#/account/favorites','مشاهده',`<p class="t-sub">${favs.length?`${faNum(favs.length)} محصول: ${favs.slice(0,3).map(p=>esc(p.title)).join('، ')}`:'هنوز محصولی ذخیره نکرده‌ای.'}</p>`)}
+  </div>`;
+  return{title:'حساب کاربری',html:accountShell('','حساب کاربری',main)};
 };
 VIEWS.accountSub=(which)=>{
   const T={orders:'سفارش‌های من',addresses:'آدرس‌های من',favorites:'علاقه‌مندی‌ها'}[which];let body='';
-  if(which==='orders'){const os=Customer.orders();body=os.length?`<div class="t-orders">${os.map(o=>`<article class="t-panel t-order"><header><b>${esc(o.id)}</b><span class="t-badge is-gold">${esc(o.status)}</span></header><p>${U.date(new Date(o.placedAt),{day:'numeric',month:'long',year:'numeric'})} · ${faNum(o.lines.reduce((s,l)=>s+l.qty,0))} قلم</p><p>${o.lines.map(l=>esc(l.title)).join('، ')}</p><div class="t-price"><span>${amount(o.total)}</span><span class="cur">€</span></div></article>`).join('')}</div>`:`<section class="t-panel" style="margin-top:20px;padding:8px 20px">${U.empty({ic:'doc',title:'هنوز سفارشی ثبت نکرده‌ای',action:`<a class="t-btn is-primary is-sm" href="#/products">شروع خرید</a>`})}</section>`}
-  if(which==='addresses'){const a=Customer.address(),e=coUI.errors;body=`<section class="t-panel t-co-main" style="margin-top:20px"><h2>نشانی تحویل</h2><p class="t-sub">این نشانی در تکمیل سفارش استفاده می‌شود.</p><form class="t-co-form" data-form="addr" novalidate>${[['name','نام و نام خانوادگی','name'],['contact','ایمیل یا شماره تماس','email'],['street','نشانی','street-address'],['postal','کد پستی','postal-code'],['city','شهر','address-level2']].map(([id,l,ac])=>`<label class="t-field"><span>${l}</span><input class="t-input${id==='postal'||id==='contact'?' ltr':''}" id="${id}" value="${esc(a[id])}" autocomplete="${ac}"${id==='postal'?' inputmode="numeric" maxlength="5"':''}${e[id]?` aria-invalid="true" aria-describedby="${id}E"`:''}>${e[id]?`<span class="t-err" id="${id}E">${e[id]}</span>`:''}</label>`).join('')}<button class="t-btn is-primary is-block">ذخیره نشانی</button></form></section>`}
-  if(which==='favorites'){const f=Customer.favorites();body=f.length?`<div class="t-list">${f.map(p=>U.productCard(p,Cart.qty(p.defaultVariant.id))).join('')}</div>`:`<section class="t-panel" style="margin-top:20px;padding:8px 20px">${U.empty({ic:'heart',title:'هنوز محصولی ذخیره نکرده‌ای',text:'در صفحه هر محصول با علامت قلب، آن را ذخیره کن.',action:`<a class="t-btn is-primary is-sm" href="#/products">مشاهده محصولات</a>`})}</section>`}
-  return{title:T,html:`<div class="t-wrap t-page-end">${U.crumbs([['حساب کاربری','#/account'],[T]])}<header class="t-page-head"><h1>${T}</h1></header><div class="t-acct">${body}</div></div>`};
+  const emptyPanel=o=>`<section class="t-panel" style="padding:8px 20px">${U.empty(o)}</section>`;
+  if(which==='orders'){const os=Customer.orders();body=os.length?`<div class="t-orders">${os.map(o=>`<article class="t-panel t-order"><header><b>${esc(o.id)}</b><span class="t-badge is-gold">${esc(o.status)}</span></header><p>${U.date(new Date(o.placedAt),{day:'numeric',month:'long',year:'numeric'})} · ${faNum(o.lines.reduce((s,l)=>s+l.qty,0))} قلم</p><p>${o.lines.map(l=>esc(l.title)).join('، ')}</p><div class="t-price"><span>${amount(o.total)}</span><span class="cur">€</span></div></article>`).join('')}</div>`:emptyPanel({ic:'doc',title:'هنوز سفارشی ثبت نکرده‌ای',action:`<a class="t-btn is-primary is-sm" href="#/products">شروع خرید</a>`})}
+  if(which==='addresses'){const a=Customer.address(),e=coUI.errors;body=`<section class="t-panel t-co-main"><h2>نشانی تحویل</h2><p class="t-sub">این نشانی در تکمیل سفارش استفاده می‌شود.</p><form class="t-co-form t-addr-form" data-form="addr" novalidate>${[['name','نام و نام خانوادگی','name'],['contact','ایمیل یا شماره تماس','email'],['street','نشانی','street-address'],['postal','کد پستی','postal-code'],['city','شهر','address-level2']].map(([id,l,ac])=>`<label class="t-field f-${id}"><span>${l}</span><input class="t-input${id==='postal'||id==='contact'?' ltr':''}" id="${id}" value="${esc(a[id])}" autocomplete="${ac}"${id==='postal'?' inputmode="numeric" maxlength="5"':''}${e[id]?` aria-invalid="true" aria-describedby="${id}E"`:''}>${e[id]?`<span class="t-err" id="${id}E">${e[id]}</span>`:''}</label>`).join('')}<button class="t-btn is-primary is-block">ذخیره نشانی</button></form></section>`}
+  if(which==='favorites'){const f=Customer.favorites();body=f.length?`<div class="t-list">${f.map(p=>U.productCard(p,Cart.qty(p.defaultVariant.id))).join('')}</div>`:emptyPanel({ic:'heart',title:'هنوز محصولی ذخیره نکرده‌ای',text:'در صفحه هر محصول با علامت قلب، آن را ذخیره کن.',action:`<a class="t-btn is-primary is-sm" href="#/products">مشاهده محصولات</a>`})}
+  return{title:T,html:accountShell(which,T,body)};
 };
 
 /* ---------- Online Store pages ---------- */
 VIEWS.page=(slug)=>{
   const pg=Catalog.pages[slug];if(!pg)return null;
   const content=pg.sections?`<article class="t-panel t-info">${pg.sections.map(s=>`<section><h2>${esc(s.title)}</h2>${s.logos?U.payLogos():`<p>${esc(s.body)}</p>`}</section>`).join('')}</article>`:`<article class="t-panel t-info"><section><p>محتوای این صفحه به‌زودی اضافه می‌شود. تا آن زمان اگر سؤالی داری، از بخش پشتیبانی با ما در ارتباط باش.</p></section></article>`;
-  return{title:pg.title,footer:'info',html:`<div class="t-wrap t-page-end">${U.crumbs([[pg.title]])}<header class="t-page-head"><h1>${esc(pg.title)}</h1>${pg.updated?`<p class="t-meta">ویرایش در ${esc(pg.updated)}</p>`:''}${pg.intro?`<p>${esc(pg.intro)}</p>`:''}</header>${content}${slug==='support'||slug==='contact'?'':U.helpPanel()}</div>`};
+  const others=Object.entries(Catalog.pages).map(([k,v])=>`<a href="#/page/${k}"${k===slug?' aria-current="page"':''}>${esc(v.title)}${icon('chev-left','chev')}</a>`).join('');
+  return{title:pg.title,footer:'info',html:`<div class="t-wrap t-page-end">${U.crumbs([[pg.title]])}<header class="t-page-head"><h1>${esc(pg.title)}</h1>${pg.updated?`<p class="t-meta">ویرایش در ${esc(pg.updated)}</p>`:''}${pg.intro?`<p>${esc(pg.intro)}</p>`:''}</header>
+  <div class="t-doc">${content}<aside class="t-doc-side">${slug==='support'||slug==='contact'?'':U.helpPanel()}<nav class="t-panel t-menu t-doc-nav" aria-label="صفحه‌های راهنما"><h2>صفحه‌های راهنما</h2>${others}</nav></aside></div></div>`};
 };
 VIEWS.notFound=()=>({title:'صفحه پیدا نشد',html:`<div class="t-wrap"><section class="t-panel" style="margin-top:32px;padding:8px 20px">${U.empty({ic:'search',title:'این صفحه پیدا نشد',text:'ممکن است نشانی تغییر کرده باشد.',action:`<a class="t-btn is-primary" href="#/">بازگشت به صفحه اصلی</a>`})}</section></div>`});
 
@@ -1609,7 +1757,7 @@ const ACTIONS={
   search:el=>{shopUI.q=el.dataset.q||'';shopUI.c='all';shopUI.limit=SHOP_PAGE;navigate(shopHref())},
   soon:el=>toast(el.dataset.msg),
   toast:el=>toast(el.dataset.msg),
-  notify:()=>toast('وقتی موجود شد به تو خبر می‌دهیم (در نسخه نهایی)'),
+  notify:()=>{const i=$('#notifyEmail');if(i){i.scrollIntoView({block:'center',behavior:reduced()?'auto':'smooth'});i.focus({preventScroll:true})}else toast('وقتی موجود شد به تو خبر می‌دهیم (در نسخه نهایی)')},
   qty(el){const vid=el.dataset.v,d=+el.dataset.d,scope=el.dataset.scope;
     if(scope==='cart'){const q=Cart.qty(vid);if(d>0){if(!Cart.add(vid,1))return toast('این محصول فعلاً موجود نیست');if(!q)toast('به سبد اضافه شد');bumpBadge()}else Cart.set(vid,q-1);refreshControls(vid)}
     if(scope==='pd'){const st=pdUI[current.args[0]];st.qty=Math.max(1,st.qty+d);VIEWS.product.update()}
@@ -1633,19 +1781,19 @@ const ACTIONS={
   'rec-cancel'(){confirmSheet('لغو خرید دوره‌ای','با لغو، ارسال‌های بعدی انجام نمی‌شود. فهرستت می‌ماند و هر زمان بخواهی می‌توانی دوباره فعالش کنی.','لغو خرید دوره‌ای',()=>{Recurring.cancel();toast('خرید دوره‌ای لغو شد')})},
   serv(el){recipeState(Catalog.recipe(current.args[0])).serv=+el.dataset.k;updateRecipe()},
   ing(el){const st=recipeState(Catalog.recipe(current.args[0])),h=el.dataset.k;st.off.has(h)?st.off.delete(h):st.off.add(h);updateRecipe()},
-  have(el){const st=recipeState(Catalog.recipe(current.args[0])),n=el.dataset.k;st.lacking.has(n)?st.lacking.delete(n):st.lacking.add(n);updateRecipe()},
+  have(el){const st=recipeState(Catalog.recipe(current.args[0])),n=el.dataset.k;st.have=st.have||new Set();st.have.has(n)?st.have.delete(n):st.have.add(n);updateRecipe()},
   'pantry-buy'(el){const p=Catalog.product(el.dataset.k);if(Cart.add(p.defaultVariant.id,1)){toast(`«${p.title}» به سبد اضافه شد`);bumpBadge()}},
-  'recipe-add'(el){const r=Catalog.recipe(el.dataset.k),st=recipeState(r);let n=0;r.ingredients.forEach(ing=>{const v=ing.product.defaultVariant;if(!v.available||st.off.has(ing.product.handle))return;const {packs}=Catalog.packsFor(ing,st.serv,r.servings);if(packs&&Cart.add(v.id,packs))n++});if(n){toast(`${faNum(n)} محصول به سبد اضافه شد`);bumpBadge()}},
+  'recipe-add'(el){const r=Catalog.recipe(el.dataset.k),st=recipeState(r);let n=0;r.ingredients.forEach(ing=>{const v=ing.product.defaultVariant;if(!v.available||st.off.has(ing.product.handle))return;const {packs}=Catalog.packsFor(ing,st.serv,r.servings);if(packs&&Cart.add(v.id,packs))n++});if(n){st.added=n;toast(`${faNum(n)} محصول به سبد اضافه شد`);bumpBadge();updateRecipe()}},
   'recipe-cat'(el){recipesUI.cat=el.dataset.k;$$('#view .t-tab').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===recipesUI.cat)));$('#recipeGrid').innerHTML=recipeGrid()},
   'recipe-reset'(){recipesUI.cat='همه';recipesUI.q='';refresh()},
   'shop-cat'(el){const had=$('#shopCats').contains(document.activeElement);shopUI.c=el.dataset.k;shopUI.limit=SHOP_PAGE;setQuery(shopHref());renderShop();document.title=collectionTitle(shopUI.c)+' | ته‌دیگ';const b=$(`#shopCats [data-k="${shopUI.c}"]`);if(had)b?.focus({preventScroll:true});b?.scrollIntoView({block:'nearest',inline:'nearest',behavior:reduced()?'auto':'smooth'})},
   'shop-reset'(){shopUI.c='all';shopUI.q='';shopUI.sort='popular';shopUI.limit=SHOP_PAGE;setQuery('#/products');renderShop()},
   more(){shopUI.limit+=SHOP_PAGE;renderShop()},
+  suggest(el){shopUI.q=el.dataset.q;shopUI.c='all';shopUI.limit=SHOP_PAGE;setQuery(shopHref());renderShop()},
   'code-remove'(el){Cart.removeCode(el.dataset.k);toast('کد تخفیف حذف شد')},
-  'co-window'(el){coUI.window=el.dataset.k;refresh()},
   'co-pay'(el){coUI.payment=el.dataset.k;refresh()},
   'co-step'(el){coUI.step=+el.dataset.k;coUI.errors={};refresh();$('.t-co-steps')?.scrollIntoView({block:'start',behavior:reduced()?'auto':'smooth'})},
-  'co-place'(el){if(el.dataset.busy)return;el.dataset.busy='1';coUI.step=5;coUI.order=Customer.placeOrder({window:coUI.window,payment:coUI.payment});refresh();window.scrollTo(0,0);announce('سفارش ثبت شد')},
+  'co-place'(el){if(el.dataset.busy)return;el.dataset.busy='1';coUI.step=5;coUI.order=Customer.placeOrder({payment:coUI.payment});refresh();window.scrollTo(0,0);announce('سفارش ثبت شد')},
   'drawer-open':()=>openDrawer(),'drawer-close':()=>closeDrawer(),
   'sheet-close':()=>closeSheet()
 };
@@ -1658,6 +1806,7 @@ const FORMS={
   'recipe-search'(){$('#recipeQ').blur()},
   'rec-search'(){$('#recQ').blur()},
   code(){const inp=$('#codeIn'),v=inp.value.trim();if(!v){$('#codeErr').textContent='کد تخفیف را وارد کن';inp.focus();return}if(Cart.applyCode(v))toast('کد تخفیف اعمال شد');else{$('#codeErr').textContent='این کد معتبر نیست؛ حروف و اعداد را دوباره بررسی کن.';inp.setAttribute('aria-invalid','true');inp.focus()}},
+  notify(f){const inp=$('#notifyEmail'),v=inp.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){$('#notifyErr').textContent='یک ایمیل معتبر وارد کن';inp.setAttribute('aria-invalid','true');inp.focus();return}Customer.requestNotify(f.dataset.v,v);toast('ثبت شد؛ به محض موجود شدن خبرت می‌کنیم');if(current?.name==='product')VIEWS.product.update()},
   newsletter(){const inp=$('#tNewsEmail'),v=inp.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){toast('ایمیل معتبر وارد کن');inp.focus();return}inp.value='';inp.blur();toast('عضویت ثبت شد')},
   'co-address'(){const a=readAddress();if(!a)return;Customer.saveAddress(a);coUI.step=2;refresh();$('.t-co-steps')?.scrollIntoView({block:'start',behavior:reduced()?'auto':'smooth'})},
   addr(){const a=readAddress();if(!a)return;Customer.saveAddress(a);toast('نشانی ذخیره شد');refresh()}
