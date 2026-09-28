@@ -401,11 +401,26 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 .t-press,.t-cat,.t-card,.t-add-btn,.t-bell-btn,.t-stepper button,.t-tab,.t-chip,.t-pill,.t-contact,.t-social button,.t-search-go,.t-cta-gold{transition:none}
 .t-stepper.enter{transition:opacity 160ms ease}@starting-style{.t-stepper.enter{transform:none}}
 }
-</style>
-<style id="vpDebugCss">/* TEMP: viewport diagnostic */
-#vpProbe{position:fixed;top:0;left:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
-#vpDebug{position:fixed;left:8px;bottom:8px;z-index:9999;max-width:calc(100vw - 16px);padding:8px 30px 8px 10px;border-radius:8px;background:rgba(0,0,0,.8);color:#fff;font:11px/1.5 ui-monospace,Menlo,monospace;direction:ltr;text-align:left;white-space:pre-wrap;word-break:break-word;pointer-events:auto}
-#vpDebug button{position:absolute;top:2px;right:2px;width:28px;height:28px;border:0;background:none;color:#fff;font-size:16px;cursor:pointer}
+
+/* Phone scale (<=480px): header, hero, search, chips band, gap before categories */
+@media(max-width:480px){
+.t-header-in{height:90px}
+.t-logo img{height:58px}
+.t-cart-btn{width:48px;height:48px;border-radius:14px}
+.t-cart-btn .t-ic{width:20px;height:20px}
+.t-menu-btn{width:44px;height:44px;margin-inline-start:-4px}
+.t-menu-btn .t-ic{width:24px;height:24px}
+.t-hero{padding-top:31px}
+.t-hero h1{font-size:31px;line-height:1.35}
+.t-hero p{margin-top:2px}
+.t-search-zone{margin-top:34px;background:linear-gradient(to bottom,transparent 28px,var(--t-green) 28px)}
+.t-search{height:56px;border-radius:28px;padding-inline:16px 6px}
+.t-search-go{width:44px;height:44px;border-radius:13px}
+.t-search-ic{width:36px;height:40px}
+.t-chips{margin-top:20px}
+.t-band{padding-bottom:44px}
+#home .t-search-zone+.t-sec{padding-top:36px}
+}
 </style>
 </head>
 <body data-screen="home">
@@ -448,7 +463,6 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 <div class="sheet-overlay" id="locOverlay" aria-hidden="true" onclick="if(event.target===this)closeLocSheet()"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="locT" tabindex="-1"><div class="sheet-drag"><div class="sheet-grab"></div><h3 id="locT">کد پستی محل تحویل</h3></div><div class="hint">این کد فقط ذخیره می‌شود؛ محدوده ارسال واقعی در نسخه نهایی بررسی خواهد شد.</div><div class="field"><input id="postalInput" maxlength="5" inputmode="numeric" autocomplete="postal-code" enterkeyhint="done" aria-label="کد پستی" placeholder="۵ رقم، مثلاً 00100" onkeydown="if(event.key==='Enter')checkPostal()"></div><button class="btn btn-orange btn-block" onclick="checkPostal()">ذخیره کد پستی</button></div></div>
 <div class="sheet-overlay" id="confirmOverlay" aria-hidden="true" onclick="if(event.target===this)closeConfirm()"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" tabindex="-1"><div class="sheet-drag"><div class="sheet-grab"></div><h3 id="confirmTitle"></h3></div><div class="hint" id="confirmMsg"></div><div style="display:flex;gap:10px"><button class="btn btn-outline" style="flex:1;justify-content:center" onclick="closeConfirm()">انصراف</button><button class="btn btn-orange" style="flex:1;justify-content:center" id="confirmBtn">تأیید</button></div></div></div>
 
-<!-- TEMP: viewport diagnostic --><div id="vpProbe" aria-hidden="true"></div><div id="vpDebug" role="status" aria-label="viewport diagnostic"><button aria-label="Hide diagnostic" onclick="vpDebug.hidden=true">×</button><span id="vpDebugText"></span></div>
 <script>
 function faNum(n){const f=['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];return String(n).split('').map(c=>c==='.'?'٫':(f[c]??c)).join('')}
 function iconF(id){return `<svg class="icon"><use href="#i-${id}"/></svg>`}
@@ -585,30 +599,6 @@ function renderDrawer(){const cur=navStack.at(-1)?.screen;tDrawerNav.innerHTML=[
 function openDrawer(){renderDrawer();drawerReturn=document.activeElement;tDrawer.classList.add('open');tDrawer.setAttribute('aria-hidden','false');document.querySelector('.t-menu-btn').setAttribute('aria-expanded','true');document.documentElement.classList.add('sheet-lock');setTimeout(()=>tDrawer.querySelector('.t-drawer-panel').focus({preventScroll:true}),60)}
 function closeDrawer(viaNav){if(!tDrawer.classList.contains('open'))return;tDrawer.classList.remove('open');tDrawer.setAttribute('aria-hidden','true');document.querySelector('.t-menu-btn').setAttribute('aria-expanded','false');if(!document.querySelector('.sheet-overlay.open'))document.documentElement.classList.remove('sheet-lock');if(!viaNav)drawerReturn?.focus?.({preventScroll:true})}
 document.addEventListener('keydown',e=>{if(!tDrawer.classList.contains('open'))return;if(e.key==='Escape'){closeDrawer();return}if(e.key==='Tab'){const f=[...tDrawer.querySelectorAll('button')];const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
-
-/* TEMP: viewport diagnostic */
-(function(){if(location.hash==='#nodebug'){vpDebug.hidden=true;return}
-function px(v){return Math.round(parseFloat(v)||0)}
-function run(){const vv=window.visualViewport,cs=getComputedStyle(vpProbe),rs=getComputedStyle(document.documentElement),hd=document.querySelector('.t-header');
-const metas=[...document.querySelectorAll('meta[name="viewport"]')].map(m=>m.content).join(' | ');
-const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
-vpDebugText.textContent=[
-'innerWidth x innerHeight   '+innerWidth+' x '+innerHeight,
-'docEl.clientWidth/Height   '+document.documentElement.clientWidth+' x '+document.documentElement.clientHeight,
-'visualViewport w x h       '+(vv?Math.round(vv.width)+' x '+Math.round(vv.height):'n/a'),
-'visualViewport.scale       '+(vv?vv.scale.toFixed(3):'n/a'),
-'devicePixelRatio           '+devicePixelRatio,
-'screen                     '+screen.width+' x '+screen.height,
-'safe-area top/bottom       '+px(cs.paddingTop)+' / '+px(cs.paddingBottom),
-'safe-area left/right       '+px(cs.paddingLeft)+' / '+px(cs.paddingRight),
-'display-mode standalone    '+standalone,
-':root padding top/bottom   '+px(rs.paddingTop)+' / '+px(rs.paddingBottom),
-'header rendered height     '+(hd?Math.round(hd.getBoundingClientRect().height):'n/a'),
-'root font-size             '+rs.fontSize,
-'in iframe                  '+(window.self!==window.top),
-'viewport meta              '+(metas||'none')
-].join('\n')}
-run();addEventListener('resize',run);addEventListener('orientationchange',run);window.visualViewport&&(visualViewport.addEventListener('resize',run),visualViewport.addEventListener('scroll',run));setTimeout(run,600);setTimeout(run,2000)})();
 loadState();updateBadge();renderHome();renderShop();renderRecipeCats();renderRecipeList();if(coAddress.postal)if(window.locLabel)locLabel.textContent='کد پستی '+coAddress.postal;
 </script>
 </body>
