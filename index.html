@@ -433,6 +433,24 @@ body[data-screen="home"] .t-footer,body[data-screen="shop"] .t-footer{display:bl
 .t-step-box{height:74px}
 .t-step:not(:last-child) .t-step-n::after{height:46px}
 .t-cta-gold{margin:40px 0 0;width:100%}
+/* TAHDIG picks carousel (phones only) */
+#home section[aria-labelledby="hPickT"]{padding-top:36px!important}
+#tPicks{scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding:28px 16px 28px;scroll-padding-inline:16px}
+#tPicks>.t-card{flex:0 0 calc(25vw + 202.5px);scroll-snap-align:start;scroll-snap-stop:normal;box-shadow:0 14px 28px -14px rgba(150,120,70,.24),0 2px 5px rgba(150,120,70,.05)}
+#tPicks .t-card-media{max-width:none;width:min(240px,calc(25vw + 131px))}
+#tPicks .t-card-info{margin-top:16px;column-gap:10px;padding-inline:6px}
+#tPicks .t-card-name{font-size:15.5px}
+#tPicks .t-card-weight{font-size:14px}
+#tPicks .t-card-foot{padding-top:14px;min-height:52px;padding-inline:6px}
+#tPicks .t-price{font-size:20px}
+#tPicks .t-price s{font-size:12.5px}
+#tPicks .t-oos{font-size:16px}
+#tPicks .t-add-btn,#tPicks .t-bell-btn{width:56px;height:52px;border-radius:16px}
+#tPicks .t-add-btn .t-ic,#tPicks .t-bell-btn .t-ic{width:22px;height:22px}
+#tPicks .t-stepper{height:52px;padding:4px;gap:4px;border-radius:16px}
+#tPicks .t-stepper button{width:44px;height:44px;border-radius:12px}
+#tPicks .t-stepper output{font-size:16px}
+#home .t-promos{margin-top:20px}
 }
 </style>
 </head>
