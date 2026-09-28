@@ -1,0 +1,68 @@
+/*
+ * TAHDIG UI layer — the few rules Tailwind utilities cannot express cleanly.
+ * Import once in the production global stylesheet, after @tailwind base.
+ * Everything is scoped to .tahdig-root (set by <TahdigRoot>) or t-* classes.
+ */
+@layer base {
+  .tahdig-root {
+    --t-gutter: 16px;
+    font-family: var(--font-vazirmatn, Vazirmatn), Vazirmatn, Tahoma, sans-serif;
+    color: #2A2A26;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (min-width: 640px) { .tahdig-root { --t-gutter: 24px; } }
+  @media (min-width: 768px) { .tahdig-root { --t-gutter: 32px; } }
+  .tahdig-root :focus-visible { outline: 2px solid #B5892F; outline-offset: 2px; }
+  .tahdig-root button { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+  /* inputs at 16px so iOS Safari does not zoom on focus */
+  .tahdig-root input, .tahdig-root select, .tahdig-root textarea { font-size: 16px; }
+}
+
+@layer components {
+  /* horizontal rails: native scroll, no visible scrollbar */
+  .t-scroll-x { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+  .t-scroll-x::-webkit-scrollbar { display: none; }
+
+  /* neutral image placeholder (replaced by product media) */
+  .t-ph { background: linear-gradient(160deg, #F2EDE4, #E8E1D3); color: #B9AE99; }
+  .t-ph-soft { background: linear-gradient(160deg, #F6F2EA, #EEE8DC); color: #C4B9A4; }
+
+  /* <details> open/close height animation (progressive enhancement) */
+  .t-details::details-content { block-size: 0; overflow: hidden; transition: block-size 260ms cubic-bezier(.23,1,.32,1), content-visibility 260ms allow-discrete; }
+  .t-details[open]::details-content { block-size: auto; }
+  .t-details > summary { list-style: none; }
+  .t-details > summary::-webkit-details-marker { display: none; }
+  .t-details[open] > summary .t-chev { transform: rotate(180deg); }
+
+  /* quantity stepper appears with a short scale-in */
+  .t-enter { transition: opacity 160ms cubic-bezier(.23,1,.32,1), transform 220ms cubic-bezier(.23,1,.32,1); transform-origin: left center; }
+  @starting-style { .t-enter { opacity: 0; transform: scale(.92); } }
+
+  /* search field inner cancel button off */
+  .t-search-input::-webkit-search-cancel-button { display: none; }
+
+  /* bank marquee edge fade */
+  .t-marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
+
+  /* dark promo/band circles */
+  .t-band-circles { background-image: radial-gradient(circle at 12% 70%, rgba(255,255,255,.035) 0 60px, transparent 61px), radial-gradient(circle at 88% 80%, rgba(255,255,255,.035) 0 70px, transparent 71px); }
+  .t-news-circles { background-image: radial-gradient(circle at 85% 20%, rgba(255,255,255,.035) 0 70px, transparent 71px), radial-gradient(circle at 30% 110%, rgba(255,255,255,.035) 0 90px, transparent 91px); }
+
+  /* the search zone: white field overlapping the green band */
+  .t-search-zone { background: linear-gradient(to bottom, transparent 28px, #1C4A3D 28px); }
+  @media (min-width: 481px) { .t-search-zone { background: linear-gradient(to bottom, transparent 31px, #1C4A3D 31px); } }
+
+  /* meal steps: dotted connector between numbered circles */
+  .t-step-link:not(:last-child) .t-step-n::after { content: ""; position: absolute; top: calc(100% + 6px); left: 50%; height: 46px; border-left: 1.5px dotted rgba(201,161,90,.6); }
+  @media (min-width: 481px) { .t-step-link:not(:last-child) .t-step-n::after { height: 52px; } }
+
+  /* numbered method steps use Persian numerals */
+  .t-method { counter-reset: m; }
+  .t-method > li::before { counter-increment: m; content: counter(m, persian); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tahdig-root *, .tahdig-root *::before, .tahdig-root *::after { transition-duration: 0ms !important; animation: none !important; }
+}
