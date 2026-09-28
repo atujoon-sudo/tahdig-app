@@ -28,7 +28,7 @@ function normVariant(raw,product){
   return{id:raw.id,sku:raw.sku,title:raw.title,price,compareAt,available:raw.availableForSale,pack,unitPrice,productHandle:product.handle,kind:'product'};
 }
 function normProduct(raw){
-  const p={id:raw.id,legacyId:raw.legacyResourceId,handle:raw.handle,title:raw.title,vendor:raw.vendor,collection:raw.collections[0],tags:raw.tags||[],badge:raw.badge||null,
+  const p={id:raw.id,legacyId:raw.legacyResourceId,handle:raw.handle,title:raw.title,latinTitle:raw.latinTitle||'',searchTerms:raw.searchTerms||'',vendor:raw.vendor,collection:raw.collections[0],tags:raw.tags||[],badge:raw.badge||null,
     description:raw.description||'',recurringEligible:!!raw.recurring,optionName:raw.options?.[0]?.name||'وزن',
     stockNote:raw.metafields?.stockNote||'',specs:raw.metafields?.specs||[],storage:raw.metafields?.storage||'',cooking:raw.metafields?.cooking||'',related:raw.related||[]};
   p.variants=raw.variants.map(x=>normVariant(x,p));
@@ -64,7 +64,10 @@ const Catalog={
   variant:id=>variants.get(id)||null,
   inCollection:h=>h&&h!=='all'?products.filter(p=>p.collection===h):products.slice(),
   related(p,n=4){const list=p.related.map(h=>byHandle.get(h)).filter(Boolean);products.forEach(x=>{if(list.length<n&&x!==p&&!list.includes(x)&&x.collection===p.collection)list.push(x)});products.forEach(x=>{if(list.length<n&&x!==p&&!list.includes(x))list.push(x)});return list.slice(0,n)},
-  search(q,list=products){const n=normFa(q);if(!n)return list;return list.filter(p=>[p.title,p.vendor,p.tags.join(' '),collections.find(c=>c.handle===p.collection)?.title].some(s=>normFa(s).includes(n)))},
+  /* matches Persian, English and Finnish names, tags and collection names; every word must match */
+  search(q,list=products){const words=normFa(q).split(' ').filter(Boolean);if(!words.length)return list;return list.filter(p=>{const c=collections.find(x=>x.handle===p.collection),hay=normFa([p.title,p.latinTitle,p.searchTerms,p.vendor,p.tags.join(' '),c?.title,c?.latinTitle].join(' '));return words.every(w=>hay.includes(w))})},
+  /* restrained cart complements: related products of what is in the cart, in stock, not already added */
+  complements(lines,n=3){const inCart=new Set(lines.map(l=>l.product.handle)),seen=new Set(),out=[];lines.forEach(l=>{const rel=l.product.kind==='bundle'?[]:l.product.related;rel.forEach(h=>{const p=byHandle.get(h);if(p&&p.available&&!inCart.has(h)&&!seen.has(h)&&out.length<n){seen.add(h);out.push(p)}})});return out},
   sort(list,mode){const l=list.slice(),pr=p=>p.defaultVariant.price;if(mode==='cheap')l.sort((a,b)=>pr(a)-pr(b));if(mode==='expensive')l.sort((a,b)=>pr(b)-pr(a));if(mode==='new')l.sort((a,b)=>b.legacyId-a.legacyId);return l},
   /* recipe helper: packs needed for an ingredient at a serving count */
   packsFor(ing,servings,baseServings){const v=ing.product.defaultVariant,need=Math.round(ing.qty*servings/baseServings);if(!v.pack||!UNIT[ing.unit]||!UNIT[v.pack.unit]||UNIT[ing.unit][0]!==UNIT[v.pack.unit][0])return{need,packs:null};return{need,packs:Math.max(1,Math.ceil(need*UNIT[ing.unit][1]/(v.pack.qty*UNIT[v.pack.unit][1])))}}
@@ -97,8 +100,11 @@ const Cart={
   removeCode(c){cartState.codes=cartState.codes.filter(x=>x!==c);commit()},
   /* mirrors Shopify cart.cost: subtotal, discount allocations, shipping estimate */
   totals(){const lines=this.lines(),subtotal=lines.reduce((s,l)=>s+l.total,0);let discount=0;cartState.codes.forEach(c=>{const d=RAW.shop.discountCodes[c];if(d?.type==='percentage')discount+=subtotal*d.value});
-    const after=subtotal-discount,free=RAW.shop.freeShippingThreshold,shipping=!lines.length||after>=free?0:RAW.shop.standardShippingFee;
-    return{subtotal,discount,shipping,total:after+shipping,freeRemaining:Math.max(0,free-after),freeThreshold:free,count:this.count()}}
+    const after=subtotal-discount;
+    /* shipping stays null (= calculated at checkout) until the business confirms its rules */
+    const fee=RAW.shop.standardShippingFee,free=RAW.shop.freeShippingThreshold,known=fee!=null;
+    const shipping=!known?null:(free!=null&&after>=free?0:fee);
+    return{subtotal,discount,shipping,shippingKnown:known,total:after+(shipping||0),freeThreshold:free,freeRemaining:free!=null?Math.max(0,free-after):null,count:this.count()}}
 };
 function commit(){save('cart',cartState);emit('cart')}
 
@@ -120,13 +126,14 @@ const Recurring={
   resume(){recState.status='active';commitRec()},
   cancel(){recState.status='cancelled';recState.skipNext=false;commitRec()},
   toggleSkip(){if(recState.status!=='active')return;recState.skipNext=!recState.skipNext;commitRec()},
-  estimate(){const items=this.items(),subtotal=items.reduce((s,l)=>s+l.total,0);return{subtotal,shipping:!items.length||subtotal>=RAW.shop.freeShippingThreshold?0:RAW.shop.standardShippingFee,count:items.reduce((s,l)=>s+l.qty,0)}},
+  estimate(){const items=this.items(),subtotal=items.reduce((s,l)=>s+l.total,0);return{subtotal,count:items.reduce((s,l)=>s+l.qty,0)}},
   nextDelivery(){const f=FREQS.find(x=>x[0]===recState.frequency)||FREQS[1],d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+(recState.status==='draft'?7:f[2]*(recState.skipNext?2:1)));return d}
 };
 function commitRec(){save('recurring',recState);emit('recurring')}
 
 /* ---------- Customer (guest prototype) ---------- */
-const custState=load('customer',{address:{name:'',contact:'',street:'',postal:'',city:''},orders:[],favorites:[]});
+const custState=load('customer',{address:{name:'',contact:'',street:'',postal:'',city:''},orders:[],favorites:[],notify:{}});
+custState.notify=custState.notify||{};
 const Customer={
   address:()=>({...custState.address}),
   saveAddress(a){custState.address={...a};save('customer',custState);emit('customer')},
@@ -135,6 +142,9 @@ const Customer={
   isFav:h=>custState.favorites.includes(h),
   toggleFav(h){const i=custState.favorites.indexOf(h);i<0?custState.favorites.push(h):custState.favorites.splice(i,1);save('customer',custState);emit('favorites');return i<0},
   favorites:()=>custState.favorites.map(h=>byHandle.get(h)).filter(Boolean),
+  /* back-in-stock request for a variant; stored locally in the prototype */
+  notifyEmail:vid=>custState.notify[vid]||'',
+  requestNotify(vid,email){custState.notify[vid]=email;save('customer',custState);emit('notify')},
   /* prototype only: Shopify creates the order after checkout */
   placeOrder(meta){const t=Cart.totals(),o={id:'TD-'+Math.floor(100000+Math.random()*900000),lines:Cart.lines().map(l=>({title:l.product.title,variant:l.variant.title,qty:l.qty,total:l.total})),total:t.total,placedAt:new Date().toISOString(),status:'در حال آماده‌سازی',...meta};custState.orders.push(o);save('customer',custState);Cart.clear();emit('customer');return o}
 };

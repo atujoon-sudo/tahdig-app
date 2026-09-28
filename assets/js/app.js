@@ -14,7 +14,7 @@ const shopUI={c:'all',q:'',sort:'popular',limit:SHOP_PAGE};
 const recipesUI={cat:'همه',q:''};
 const pdUI={};          // per product handle: {vid, qty, img}
 const bundleUI={};      // per bundle handle: {qty}
-const recipeUI={};      // per recipe handle: {serv, off:Set, lacking:Set}
+const recipeUI={};      // per recipe handle: {serv, off:Set, have:Set, added}
 const coUI={step:1,errors:{},window:'morning',payment:'card',order:null};
 const recUI={picker:false,q:''};
 let current=null;       // {name, args, params}
@@ -104,7 +104,7 @@ function renderShop(){
   $('#resultCount').textContent=`${faNum(list.length)} محصول`;
   $('#productGrid').innerHTML=list.slice(0,shopUI.limit).map(p=>U.productCard(p,Cart.qty(p.defaultVariant.id))).join('');
   $('#tMore').hidden=list.length<=shopUI.limit;
-  $('#shopEmpty').innerHTML=list.length?'':U.empty({ic:'search',title:shopUI.q?`برای «${shopUI.q}» محصولی پیدا نشد`:'محصولی پیدا نشد',text:'نام محصول را کوتاه‌تر بنویس یا در همه دسته‌ها جستجو کن.',action:`<button type="button" class="t-btn is-primary is-sm" data-action="shop-reset">مشاهده همه محصولات</button>`});
+  $('#shopEmpty').innerHTML=list.length?'':U.empty({ic:'search',title:shopUI.q?`برای «${shopUI.q}» محصولی پیدا نشد`:'محصولی پیدا نشد',text:'نام محصول را کوتاه‌تر بنویس؛ جستجو به فارسی، انگلیسی و فنلاندی کار می‌کند.',action:`<div class="t-suggest" aria-label="جستجوهای پیشنهادی">${['برنج','زعفران','ادویه','Rice','Sahrami'].map(q=>`<button type="button" class="t-tab no-n" data-action="suggest" data-q="${q}">${q}</button>`).join('')}</div><button type="button" class="t-btn is-primary is-sm" data-action="shop-reset">مشاهده همه محصولات</button>`});
 }
 
 /* ---------- Product detail ---------- */
@@ -120,9 +120,9 @@ VIEWS.product=(handle,params)=>{
     <button type="button" data-action="toast" data-msg="بزرگ‌نمایی تصویر با عکس‌های نهایی محصول فعال می‌شود" aria-label="بزرگ‌نمایی تصویر">${icon('zoom')}</button></div></div>
    <div class="t-thumbs" role="group" aria-label="تصاویر محصول">${[0,1,2,3].map(i=>`<button type="button" class="t-thumb" data-action="thumb" data-k="${i}" aria-label="تصویر ${faNum(i+1)}" aria-current="${st.img===i}">${icon('image')}</button>`).join('')}</div>
   </div><div class="t-pd-info" id="pdBuy">${pdBuy(p,st)}</div></div></div>
-  <section class="t-sec" aria-labelledby="pdRelT"><h2 class="t-title" id="pdRelT">همراه این محصول</h2><div class="t-rail">${Catalog.related(p,4).map(x=>U.productCard(x,Cart.qty(x.defaultVariant.id))).join('')}</div></section>
+  <section class="t-sec" aria-labelledby="pdRelT"><h2 class="t-title" id="pdRelT">${p.available?'همراه این محصول':'محصولات مشابه'}</h2><div class="t-rail">${Catalog.related(p,4).map(x=>U.productCard(x,Cart.qty(x.defaultVariant.id))).join('')}</div></section>
   <div class="t-buybar" id="pdBar" aria-hidden="true" inert>${pdBar(p,st)}</div>`;
-  return{title:p.title,html,buybar:true,mount(){watchBuybar('#pdCta','#pdBar')}};
+  return{title:p.title,html,buybar:true,mount(){watchBuybar('#pdCta','#pdBar');if(params.get('notify'))setTimeout(()=>$('#notifyEmail')?.focus({preventScroll:false}),120)}};
 };
 function pdBuy(p,st){
   const v=p.variants.find(x=>x.id===st.vid),inCart=Cart.qty(v.id),inRec=Recurring.qty(v.id);
@@ -131,13 +131,17 @@ function pdBuy(p,st){
     p.storage&&U.accItem({ic:'box',title:'شرایط نگهداری',body:`<p>${esc(p.storage)}</p>`}),
     p.cooking&&U.accItem({ic:'pot',title:'روش پخت',body:`<p>${esc(p.cooking)}</p>`}),
     U.accItem({ic:'truck',title:'روش ارسال',body:`<p>${esc(Catalog.shop.shippingText)}</p>`})].filter(Boolean).join('');
-  return `<h1>${esc(p.title)}</h1>
+  const notified=Customer.notifyEmail(v.id);
+  const notify=notified?`<p class="t-note is-ok">${icon('check')}<span>وقتی «${esc(p.title)}» دوباره موجود شد، به <b dir="ltr">${esc(notified)}</b> خبر می‌دهیم.</span></p>`
+    :`<form class="t-notify" data-form="notify" data-v="${esc(v.id)}" novalidate><p><b>فعلاً ناموجود است.</b> ایمیلت را بگذار تا به محض موجود شدن خبرت کنیم.</p><div class="t-inline-form"><input id="notifyEmail" type="email" inputmode="email" autocomplete="email" enterkeyhint="send" placeholder="ایمیل شما" aria-label="ایمیل برای اطلاع از موجود شدن" aria-describedby="notifyErr"><button class="t-btn is-primary">${icon('bell')}خبرم کن</button></div><p class="t-err" id="notifyErr" role="alert"></p></form>`;
+  return `<h1>${esc(p.title)}</h1>${p.latinTitle?`<p class="t-latin" lang="en" dir="ltr">${esc(p.latinTitle)}</p>`:''}
   <div class="t-pd-meta"><span><span class="k">کد محصول:</span> <span class="sku">${esc(v.sku)}</span></span><span class="t-stock${v.available?'':' is-out'}">${v.available?esc(p.stockNote||'موجود'):'ناموجود'}</span></div>
   ${p.tags.length?`<p class="t-pd-tags">${p.tags.map(esc).join('، ')}</p>`:''}
   <div class="t-pd-desc">${esc(p.description||'توضیحات کامل این محصول به‌زودی اضافه می‌شود.')}</div>
   ${p.variants.length>1?`<div class="t-pd-opt"><h2 id="pdOptT">انتخاب ${esc(p.optionName)}</h2><div class="t-choices" role="radiogroup" aria-labelledby="pdOptT">${p.variants.map(x=>`<button type="button" class="t-choice" role="radio" data-action="variant" data-v="${esc(x.id)}" aria-checked="${x.id===v.id}"${x.available?'':' data-unavailable'}>${esc(x.title)}</button>`).join('')}</div></div>`:''}
-  <div class="t-pd-buy"><div class="t-pd-price">${v.unitPrice&&p.variants.length>1?`<small>هر ${v.unitPrice.unit} ${amount(v.unitPrice.value)} €</small>`:''}${price(v)}</div>${v.available?U.stepper({scope:'pd',vid:v.id,qty:st.qty,name:p.title,min:1,tone:'on-beige'}):''}</div>
-  <div class="t-pd-cta" id="pdCta">${v.available?`<button type="button" class="t-btn is-primary is-block" data-action="pd-add" data-v="${esc(v.id)}">${icon('cart')}<span>افزودن به سبد</span><span class="sep" aria-hidden="true">—</span><span>${amount(v.price*st.qty)} €</span></button>`:`<button type="button" class="t-btn is-ghost is-block" data-action="notify">${icon('bell')}وقتی موجود شد خبرم کن</button>`}</div>
+  <div class="t-pd-buy"><div class="t-pd-price">${U.unitPrice(v,'t-pd-unit')}${price(v)}</div>${v.available?U.stepper({scope:'pd',vid:v.id,qty:st.qty,name:p.title,min:1,tone:'on-beige'}):''}</div>
+  <div class="t-pd-cta" id="pdCta">${v.available?`<button type="button" class="t-btn is-primary is-block" data-action="pd-add" data-v="${esc(v.id)}">${icon('cart')}<span>افزودن به سبد</span><span class="sep" aria-hidden="true">—</span><span>${amount(v.price*st.qty)} €</span></button>`:notify}</div>
+  ${v.available?`<ul class="t-assure" aria-label="اطمینان خرید"><li>${icon('lock')}پرداخت امن</li><li>${icon('truck')}ارسال قابل پیگیری</li><li>${icon('help')}پشتیبانی به زبان خودت</li></ul>`:''}
   ${inCart?`<p class="t-note is-ok" style="margin-top:12px">${icon('check')}<span>${faNum(inCart)} عدد از این محصول در سبد توست · <a href="#/cart" style="font-weight:700;text-decoration:underline;text-underline-offset:4px">مشاهده سبد</a></span></p>`:''}
   ${p.recurringEligible&&v.available?`<div class="t-pd-recur">${inRec?`<a class="t-link" href="#/recurring">${icon('repeat')}در فهرست خرید دوره‌ای توست (${faNum(inRec)} عدد)</a>`:`<button type="button" class="t-link" data-action="rec-add" data-v="${esc(v.id)}">${icon('repeat')}افزودن به خرید دوره‌ای</button>`}</div>`:''}
   <div class="t-acc">${acc}</div>`;
@@ -175,9 +179,9 @@ VIEWS.recipe=(handle)=>{
   </div></div>`;
   return{title:r.title,html};
 };
-function recipeState(r){return recipeUI[r.handle]||(recipeUI[r.handle]={serv:r.servings,off:new Set(),lacking:new Set()})}
+function recipeState(r){return recipeUI[r.handle]||(recipeUI[r.handle]={serv:r.servings,off:new Set(),have:new Set()})}
 function recipeShop(r){
-  const st=recipeState(r);let n=0,packs=0,total=0;
+  const st=recipeState(r);let n=0,packs=0,total=0;st.have=st.have||new Set();
   const rows=r.ingredients.map(ing=>{const p=ing.product,v=p.defaultVariant,{need,packs:k}=Catalog.packsFor(ing,st.serv,r.servings),on=v.available&&!st.off.has(p.handle);
     if(on&&k){n++;packs+=k;total+=v.price*k}
     return `<div class="t-ing-row${v.available?'':' is-oos'}${on?'':' is-off'}"><button type="button" class="t-check" role="checkbox" data-action="ing" data-k="${p.handle}" aria-checked="${on}" aria-label="خرید ${esc(p.title)}"${v.available?'':' disabled'}>${icon('check')}</button>${U.ph('thumb')}<div><div class="name"><a href="#/product/${p.handle}">${esc(p.title)}</a></div><div class="need">نیاز: ${faNum(need)} ${ing.unit==='g'?'گرم':esc(ing.unit)} · ${k===null?'بسته قابل محاسبه نیست':`${faNum(k)} بسته ${esc(v.title)}`}</div></div><div class="amt">${v.available?`${amount(v.price*(k||0))} €`:'ناموجود'}</div></div>`}).join('');
@@ -186,7 +190,8 @@ function recipeShop(r){
   <section class="t-rd-sec" aria-labelledby="rdIT"><h2 id="rdIT">مواد قابل خرید از ته‌دیگ</h2><p class="t-sub">تعداد بسته‌ها بر اساس تعداد نفرات حساب شده است. هر مورد را که نمی‌خواهی بردار.</p>
    <div class="t-ing">${rows}</div>${oos?`<p class="t-note is-warn" style="margin-top:12px">${icon('info')}<span>${faNum(oos)} ماده فعلاً ناموجود است و به سبد اضافه نمی‌شود.</span></p>`:''}
    <div class="t-ing-sum"><div class="line"><span>${faNum(n)} محصول · ${faNum(packs)} بسته</span><b>${amount(total)} €</b></div><button type="button" class="t-btn is-primary is-block" data-action="recipe-add" data-k="${r.handle}"${n?'':' aria-disabled="true"'}>${icon('cart')}افزودن مواد به سبد</button></div></section>
-  <section class="t-rd-sec" aria-labelledby="rdHT"><h2 id="rdHT">احتمالاً در خانه داری</h2><p class="t-sub">اگر چیزی را نداری، علامت بزن تا در فهرستت بماند.</p><div class="t-have">${r.pantry.map(x=>{const lack=st.lacking.has(x.name),canBuy=lack&&x.product?.available;return `<div class="t-have-row"><span>${esc(x.name)}</span>${canBuy?`<button type="button" class="t-btn is-ghost is-sm" data-action="pantry-buy" data-k="${x.product.handle}">${icon('plus')}خرید</button>`:''}<button type="button" class="t-choice" data-action="have" data-k="${esc(x.name)}" aria-pressed="${!lack}">${lack?'ندارم':'دارم'}</button></div>`}).join('')}</div></section>`;
+  ${st.added?`<p class="t-note is-ok" style="margin-top:12px">${icon('check')}<span>${faNum(st.added)} محصول به سبد اضافه شد · <a href="#/cart" style="font-weight:700;text-decoration:underline;text-underline-offset:4px">مشاهده سبد</a></span></p>`:''}</section>
+  <section class="t-rd-sec" aria-labelledby="rdHT"><h2 id="rdHT">مواد دیگر این غذا</h2><p class="t-sub">این مواد را ته‌دیگ نمی‌فروشد و باید جداگانه تهیه شود؛ آنچه در خانه داری را علامت بزن.</p><div class="t-have">${r.pantry.map(x=>{const has=st.have.has(x.name),sold=x.product?.available;return `<div class="t-have-row"><span>${esc(x.name)}${sold?'<small>در ته‌دیگ موجود است</small>':''}</span>${sold&&!has?`<button type="button" class="t-btn is-ghost is-sm" data-action="pantry-buy" data-k="${x.product.handle}">${icon('plus')}خرید</button>`:''}<button type="button" class="t-choice" role="checkbox" data-action="have" data-k="${esc(x.name)}" aria-checked="${has}" aria-label="${esc(x.name)} را دارم">${has?icon('check'):''}دارم</button></div>`}).join('')}</div></section>`;
 }
 VIEWS.recipe.update=()=>{};
 
@@ -242,7 +247,7 @@ VIEWS.recurring=()=>{
     <div class="t-status"><h3 style="margin:0">وضعیت</h3><span class="t-badge ${cls}">${label}</span></div>
     <div><h3 id="recFT">فاصله ارسال</h3><div class="t-choices" role="radiogroup" aria-labelledby="recFT">${Recurring.FREQS.map(([k,l])=>`<button type="button" class="t-choice" role="radio" data-action="rec-freq" data-k="${k}" aria-checked="${s.frequency===k}">${l}</button>`).join('')}</div></div>
     ${s.status==='cancelled'?'':`<div class="t-next">${icon('calendar')}<div><small>${s.status==='paused'?'ارسال‌ها متوقف است':s.status==='draft'?'اولین ارسال (پس از فعال‌سازی)':'ارسال بعدی'}${s.skipNext&&s.status==='active'?' · یک ارسال رد شد':''}</small><b>${s.status==='paused'?'—':U.date(Recurring.nextDelivery(),{weekday:'long',day:'numeric',month:'long'})}</b></div></div>`}
-    <div class="t-sumrows" style="margin-top:0"><div class="t-sumrow"><span>مبلغ هر ارسال (تقریبی)</span><b>${amount(est.subtotal)} €</b></div><div class="t-sumrow"><span>هزینه ارسال</span><b>${est.subtotal?(est.shipping?amount(est.shipping)+' €':'رایگان'):'—'}</b></div></div>
+    <div class="t-sumrows" style="margin-top:0"><div class="t-sumrow"><span>مبلغ هر ارسال (تقریبی)</span><b>${amount(est.subtotal)} €</b></div><div class="t-sumrow"><span>هزینه ارسال</span><b class="muted">هنگام ثبت محاسبه می‌شود</b></div></div>
     ${acts}
     <p class="t-sub" style="font-size:13px">مبلغ نهایی هر ارسال بر اساس قیمت روز محصولات محاسبه می‌شود. هر زمان می‌توانی فهرست، فاصله ارسال یا وضعیت را تغییر دهی.</p>
    </aside></div>
@@ -263,23 +268,28 @@ VIEWS.cart=()=>{
    <section class="t-panel t-code" aria-labelledby="codeT"><h2 id="codeT">کد تخفیف داری؟</h2><p>کد را وارد کن تا تخفیف روی سفارشت اعمال شود.</p>
     <form class="t-inline-form" data-form="code" novalidate><input id="codeIn" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done" placeholder="کد تخفیف" aria-label="کد تخفیف" aria-describedby="codeErr"><button class="t-btn is-primary">اعمال کد</button></form><p class="t-err" id="codeErr" role="alert"></p></section>
    ${summary(t,codes,true)}
-  </div></div></div>`;
+  </div>${complements(lines)}</div></div>`;
   return{title:'سبد خرید',html};
 };
+/* restrained complements: at most 3 related in-stock products, compact rows, one-tap add */
+function complements(lines){const list=Catalog.complements(lines,3);if(!list.length)return '';
+  return `<section class="t-panel t-comp" aria-labelledby="compT"><h2 id="compT">شاید این‌ها را هم لازم داشته باشی</h2><div class="t-comp-rows">${list.map(p=>{const v=p.defaultVariant;return `<div class="t-pick-row">${U.ph('thumb')}<div><a href="#/product/${p.handle}">${esc(p.title)}</a><small>${esc(v.title)} · ${amount(v.price)} €</small></div><button type="button" class="t-btn is-ghost" data-action="qty" data-d="1" data-scope="cart" data-v="${esc(v.id)}" aria-label="افزودن ${esc(p.title)} به سبد">${icon('plus')}افزودن</button></div>`}).join('')}</div></section>`}
+function shipRow(t,withMeter){
+  if(!t.shippingKnown)return `<div class="t-sumrow"><span>هزینه ارسال</span><b class="muted">در مرحله بعد</b><span class="full">هزینه ارسال پس از وارد کردن نشانی محاسبه می‌شود</span></div>`;
+  return `<div class="t-sumrow"><span>هزینه ارسال</span><b>${t.shipping?amount(t.shipping)+' €':'رایگان'}</b>${withMeter&&t.freeThreshold!=null?`<span class="full">${t.freeRemaining?`${amount(t.freeRemaining)} € تا ارسال رایگان`:'ارسال رایگان برای این سفارش فعال است'}</span>${t.freeRemaining?`<div class="t-ship-meter" style="flex-basis:100%;margin-top:0"><div class="bar"><i style="width:${Math.min(100,(1-t.freeRemaining/t.freeThreshold)*100)}%"></i></div></div>`:''}`:''}</div>`}
 function summary(t,codes,withCta){
   return `<section class="t-panel t-summary" aria-labelledby="sumT"><h2 id="sumT">سبد خرید شما</h2><p class="t-sub">${faNum(t.count)} محصول در سبد خرید</p>
   <div class="t-sumrows"><div class="t-sumrow"><span>جمع محصولات</span><b>${amount(t.subtotal)} €</b></div>
-   <div class="t-sumrow"><span>هزینه ارسال</span><b>${t.shipping?amount(t.shipping)+' €':'ارسال رایگان'}</b><span class="full">${t.freeRemaining?`فقط ${amount(t.freeRemaining)} € تا ارسال رایگان`:'ارسال رایگان برای سفارش شما فعال شد'}</span>${t.freeRemaining?`<div class="t-ship-meter" style="flex-basis:100%;margin-top:0"><div class="bar"><i style="width:${Math.min(100,(1-t.freeRemaining/t.freeThreshold)*100)}%"></i></div></div>`:''}</div>
+   ${shipRow(t,true)}
    ${t.discount?`<div class="t-sumrow is-disc"><span>تخفیف</span><b>−${amount(t.discount)} €</b>${codes.map(c=>`<span class="code"><span>${esc(c)}</span>${withCta?`<button type="button" data-action="code-remove" data-k="${esc(c)}" aria-label="حذف کد تخفیف ${esc(c)}">${icon('x-circle')}</button>`:''}</span>`).join('')}</div>`:''}</div>
-  <div class="t-total"><span>جمع کل</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p>
-  ${withCta?`<a class="t-btn is-primary is-block" href="#/checkout">ادامه و انتخاب روش ارسال</a>`:''}</section>`;
+  <div class="t-total"><span>${t.shippingKnown?'جمع کل':'جمع کل (بدون ارسال)'}</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p>
+  ${withCta?`<a class="t-btn is-primary is-block" href="#/checkout">ادامه و انتخاب روش ارسال</a><div class="t-sum-pay">${U.payLogos()}<p>${icon('lock')}پرداخت از مسیرهای امن و معتبر</p></div>`:''}</section>`;
 }
 
 /* ---------- Checkout (prototype of Shopify Checkout) ----------
    Production: redirect to cart.checkoutUrl (Shopify Checkout, branded with
    Checkout Extensibility). These steps only demonstrate the flow. */
 const CO_STEPS=['اطلاعات تماس','ارسال','پرداخت','بررسی'];
-const WINDOWS=[['morning','صبح','ساعت ۸ تا ۱۲'],['afternoon','بعدازظهر','ساعت ۱۲ تا ۱۶'],['evening','عصر','ساعت ۱۶ تا ۲۰']];
 const PAYMENTS=[['card','کارت بانکی','Visa، Mastercard'],['apple','Apple Pay',''],['google','Google Pay','']];
 VIEWS.checkout=()=>{
   if(coUI.step===5&&coUI.order)return doneView();
@@ -291,11 +301,11 @@ VIEWS.checkout=()=>{
      ${field('name','نام و نام خانوادگی',a.name,{ac:'name'})}${field('contact','ایمیل یا شماره تماس',a.contact,{ac:'email',ltr:true})}${field('street','نشانی',a.street,{ac:'street-address'})}
      <div class="t-row2">${field('postal','کد پستی',a.postal,{ac:'postal-code',im:'numeric',max:5,ltr:true})}${field('city','شهر',a.city,{ac:'address-level2',ek:'done'})}</div>
      <button class="t-btn is-primary is-block">ادامه به روش ارسال ${icon('arrow-left')}</button></form>`,
-   2:()=>`<h2>روش و زمان ارسال</h2><p class="t-sub">تحویل درب منزل به نشانی ${esc(a.postal)} ${esc(a.city)}</p><div class="t-options" role="radiogroup" aria-label="زمان تحویل">${WINDOWS.map(([k,n,d])=>`<button type="button" class="t-option" role="radio" data-action="co-window" data-k="${k}" aria-checked="${coUI.window===k}"><span class="t-radio"></span><span><b>${n}</b><small>${d}</small></span></button>`).join('')}</div><p class="t-note">${icon('info')}<span>بازه‌های تحویل نمونه هستند و در نسخه نهایی بر اساس نشانی تو نمایش داده می‌شوند.</span></p><button type="button" class="t-btn is-primary is-block" data-action="co-step" data-k="3">ادامه به پرداخت ${icon('arrow-left')}</button>`,
+   2:()=>`<h2>روش ارسال</h2><p class="t-sub">ارسال به ${esc(a.street)}، ${esc(a.postal)} ${esc(a.city)}</p><div class="t-options" role="radiogroup" aria-label="روش ارسال"><button type="button" class="t-option" role="radio" aria-checked="true"><span class="t-radio"></span><span><b>ارسال به نشانی ثبت‌شده</b><small>هزینه و زمان تقریبی تحویل در این مرحله نمایش داده می‌شود</small></span></button></div><p class="t-note">${icon('info')}<span>روش‌ها، هزینه و زمان تحویل در نسخه نهایی بر اساس نشانی تو از سامانه ارسال خوانده می‌شود. پس از ارسال، کد پیگیری سفارش را دریافت می‌کنی.</span></p><button type="button" class="t-btn is-primary is-block" data-action="co-step" data-k="3">ادامه به پرداخت ${icon('arrow-left')}</button>`,
    3:()=>`<h2>روش پرداخت</h2><p class="t-sub">پرداخت از مسیرهای امن و معتبر.</p><div class="t-options" role="radiogroup" aria-label="روش پرداخت">${PAYMENTS.map(([k,n,d])=>`<button type="button" class="t-option" role="radio" data-action="co-pay" data-k="${k}" aria-checked="${coUI.payment===k}"><span class="t-radio"></span><span><b>${n}</b>${d?`<small>${d}</small>`:''}</span></button>`).join('')}</div><p class="t-note">${icon('lock')}<span>این نسخه پیش‌نمایش است و هیچ مبلغی دریافت نمی‌شود.</span></p><button type="button" class="t-btn is-primary is-block" data-action="co-step" data-k="4">بررسی سفارش ${icon('arrow-left')}</button>`,
    4:()=>`<h2>بررسی و ثبت سفارش</h2><p class="t-sub">اطلاعات را یک بار دیگر بررسی کن.</p><div class="t-review">
      <div class="t-review-row"><div><small>گیرنده و نشانی</small><b>${esc(a.name)} · ${esc(a.street)}، ${esc(a.postal)} ${esc(a.city)}</b></div><button type="button" class="t-link" data-action="co-step" data-k="1">ویرایش</button></div>
-     <div class="t-review-row"><div><small>ارسال</small><b>تحویل درب منزل · ${WINDOWS.find(w=>w[0]===coUI.window)[1]} (${WINDOWS.find(w=>w[0]===coUI.window)[2]})</b></div><button type="button" class="t-link" data-action="co-step" data-k="2">ویرایش</button></div>
+     <div class="t-review-row"><div><small>ارسال</small><b>ارسال به نشانی ثبت‌شده · قابل پیگیری</b></div><button type="button" class="t-link" data-action="co-step" data-k="2">ویرایش</button></div>
      <div class="t-review-row"><div><small>پرداخت</small><b>${PAYMENTS.find(p=>p[0]===coUI.payment)[1]}</b></div><button type="button" class="t-link" data-action="co-step" data-k="3">ویرایش</button></div></div>
      <button type="button" class="t-btn is-primary is-block" data-action="co-place">ثبت سفارش — ${amount(t.total)} €</button>`}[coUI.step]();
   const mini=Cart.lines().map(l=>`<li><span class="img t-ph">${icon(l.product.kind==='bundle'?'gift':'image')}<em>${faNum(l.qty)}</em></span><span class="nm">${esc(l.product.title)}<small>${l.product.kind==='bundle'?'پکیج':esc(l.variant.title)}</small></span><b>${amount(l.total)} €</b></li>`).join('');
@@ -303,36 +313,52 @@ VIEWS.checkout=()=>{
   <header class="t-page-head"><h1>تکمیل سفارش</h1></header>
   <ol class="t-co-steps" aria-label="مراحل سفارش">${CO_STEPS.map((s,i)=>`<li class="${i+1<coUI.step?'done':''}"${i+1===coUI.step?' aria-current="step"':''}><span class="n">${i+1<coUI.step?icon('check'):faNum(i+1)}</span>${s}</li>`).join('')}</ol>
   <div class="t-co"><section class="t-panel t-co-main" aria-live="polite">${body}</section>
-   <aside class="t-panel t-co-side" aria-label="خلاصه سفارش"><details id="coSum"${matchMedia('(min-width:1024px)').matches?' open':''}><summary>خلاصه سفارش<b>${amount(t.total)} €</b>${icon('down')}</summary><div class="inner"><ul class="t-mini">${mini}</ul>
-    <div class="t-sumrows" style="margin-top:12px"><div class="t-sumrow"><span>جمع محصولات</span><b>${amount(t.subtotal)} €</b></div>${t.discount?`<div class="t-sumrow is-disc"><span>تخفیف (${esc(Cart.codes().join('، '))})</span><b>−${amount(t.discount)} €</b></div>`:''}<div class="t-sumrow"><span>هزینه ارسال</span><b>${t.shipping?amount(t.shipping)+' €':'رایگان'}</b></div></div>
-    <div class="t-total"><span>جمع کل</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p></div></details></aside></div></div>`;
+   <aside class="t-panel t-co-side" aria-label="خلاصه سفارش"><details id="coSum"${matchMedia('(min-width:768px)').matches?' open':''}><summary>خلاصه سفارش<b>${amount(t.total)} €</b>${icon('down')}</summary><div class="inner"><ul class="t-mini">${mini}</ul>
+    <div class="t-sumrows" style="margin-top:12px"><div class="t-sumrow"><span>جمع محصولات</span><b>${amount(t.subtotal)} €</b></div>${t.discount?`<div class="t-sumrow is-disc"><span>تخفیف (${esc(Cart.codes().join('، '))})</span><b>−${amount(t.discount)} €</b></div>`:''}${shipRow(t,false)}</div>
+    <div class="t-total"><span>${t.shippingKnown?'جمع کل':'جمع کل (بدون ارسال)'}</span><b>${amount(t.total)}<span class="cur">€</span></b></div><p class="t-tax">مالیات در قیمت محصولات لحاظ شده است</p></div></details></aside></div></div>`;
   return{title:'تکمیل سفارش — '+CO_STEPS[coUI.step-1],footer:'lite',html,mount(){if(coUI.step===1&&Object.keys(coUI.errors).length)$('#view [aria-invalid="true"]')?.focus()}};
 };
 function doneView(){const o=coUI.order;return{title:'سفارش ثبت شد',footer:'lite',html:`<div class="t-wrap t-page-end" style="padding-top:24px"><section class="t-panel t-done"><div class="ok">${icon('check')}</div><h1>سفارشت با موفقیت ثبت شد</h1><p>از خریدت ممنونیم. وضعیت سفارش را در «سفارش‌های من» دنبال کن.</p><div class="no">شماره سفارش: <b>${esc(o.id)}</b></div><p>مبلغ کل: ${amount(o.total)} €</p><div class="acts"><a class="t-btn is-primary is-block" href="#/account/orders">مشاهده سفارش‌های من</a><a class="t-btn is-ghost is-block" href="#/">بازگشت به صفحه اصلی</a></div></section></div>`}}
 
 /* ---------- Account ---------- */
-VIEWS.account=()=>{
+/* Account: profile + navigation column | content column (side-by-side from tablet up) */
+function accountShell(active,title,main){
   const rs=Recurring.state(),orders=Customer.orders().length,favs=Customer.favorites().length;
-  const row=(href,ic,label,note)=>`<a href="${href}">${icon(ic)}<span>${label}${note?`<br><small>${note}</small>`:''}</span>${icon('chev-left','chev')}</a>`;
-  return{title:'حساب کاربری',html:`<div class="t-wrap t-page-end">${U.crumbs([['حساب کاربری']])}<header class="t-page-head"><h1>حساب کاربری</h1></header>
-  <div class="t-acct" style="margin-top:20px"><section class="t-panel t-acct-card"><span class="t-avatar">${icon('user')}</span><div><b>کاربر مهمان</b><small>برای پیگیری آسان‌تر سفارش‌ها وارد حساب شو.</small></div></section>
-  <button type="button" class="t-btn is-primary is-block" style="margin-top:14px" data-action="toast" data-msg="ورود به حساب در نسخه نهایی فعال می‌شود">ورود یا ساخت حساب</button>
-  <nav class="t-panel t-menu" aria-label="حساب من">${row('#/account/orders','doc','سفارش‌های من',orders?`${faNum(orders)} سفارش`:'')}${row('#/account/addresses','pin','آدرس‌های من',Customer.hasAddress()?Customer.address().city:'')}${row('#/recurring','repeat','خرید دوره‌ای من',REC_STATUS[rs.status][0])}${row('#/account/favorites','heart','علاقه‌مندی‌ها',favs?`${faNum(favs)} محصول`:'')}</nav>
-  <nav class="t-panel t-menu" aria-label="راهنما">${row('#/page/support','help','پشتیبانی')}${row('#/page/payment','card','روش‌های پرداخت')}${row('#/page/shipping','truck','ارسال و تحویل')}${row('#/page/returns','undo','مرجوعی و بازپرداخت')}</nav></div></div>`};
+  const row=(key,href,ic,label,note)=>`<a href="${href}"${key&&key===active?' aria-current="page"':''}>${icon(ic)}<span>${label}${note?`<br><small>${esc(note)}</small>`:''}</span>${icon('chev-left','chev')}</a>`;
+  const side=`<section class="t-panel t-acct-card"><span class="t-avatar">${icon('user')}</span><div><b>کاربر مهمان</b><small>برای پیگیری آسان‌تر سفارش‌ها وارد حساب شو.</small></div></section>
+  <button type="button" class="t-btn is-primary is-block" data-action="toast" data-msg="ورود به حساب در نسخه نهایی فعال می‌شود">ورود یا ساخت حساب</button>
+  <nav class="t-panel t-menu" aria-label="حساب من">${row('orders','#/account/orders','doc','سفارش‌های من',orders?`${faNum(orders)} سفارش`:'')}${row('addresses','#/account/addresses','pin','آدرس‌های من',Customer.hasAddress()?Customer.address().city:'')}${row('','#/recurring','repeat','خرید دوره‌ای من',REC_STATUS[rs.status][0])}${row('favorites','#/account/favorites','heart','علاقه‌مندی‌ها',favs?`${faNum(favs)} محصول`:'')}</nav>
+  <nav class="t-panel t-menu" aria-label="راهنما">${row('','#/page/support','help','پشتیبانی')}${row('','#/page/payment','card','روش‌های پرداخت')}${row('','#/page/shipping','truck','ارسال و تحویل')}${row('','#/page/returns','undo','مرجوعی و بازپرداخت')}</nav>`;
+  const crumbs=active?[['حساب کاربری','#/account'],[title]]:[['حساب کاربری']];
+  return `<div class="t-wrap t-page-end">${U.crumbs(crumbs)}<header class="t-page-head"><h1>${title}</h1></header><div class="t-acct${active?' is-sub':''}"><aside class="t-acct-side" aria-label="حساب من">${side}</aside><div class="t-acct-main">${main}</div></div></div>`;
+}
+VIEWS.account=()=>{
+  const last=Customer.orders()[0],rs=Recurring.state(),ri=Recurring.items(),a=Customer.address(),favs=Customer.favorites();
+  const card=(ic,t,href,link,body)=>`<section class="t-panel t-ov-card"><header>${icon(ic)}<h2>${t}</h2><a class="t-link" href="${href}">${link}${icon('chev-left')}</a></header>${body}</section>`;
+  const main=`<div class="t-ov">
+   ${card('doc','سفارش اخیر','#/account/orders','همه سفارش‌ها',last?`<p><b class="ltr">${esc(last.id)}</b> <span class="t-badge is-gold">${esc(last.status)}</span></p><p class="t-sub">${U.date(new Date(last.placedAt),{day:'numeric',month:'long'})} · ${faNum(last.lines.reduce((s,l)=>s+l.qty,0))} قلم · ${amount(last.total)} €</p>`:`<p class="t-sub">هنوز سفارشی ثبت نکرده‌ای.</p>`)}
+   ${card('repeat','خرید دوره‌ای','#/recurring','مدیریت',`<p><span class="t-badge ${REC_STATUS[rs.status][1]}">${REC_STATUS[rs.status][0]}</span></p><p class="t-sub">${ri.length?`${faNum(ri.length)} محصول در فهرست`+(rs.status==='active'?` · ارسال بعدی ${U.date(Recurring.nextDelivery())}`:''):'فهرستت هنوز خالی است.'}</p>`)}
+   ${card('pin','نشانی تحویل','#/account/addresses',Customer.hasAddress()?'ویرایش':'افزودن',Customer.hasAddress()?`<p class="t-sub"><b>${esc(a.name)}</b><br>${esc(a.street)}، ${esc(a.postal)} ${esc(a.city)}</p>`:`<p class="t-sub">هنوز نشانی ثبت نشده است.</p>`)}
+   ${card('heart','علاقه‌مندی‌ها','#/account/favorites','مشاهده',`<p class="t-sub">${favs.length?`${faNum(favs.length)} محصول: ${favs.slice(0,3).map(p=>esc(p.title)).join('، ')}`:'هنوز محصولی ذخیره نکرده‌ای.'}</p>`)}
+  </div>`;
+  return{title:'حساب کاربری',html:accountShell('','حساب کاربری',main)};
 };
 VIEWS.accountSub=(which)=>{
   const T={orders:'سفارش‌های من',addresses:'آدرس‌های من',favorites:'علاقه‌مندی‌ها'}[which];let body='';
-  if(which==='orders'){const os=Customer.orders();body=os.length?`<div class="t-orders">${os.map(o=>`<article class="t-panel t-order"><header><b>${esc(o.id)}</b><span class="t-badge is-gold">${esc(o.status)}</span></header><p>${U.date(new Date(o.placedAt),{day:'numeric',month:'long',year:'numeric'})} · ${faNum(o.lines.reduce((s,l)=>s+l.qty,0))} قلم</p><p>${o.lines.map(l=>esc(l.title)).join('، ')}</p><div class="t-price"><span>${amount(o.total)}</span><span class="cur">€</span></div></article>`).join('')}</div>`:`<section class="t-panel" style="margin-top:20px;padding:8px 20px">${U.empty({ic:'doc',title:'هنوز سفارشی ثبت نکرده‌ای',action:`<a class="t-btn is-primary is-sm" href="#/products">شروع خرید</a>`})}</section>`}
-  if(which==='addresses'){const a=Customer.address(),e=coUI.errors;body=`<section class="t-panel t-co-main" style="margin-top:20px"><h2>نشانی تحویل</h2><p class="t-sub">این نشانی در تکمیل سفارش استفاده می‌شود.</p><form class="t-co-form" data-form="addr" novalidate>${[['name','نام و نام خانوادگی','name'],['contact','ایمیل یا شماره تماس','email'],['street','نشانی','street-address'],['postal','کد پستی','postal-code'],['city','شهر','address-level2']].map(([id,l,ac])=>`<label class="t-field"><span>${l}</span><input class="t-input${id==='postal'||id==='contact'?' ltr':''}" id="${id}" value="${esc(a[id])}" autocomplete="${ac}"${id==='postal'?' inputmode="numeric" maxlength="5"':''}${e[id]?` aria-invalid="true" aria-describedby="${id}E"`:''}>${e[id]?`<span class="t-err" id="${id}E">${e[id]}</span>`:''}</label>`).join('')}<button class="t-btn is-primary is-block">ذخیره نشانی</button></form></section>`}
-  if(which==='favorites'){const f=Customer.favorites();body=f.length?`<div class="t-list">${f.map(p=>U.productCard(p,Cart.qty(p.defaultVariant.id))).join('')}</div>`:`<section class="t-panel" style="margin-top:20px;padding:8px 20px">${U.empty({ic:'heart',title:'هنوز محصولی ذخیره نکرده‌ای',text:'در صفحه هر محصول با علامت قلب، آن را ذخیره کن.',action:`<a class="t-btn is-primary is-sm" href="#/products">مشاهده محصولات</a>`})}</section>`}
-  return{title:T,html:`<div class="t-wrap t-page-end">${U.crumbs([['حساب کاربری','#/account'],[T]])}<header class="t-page-head"><h1>${T}</h1></header><div class="t-acct">${body}</div></div>`};
+  const emptyPanel=o=>`<section class="t-panel" style="padding:8px 20px">${U.empty(o)}</section>`;
+  if(which==='orders'){const os=Customer.orders();body=os.length?`<div class="t-orders">${os.map(o=>`<article class="t-panel t-order"><header><b>${esc(o.id)}</b><span class="t-badge is-gold">${esc(o.status)}</span></header><p>${U.date(new Date(o.placedAt),{day:'numeric',month:'long',year:'numeric'})} · ${faNum(o.lines.reduce((s,l)=>s+l.qty,0))} قلم</p><p>${o.lines.map(l=>esc(l.title)).join('، ')}</p><div class="t-price"><span>${amount(o.total)}</span><span class="cur">€</span></div></article>`).join('')}</div>`:emptyPanel({ic:'doc',title:'هنوز سفارشی ثبت نکرده‌ای',action:`<a class="t-btn is-primary is-sm" href="#/products">شروع خرید</a>`})}
+  if(which==='addresses'){const a=Customer.address(),e=coUI.errors;body=`<section class="t-panel t-co-main"><h2>نشانی تحویل</h2><p class="t-sub">این نشانی در تکمیل سفارش استفاده می‌شود.</p><form class="t-co-form t-addr-form" data-form="addr" novalidate>${[['name','نام و نام خانوادگی','name'],['contact','ایمیل یا شماره تماس','email'],['street','نشانی','street-address'],['postal','کد پستی','postal-code'],['city','شهر','address-level2']].map(([id,l,ac])=>`<label class="t-field f-${id}"><span>${l}</span><input class="t-input${id==='postal'||id==='contact'?' ltr':''}" id="${id}" value="${esc(a[id])}" autocomplete="${ac}"${id==='postal'?' inputmode="numeric" maxlength="5"':''}${e[id]?` aria-invalid="true" aria-describedby="${id}E"`:''}>${e[id]?`<span class="t-err" id="${id}E">${e[id]}</span>`:''}</label>`).join('')}<button class="t-btn is-primary is-block">ذخیره نشانی</button></form></section>`}
+  if(which==='favorites'){const f=Customer.favorites();body=f.length?`<div class="t-list">${f.map(p=>U.productCard(p,Cart.qty(p.defaultVariant.id))).join('')}</div>`:emptyPanel({ic:'heart',title:'هنوز محصولی ذخیره نکرده‌ای',text:'در صفحه هر محصول با علامت قلب، آن را ذخیره کن.',action:`<a class="t-btn is-primary is-sm" href="#/products">مشاهده محصولات</a>`})}
+  return{title:T,html:accountShell(which,T,body)};
 };
 
 /* ---------- Online Store pages ---------- */
 VIEWS.page=(slug)=>{
   const pg=Catalog.pages[slug];if(!pg)return null;
   const content=pg.sections?`<article class="t-panel t-info">${pg.sections.map(s=>`<section><h2>${esc(s.title)}</h2>${s.logos?U.payLogos():`<p>${esc(s.body)}</p>`}</section>`).join('')}</article>`:`<article class="t-panel t-info"><section><p>محتوای این صفحه به‌زودی اضافه می‌شود. تا آن زمان اگر سؤالی داری، از بخش پشتیبانی با ما در ارتباط باش.</p></section></article>`;
-  return{title:pg.title,footer:'info',html:`<div class="t-wrap t-page-end">${U.crumbs([[pg.title]])}<header class="t-page-head"><h1>${esc(pg.title)}</h1>${pg.updated?`<p class="t-meta">ویرایش در ${esc(pg.updated)}</p>`:''}${pg.intro?`<p>${esc(pg.intro)}</p>`:''}</header>${content}${slug==='support'||slug==='contact'?'':U.helpPanel()}</div>`};
+  const others=Object.entries(Catalog.pages).map(([k,v])=>`<a href="#/page/${k}"${k===slug?' aria-current="page"':''}>${esc(v.title)}${icon('chev-left','chev')}</a>`).join('');
+  return{title:pg.title,footer:'info',html:`<div class="t-wrap t-page-end">${U.crumbs([[pg.title]])}<header class="t-page-head"><h1>${esc(pg.title)}</h1>${pg.updated?`<p class="t-meta">ویرایش در ${esc(pg.updated)}</p>`:''}${pg.intro?`<p>${esc(pg.intro)}</p>`:''}</header>
+  <div class="t-doc">${content}<aside class="t-doc-side">${slug==='support'||slug==='contact'?'':U.helpPanel()}<nav class="t-panel t-menu t-doc-nav" aria-label="صفحه‌های راهنما"><h2>صفحه‌های راهنما</h2>${others}</nav></aside></div></div>`};
 };
 VIEWS.notFound=()=>({title:'صفحه پیدا نشد',html:`<div class="t-wrap"><section class="t-panel" style="margin-top:32px;padding:8px 20px">${U.empty({ic:'search',title:'این صفحه پیدا نشد',text:'ممکن است نشانی تغییر کرده باشد.',action:`<a class="t-btn is-primary" href="#/">بازگشت به صفحه اصلی</a>`})}</section></div>`});
 
@@ -344,7 +370,7 @@ const ACTIONS={
   search:el=>{shopUI.q=el.dataset.q||'';shopUI.c='all';shopUI.limit=SHOP_PAGE;navigate(shopHref())},
   soon:el=>toast(el.dataset.msg),
   toast:el=>toast(el.dataset.msg),
-  notify:()=>toast('وقتی موجود شد به تو خبر می‌دهیم (در نسخه نهایی)'),
+  notify:()=>{const i=$('#notifyEmail');if(i){i.scrollIntoView({block:'center',behavior:reduced()?'auto':'smooth'});i.focus({preventScroll:true})}else toast('وقتی موجود شد به تو خبر می‌دهیم (در نسخه نهایی)')},
   qty(el){const vid=el.dataset.v,d=+el.dataset.d,scope=el.dataset.scope;
     if(scope==='cart'){const q=Cart.qty(vid);if(d>0){if(!Cart.add(vid,1))return toast('این محصول فعلاً موجود نیست');if(!q)toast('به سبد اضافه شد');bumpBadge()}else Cart.set(vid,q-1);refreshControls(vid)}
     if(scope==='pd'){const st=pdUI[current.args[0]];st.qty=Math.max(1,st.qty+d);VIEWS.product.update()}
@@ -368,19 +394,19 @@ const ACTIONS={
   'rec-cancel'(){confirmSheet('لغو خرید دوره‌ای','با لغو، ارسال‌های بعدی انجام نمی‌شود. فهرستت می‌ماند و هر زمان بخواهی می‌توانی دوباره فعالش کنی.','لغو خرید دوره‌ای',()=>{Recurring.cancel();toast('خرید دوره‌ای لغو شد')})},
   serv(el){recipeState(Catalog.recipe(current.args[0])).serv=+el.dataset.k;updateRecipe()},
   ing(el){const st=recipeState(Catalog.recipe(current.args[0])),h=el.dataset.k;st.off.has(h)?st.off.delete(h):st.off.add(h);updateRecipe()},
-  have(el){const st=recipeState(Catalog.recipe(current.args[0])),n=el.dataset.k;st.lacking.has(n)?st.lacking.delete(n):st.lacking.add(n);updateRecipe()},
+  have(el){const st=recipeState(Catalog.recipe(current.args[0])),n=el.dataset.k;st.have=st.have||new Set();st.have.has(n)?st.have.delete(n):st.have.add(n);updateRecipe()},
   'pantry-buy'(el){const p=Catalog.product(el.dataset.k);if(Cart.add(p.defaultVariant.id,1)){toast(`«${p.title}» به سبد اضافه شد`);bumpBadge()}},
-  'recipe-add'(el){const r=Catalog.recipe(el.dataset.k),st=recipeState(r);let n=0;r.ingredients.forEach(ing=>{const v=ing.product.defaultVariant;if(!v.available||st.off.has(ing.product.handle))return;const {packs}=Catalog.packsFor(ing,st.serv,r.servings);if(packs&&Cart.add(v.id,packs))n++});if(n){toast(`${faNum(n)} محصول به سبد اضافه شد`);bumpBadge()}},
+  'recipe-add'(el){const r=Catalog.recipe(el.dataset.k),st=recipeState(r);let n=0;r.ingredients.forEach(ing=>{const v=ing.product.defaultVariant;if(!v.available||st.off.has(ing.product.handle))return;const {packs}=Catalog.packsFor(ing,st.serv,r.servings);if(packs&&Cart.add(v.id,packs))n++});if(n){st.added=n;toast(`${faNum(n)} محصول به سبد اضافه شد`);bumpBadge();updateRecipe()}},
   'recipe-cat'(el){recipesUI.cat=el.dataset.k;$$('#view .t-tab').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.k===recipesUI.cat)));$('#recipeGrid').innerHTML=recipeGrid()},
   'recipe-reset'(){recipesUI.cat='همه';recipesUI.q='';refresh()},
   'shop-cat'(el){const had=$('#shopCats').contains(document.activeElement);shopUI.c=el.dataset.k;shopUI.limit=SHOP_PAGE;setQuery(shopHref());renderShop();document.title=collectionTitle(shopUI.c)+' | ته‌دیگ';const b=$(`#shopCats [data-k="${shopUI.c}"]`);if(had)b?.focus({preventScroll:true});b?.scrollIntoView({block:'nearest',inline:'nearest',behavior:reduced()?'auto':'smooth'})},
   'shop-reset'(){shopUI.c='all';shopUI.q='';shopUI.sort='popular';shopUI.limit=SHOP_PAGE;setQuery('#/products');renderShop()},
   more(){shopUI.limit+=SHOP_PAGE;renderShop()},
+  suggest(el){shopUI.q=el.dataset.q;shopUI.c='all';shopUI.limit=SHOP_PAGE;setQuery(shopHref());renderShop()},
   'code-remove'(el){Cart.removeCode(el.dataset.k);toast('کد تخفیف حذف شد')},
-  'co-window'(el){coUI.window=el.dataset.k;refresh()},
   'co-pay'(el){coUI.payment=el.dataset.k;refresh()},
   'co-step'(el){coUI.step=+el.dataset.k;coUI.errors={};refresh();$('.t-co-steps')?.scrollIntoView({block:'start',behavior:reduced()?'auto':'smooth'})},
-  'co-place'(el){if(el.dataset.busy)return;el.dataset.busy='1';coUI.step=5;coUI.order=Customer.placeOrder({window:coUI.window,payment:coUI.payment});refresh();window.scrollTo(0,0);announce('سفارش ثبت شد')},
+  'co-place'(el){if(el.dataset.busy)return;el.dataset.busy='1';coUI.step=5;coUI.order=Customer.placeOrder({payment:coUI.payment});refresh();window.scrollTo(0,0);announce('سفارش ثبت شد')},
   'drawer-open':()=>openDrawer(),'drawer-close':()=>closeDrawer(),
   'sheet-close':()=>closeSheet()
 };
@@ -393,6 +419,7 @@ const FORMS={
   'recipe-search'(){$('#recipeQ').blur()},
   'rec-search'(){$('#recQ').blur()},
   code(){const inp=$('#codeIn'),v=inp.value.trim();if(!v){$('#codeErr').textContent='کد تخفیف را وارد کن';inp.focus();return}if(Cart.applyCode(v))toast('کد تخفیف اعمال شد');else{$('#codeErr').textContent='این کد معتبر نیست؛ حروف و اعداد را دوباره بررسی کن.';inp.setAttribute('aria-invalid','true');inp.focus()}},
+  notify(f){const inp=$('#notifyEmail'),v=inp.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){$('#notifyErr').textContent='یک ایمیل معتبر وارد کن';inp.setAttribute('aria-invalid','true');inp.focus();return}Customer.requestNotify(f.dataset.v,v);toast('ثبت شد؛ به محض موجود شدن خبرت می‌کنیم');if(current?.name==='product')VIEWS.product.update()},
   newsletter(){const inp=$('#tNewsEmail'),v=inp.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){toast('ایمیل معتبر وارد کن');inp.focus();return}inp.value='';inp.blur();toast('عضویت ثبت شد')},
   'co-address'(){const a=readAddress();if(!a)return;Customer.saveAddress(a);coUI.step=2;refresh();$('.t-co-steps')?.scrollIntoView({block:'start',behavior:reduced()?'auto':'smooth'})},
   addr(){const a=readAddress();if(!a)return;Customer.saveAddress(a);toast('نشانی ذخیره شد');refresh()}

@@ -10,7 +10,7 @@ const FA='۰۱۲۳۴۵۶۷۸۹';
 const faNum=n=>String(n).replace(/\d/g,d=>FA[d]).replace(/\./g,'٫');
 const toEn=s=>String(s).replace(/[۰-۹]/g,d=>FA.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
 /* 45 → ۴۵ · 44.8 → ۴۴٫۸۰ */
-const amount=n=>faNum(Number.isInteger(Math.round(n*100)/100)?Math.round(n):n.toFixed(2));
+const amount=n=>{const r=Math.round(n*100)/100,str=Number.isInteger(r)?String(Math.round(r)):r.toFixed(2),[i,d]=str.split('.');return faNum(i.replace(/\B(?=(\d{3})+(?!\d))/g,',').replace(/,/g,'٬')+(d?'.'+d:''))};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const attr=o=>Object.entries(o).filter(([,v])=>v!==undefined&&v!==null&&v!==false).map(([k,v])=>v===true?k:`${k}="${esc(v)}"`).join(' ');
 
@@ -34,16 +34,18 @@ function stepper({scope,vid,qty,name,size='',min=0,enter=false,tone=''}){
 }
 /* <AddToCartControl> — cart button that becomes a stepper once added */
 function addControl(p,v,qty,enter){
-  if(!v.available)return `<button type="button" class="t-bell-btn" data-action="notify" aria-label="وقتی ${esc(p.title)} موجود شد خبرم کن">${icon('bell')}</button>`;
+  if(!v.available)return `<a class="t-bell-btn" href="#/product/${p.handle}?notify=1" aria-label="وقتی ${esc(p.title)} موجود شد خبرم کن">${icon('bell')}</a>`;
   if(!qty)return `<button type="button" class="t-add-btn" data-action="qty" data-d="1" data-scope="cart" data-v="${esc(v.id)}" aria-label="افزودن ${esc(p.title)} به سبد">${icon('cart')}</button>`;
   return stepper({scope:'cart',vid:v.id,qty,name:p.title,enter});
 }
+/* <UnitPrice> — comparison price (€/kg, €/L), shown when the pack is not already 1 kg / 1 L */
+const unitPrice=(v,cls='t-unit')=>v.unitPrice&&!(v.pack&&v.pack.qty===1&&(v.pack.unit==='kg'||v.pack.unit==='l'))?`<span class="${cls}">هر ${v.unitPrice.unit==='لیتر'?'لیتر':'کیلو'} ${amount(v.unitPrice.value)} €</span>`:'';
 /* <ProductCard> */
 function productCard(p,qty){
   const v=p.defaultVariant,href=`#/product/${p.handle}`;
   return `<article class="t-card${p.available?'':' is-oos'}"><a class="t-card-media t-ph" href="${href}" tabindex="-1" aria-hidden="true">${icon('image')}</a>`+
   `<div class="t-card-info"><h3 class="t-card-name"><a class="t-card-link" href="${href}">${esc(p.title)}</a></h3><span class="t-card-weight">${esc(v.title)}</span></div>`+
-  `<div class="t-card-foot">${p.available?price(v):'<span class="t-oos">ناموجود</span>'}<div data-qty-for="${esc(v.id)}">${addControl(p,v,qty)}</div></div></article>`;
+  `<div class="t-card-foot">${p.available?`<div class="t-card-price">${price(v)}${unitPrice(v)}</div>`:'<span class="t-oos">ناموجود</span>'}<div data-qty-for="${esc(v.id)}">${addControl(p,v,qty)}</div></div></article>`;
 }
 /* <Breadcrumbs> */
 function crumbs(items,cls=''){
@@ -75,5 +77,5 @@ const helpPanel=()=>`<section class="t-help" aria-labelledby="tHelpT"><h2 id="tH
 /* Dates shown in the Gregorian calendar with Persian digits (Nordic market) */
 const date=(d,o={day:'numeric',month:'long'})=>{try{return new Intl.DateTimeFormat('fa-IR-u-ca-gregory-nu-arabext',o).format(d)}catch(e){return faNum(d.toISOString().slice(0,10))}};
 
-window.UI={faNum,toEn,amount,esc,attr,icon,ph,money,price,stepper,addControl,productCard,crumbs,recipeMeta,recipeCard,bundleCard,empty,accItem,specList,payLogos,helpPanel,date};
+window.UI={unitPrice,faNum,toEn,amount,esc,attr,icon,ph,money,price,stepper,addControl,productCard,crumbs,recipeMeta,recipeCard,bundleCard,empty,accItem,specList,payLogos,helpPanel,date};
 })();

@@ -27,3 +27,9 @@ It is the approved visual and interaction reference for the production React + S
   Maps to Shopify bundle products.
 
 Checkout here is a demonstration only; production hands off to `cart.checkoutUrl`.
+
+## Business rules not yet confirmed (deliberately neutral in the UI)
+Shipping fee, free-shipping threshold, carriers and delivery times are `null` in
+`catalog.js` (`shop.freeShippingThreshold`, `shop.standardShippingFee`). The cart and
+checkout then say shipping is calculated after the address is entered. Setting numbers
+there turns on the shipping row and the free-shipping progress bar automatically.
