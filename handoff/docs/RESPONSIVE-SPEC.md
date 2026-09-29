@@ -123,9 +123,22 @@ The container is at most 1200px wide, with 16px / 24px / 32px side gutters (belo
 - ≥1024px: article | sticky 340px column.
 
 ### Footer
-- Trust grid: 2 columns, 4 from 640.
-- Newsletter | link accordions side by side from 768 (1.1fr / 1fr, gap 32px; 56px from 1024).
-- Brand, contact and social stay centred at max 640px.
+- **Phones (<768):**
+  - Stacked: newsletter card → link accordions → brand text, contact button (56px) and social icons (56px) → banks card → bottom band.
+  - The accordions are full-width divided rows (56px), so each chevron reads with its own title.
+- **Tablet (768–1023):**
+  - Newsletter as a horizontal band (text | 320px form).
+  - Three open link columns; there are no accordions or chevrons on tablet.
+  - A brand bar below a divider: text | 212px column with the contact button (52px) and four 44px social icons.
+  - Banks as a single row: label | marquee.
+  - The payment logos are centred at a maximum of 560px.
+- **Desktop (≥1024):**
+  - Newsletter band with a 420px form.
+  - Brand + contact + social column (1.3fr) beside the three link columns (2fr), with a 48px gap (72px from 1280).
+  - Bottom bar on one line: copyright | payment logos (540px).
+- **Spacing rhythm:** 32px between blocks on phones, 40px on tablet, 48px on desktop.
+- **Variants:** `info` hides the trust section; `lite` shows the bottom band only.
+- Both RTL and LTR are verified at all seven widths.
 
 ## Touch targets and sizes
 - Minimum effective interactive target 44×44. Small visible controls get a transparent `::after` hit-area extension, so nothing moves:

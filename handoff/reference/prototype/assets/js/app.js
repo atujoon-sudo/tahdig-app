@@ -454,7 +454,7 @@ document.addEventListener('keydown',e=>{
   if(drawer.classList.contains('open')){if(e.key==='Escape')closeDrawer();if(e.key==='Tab')trap(drawer,e)}});
 
 /* ---------- footer current-page marker ---------- */
-function markFooter(){const h=location.hash||'#/';$$('.t-links a').forEach(a=>{if(a.getAttribute('href')===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')})}
+function markFooter(){const h=location.hash||'#/';$$('.t-links a,.t-fcol a').forEach(a=>{if(a.getAttribute('href')===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')})}
 
 /* ---------- init ---------- */
 drawer.inert=true;sheet.inert=true;
