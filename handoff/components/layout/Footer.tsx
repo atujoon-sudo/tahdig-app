@@ -65,9 +65,9 @@ export function Footer({ variant = 'full', linkGroups, contactHref, social, bank
   );
   if (variant === 'lite') return <footer>{bottom}</footer>;
   const socialRow = (
-    <div className="mt-3 grid grid-cols-4 place-items-center md:mt-0 md:grid-cols-[repeat(4,44px)] md:justify-between lg:justify-start lg:gap-1.5">
+    <div className="mt-2 grid grid-cols-4 place-items-center md:mt-0 md:grid-cols-[repeat(4,44px)] md:justify-between lg:justify-start lg:gap-1.5">
       {social.map((s) => {
-        const cls = cn('grid h-14 w-14 place-items-center rounded-2xl transition-[transform,background-color] active:scale-[.92] md:h-11 md:w-11 md:rounded-tahdig-control md:[&>svg]:h-6 md:[&>svg]:w-6', s.highlight ? 'bg-tahdig-gold text-white' : 'text-tahdig-green hover:bg-tahdig-chip');
+        const cls = cn('grid h-14 w-14 place-items-center rounded-2xl transition-[transform,background-color] active:scale-[.92] md:h-11 md:w-11 md:rounded-tahdig-control md:[&>svg]:h-6 md:[&>svg]:w-6', s.highlight ? 'bg-[#F4E8CF] text-tahdig-goldText' : 'text-tahdig-green hover:bg-tahdig-chip');
         const icon = <Icon name={s.icon} size={28} strokeWidth={1.8} />;
         return s.href ? <TLink key={s.label} href={s.href} aria-label={s.label} className={cls}>{icon}</TLink> : <span key={s.label} className={cls} aria-label={s.label} role="img">{icon}</span>;
       })}
@@ -126,13 +126,13 @@ export function Footer({ variant = 'full', linkGroups, contactHref, social, bank
               </div>
             ))}
           </nav>
-          <div className="mt-7 text-center md:mt-0 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-8 md:border-t md:border-tahdig-line md:pt-7 md:text-start md:[grid-area:brand] lg:block lg:border-t-0 lg:pt-0">
+          <div className="mt-6 text-center md:mt-0 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-8 md:border-t md:border-tahdig-line md:pt-6 md:text-start md:[grid-area:brand] lg:block lg:border-t-0 lg:pt-0">
             <div>
-              <h2 className="text-[20px] font-extrabold leading-[1.55] text-tahdig-heading md:text-[19px]">{copy.brandTitle}</h2>
-              <p className="mt-2 text-[14px] leading-[1.9] text-tahdig-ink2 md:mt-1.5">{copy.brandText}</p>
+              <h2 className="text-[18px] font-extrabold leading-[1.5] text-tahdig-heading [text-wrap:balance] md:text-[17px]">{copy.brandTitle}</h2>
+              <p className="mt-1.5 text-[13.5px] leading-[1.85] text-tahdig-ink2 [text-wrap:pretty]">{copy.brandText}</p>
             </div>
-            <div className="mt-5 md:mt-0 md:flex md:w-[212px] md:flex-col md:gap-2.5 lg:mt-5 lg:w-auto lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-4 lg:gap-y-3">
-              <TLink href={contactHref} className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-tahdig-green text-[17px] font-semibold text-white shadow-tahdig-contact transition-transform active:scale-[.98] md:h-[52px] md:rounded-tahdig-control md:px-6 md:text-[16px] lg:w-auto">
+            <div className="mt-[18px] md:mt-0 md:flex md:w-[212px] md:flex-col md:gap-2.5 lg:mt-5 lg:w-auto lg:flex-row lg:flex-wrap lg:items-center lg:gap-x-4 lg:gap-y-3">
+              <TLink href={contactHref} className="flex h-[52px] w-full items-center justify-center gap-3 rounded-2xl bg-tahdig-green text-[17px] font-semibold text-white shadow-tahdig-contact transition-transform active:scale-[.98] md:h-[52px] md:rounded-tahdig-control md:px-6 md:text-[16px] lg:w-auto">
                 <Icon name="chat" size={22} /><span>{copy.contact}</span>
               </TLink>
               {socialRow}
